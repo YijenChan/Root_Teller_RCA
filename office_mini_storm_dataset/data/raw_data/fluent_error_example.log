@@ -1,0 +1,2 @@
+{"timestamp": 1759660800, "log": "[error] File does not exist: /var/www/html/sitemap.xml"}
+{"timestamp": 1759660805, "log": "[error] Permission denied: /var/www/html/uploads/temp"}

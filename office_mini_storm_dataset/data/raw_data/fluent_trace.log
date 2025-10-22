@@ -1,0 +1,99 @@
+{"timestamp": 0, "trace": {"trace_id": "9d78a1ae3320415e8c9b5addcc626b56", "spans": [
+    {
+        "name": "GET /sitemap.xml",
+        "context": {"trace_id": "9d78a1ae3320415e8c9b5addcc626b56", "span_id": "9335ef9036424b69"},
+        "parent_id": null,
+        "start_time": 0,
+        "end_time": 189,
+        "status_code": "STATUS_CODE_ERROR",
+        "status_message": "Client Error",
+        "attributes": {
+            "http.method": "GET",
+            "http.target": "/sitemap.xml",
+            "http.status_code": 404,
+            "http.route": "/sitemap.xml",
+            "net.peer.ip": "<ip-1>",
+            "service.name": "S1"
+        },
+        "events": [],
+        "resource": {"service.name": "S1", "service.version": "1.0.0"}
+    },
+    {
+        "name": "API /sitemap.xml",
+        "context": {"trace_id": "9d78a1ae3320415e8c9b5addcc626b56", "span_id": "09559861506c4dbc"},
+        "parent_id": "9335ef9036424b69",
+        "start_time": 10,
+        "end_time": 190,
+        "status_code": "STATUS_CODE_OK",
+        "status_message": "",
+        "attributes": {
+            "http.method": "GET",
+            "http.route": "/sitemap.xml",
+            "rpc.service": "APIGateway",
+            "service.name": "S2"
+        },
+        "events": [],
+        "resource": {"service.name": "S2", "service.version": "1.0.0"}
+    }
+]}}
+
+{"timestamp": 5, "trace": {"trace_id": "f4da0739d9954357a5d47c69665cde02", "spans": [
+    {
+        "name": "GET /logs/access.log",
+        "context": {"trace_id": "f4da0739d9954357a5d47c69665cde02", "span_id": "01d543b3884f4a0b"},
+        "parent_id": null,
+        "start_time": 5,
+        "end_time": 357,
+        "status_code": "STATUS_CODE_ERROR",
+        "status_message": "Client Error",
+        "attributes": {
+            "http.method": "GET",
+            "http.target": "/logs/access.log",
+            "http.status_code": 403,
+            "http.route": "/logs/access.log",
+            "net.peer.ip": "<ip-2>",
+            "service.name": "S1"
+        },
+        "events": [],
+        "resource": {"service.name": "S1", "service.version": "1.0.0"}
+    },
+    {
+        "name": "API /logs/access.log",
+        "context": {"trace_id": "f4da0739d9954357a5d47c69665cde02", "span_id": "993977390d2f42f6"},
+        "parent_id": "01d543b3884f4a0b",
+        "start_time": 15,
+        "end_time": 267,
+        "status_code": "STATUS_CODE_OK",
+        "status_message": "",
+        "attributes": {
+            "http.method": "GET",
+            "http.route": "/logs/access.log",
+            "rpc.service": "APIGateway",
+            "service.name": "S2"
+        },
+        "events": [],
+        "resource": {"service.name": "S2", "service.version": "1.0.0"}
+    },
+    {
+        "name": "authenticate",
+        "context": {"trace_id": "f4da0739d9954357a5d47c69665cde02", "span_id": "562ba7f2a0884fad"},
+        "parent_id": "993977390d2f42f6",
+        "start_time": 30,
+        "end_time": 106,
+        "status_code": "STATUS_CODE_OK",
+        "status_message": "",
+        "attributes": {
+            "auth.method": "session",
+            "auth.user_id": "<uid-1>",
+            "service.name": "S3"
+        },
+        "events": [
+            {
+                "name": "auth_success",
+                "timestamp": 101,
+                "attributes": {"result": "authenticated"}
+            }
+        ],
+        "resource": {"service.name": "S3", "service.version": "1.0.0"}
+    }
+]}}

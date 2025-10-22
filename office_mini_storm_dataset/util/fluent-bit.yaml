@@ -1,0 +1,67 @@
+service:
+  flush: 1
+  log_level: info
+  hot_reload: on
+  # daemon: off
+  parsers_File: /fluent-bit/etc/json-parsers.conf
+
+pipeline:
+  inputs:
+    # - name: opentelemetry
+    #   port: 4318
+
+    #   processors:
+    #     traces:
+    #       # Head sampling of traces (percentage)
+    #       - name: sampling
+    #         type: tail
+    #         sampling_settings:
+    #           decision_wait: 5s
+    #           conditions:
+    #             - type: latency
+    #               threshold_ms_low: 200
+    #               threshold_ms_high: 3000
+      
+    # chang path here 使用tail重放采集日志
+    - name: tail
+      tag: error
+      parser: json
+      path: /fluentbit/log/error.log
+      read_from_head: true
+      mem_buf_limit: 5MB
+
+    - name: tail
+      tag: metrics
+      parser: json
+      path: /fluentbit/log/metrics.log
+      read_from_head: true
+      mem_buf_limit: 5MB
+
+    - name: tail
+      tag: trace
+      parser: json
+      path: /fluentbit/log/trace.log
+      read_from_head: true
+      mem_buf_limit: 5MB
+
+  outputs:
+    - name: file
+      match: error
+      path: /fluentbit/result
+      file: fluent-error.log
+      format: plain
+    
+    - name: file
+      match: metrics
+      path: /fluentbit/result
+      file: fluent-metrics.log
+      format: plain
+    
+    - name: file
+      match: trace
+      path: /fluentbit/result
+      file: fluent-trace.log
+      format: plain
+      
+    # - name: stdout
+    #   match: "*"

@@ -1,0 +1,23 @@
+[
+  {
+    "iteration": 1,
+    "timestamp": 1759660800,
+    "scenario_name": "document_not_found",
+    "scenario_label": 0,
+    "category": "normal"
+  },
+  {
+    "iteration": 2,
+    "timestamp": 1759660805,
+    "scenario_name": "permission_denied",
+    "scenario_label": 3,
+    "category": "normal"
+  },
+  {
+    "iteration": 3,
+    "timestamp": 1759660810,
+    "scenario_name": "document_not_found",
+    "scenario_label": 0,
+    "category": "normal"
+  }
+]

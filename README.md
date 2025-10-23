@@ -1,4 +1,4 @@
-<img width="1165" height="748" alt="{011F3309-89D0-4EDD-9F53-2CD345790BF9}" src="https://github.com/user-attachments/assets/095a0e4c-f1c2-4a8a-a736-4128726de707" /># 🧠 Agentic RCA v1.2
+# 🧠 Agentic RCA v1.2
 
 ### Multi-Modal Root Cause Analysis with Agentic AI
 
@@ -133,6 +133,7 @@ python -m pipelines.demo_feedback_loop
 * [ ] Add visual RCA graph and interactive report viewer
 
 ---
+
 
 
 

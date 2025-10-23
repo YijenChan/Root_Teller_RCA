@@ -1,4 +1,4 @@
-# Office Mini-Storm: A Synthetic Microservice Log Dataset
+# Office Mini-Storm: A multimodal Dataset for Root Cause Analysis in Microservice System 
 
 ## Overview
 

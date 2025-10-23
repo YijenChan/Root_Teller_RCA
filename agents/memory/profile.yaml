@@ -1,0 +1,21 @@
+style:
+  explain_more: false
+  risk_posture: balanced
+  format: markdown
+  language: zh
+  concise: false
+  bullet_points: true
+thresholds:
+  evidence_min_score: 0.65
+  min_consistency_score: 0.65
+  min_confidence_margin: 0.05
+  consistency_gate: 0.6
+sections:
+  recommendations:
+  - path: recommendations.steps[0]
+    reason: 降低外溢风险
+  mitigation:
+    include_runbooks: true
+  evidence:
+  - path: evidence.items
+    reason: 可溯源性

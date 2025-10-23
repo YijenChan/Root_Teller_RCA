@@ -1,0 +1,11 @@
+R-GAT(+time) Single-Case Summary
+=================================
+test_acc       : 0.962
+root_hit@1     : 1.000
+root_hit@5     : 1.000
+chain_jaccard  : 1.000
+true_root      : 44
+pred_root      : 44
+true_chain     : [44, 20, 204, 370, 283, 207, 279, 293, 25, 153]
+pred_chain     : [44, 20, 204, 370, 283, 207, 279, 293, 25, 153]
+top5_roots     : [44, 204, 307, 342, 337]

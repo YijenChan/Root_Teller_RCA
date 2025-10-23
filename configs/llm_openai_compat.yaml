@@ -1,0 +1,8 @@
+llm:
+  enable: 0                # 0=关闭，1=开启（也可用环境变量 USE_OPENAI_LOGS=1 强制开启）
+  provider: openai_compatible
+  model: gpt-4o-mini
+  api_base: https://apix.ai-gaochao.cn/v1  # 来自 .env
+  api_key: sk-0B5lqmI8XGaW1dOZ2b6dF4A5Ce824270Bc4eF74f9882F15f    # 来自 .env
+  timeout_s: 30
+

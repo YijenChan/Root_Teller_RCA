@@ -1,0 +1,41 @@
+run:
+  seed: 7
+  device: auto      # auto/cuda/cpu
+
+  # Stage A (perception + mid-fusion)
+  epochs_a: 8
+  batch_size_a: 128
+  lr_a: 1e-3
+  num_samples_a: 4000
+  d_node: 128
+  d_log: 256
+  d_met: 128
+  d_trc: 128
+
+  # Stage B (R-GAT+time)
+  epochs_b: 120
+  lr_b: 1e-3
+  hidden_b: 128
+  heads_b: 4
+  dropout_b: 0.1
+  time_dim_b: 8
+  num_nodes_b: 400
+  base_feat_dim_b: 16
+  chain_len_b: 10
+
+run:
+  seed: 7
+  device: auto
+  workdir: outputs
+
+single_case:
+  synth: true
+  save_artifacts: true
+  use_demo_input: true          # ← 开启：用 demo 文件直连 Stage-A（仅编码）
+  demo_dir: outputs/single_case_demo
+
+paths:
+  workdir: outputs
+  perception: outputs/perception
+  reasoning: outputs/reasoning
+  reports: outputs/reports

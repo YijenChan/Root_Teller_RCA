@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "error": null,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a cybersecurity RCA copilot. Produce an actionable, concise Markdown report. Anchor every claim to concrete evidence (scores, margins, chains). Avoid hallucinations."
+    },
+    {
+      "role": "user",
+      "content": "\n# Inputs\n- num_nodes: None, time_dim: None\n- heads/hidden: None/None\n\n# Metrics\n- test_acc: None\n- root_hit@1: None, chain_jaccard: None\n\n# Predictions\n- pred_root: None\n- pred_chain: []\n\n# Ground Truth\n- true_root: None\n- true_chain: []\n\n# Top-K Root Candidates\n- topk_roots: []\n- topk_scores: []\n- confidence_margin(top1 - top2): N/A\n\n# Modal Contributions (alpha from Stage-A)\n- logs    : 0.090 (p25=0.063, p50=0.090, p75=0.108)\n- metrics : 0.616 (p25=0.295, p50=0.690, p75=0.795)\n- traces  : 0.294 (p25=0.121, p50=0.201, p75=0.611)\n\n\nPlease write a Markdown report with sections:\n1) Suspected Root Cause (quantify confidence using the margin and scores)\n2) Chain Comparison (point out exact matches/mismatches)\n3) Evidence Bullets (use modal contributions and any temporal/structural cues)\n4) Remediation Steps & Monitoring Items (short, prioritized)\n5) Limitations & Next Checks (what to verify next)\n"
+    }
+  ],
+  "pred_root": null,
+  "pred_chain": []
+}

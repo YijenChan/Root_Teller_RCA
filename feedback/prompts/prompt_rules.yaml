@@ -1,0 +1,48 @@
+# feedback/prompts/prompt_rules.yaml
+# 报告结构规则（供 LLM 提示词/验证使用）
+
+sections:
+  - id: "root_cause"
+    title: "Suspected Root Cause"
+    required: true
+    must_include:
+      - "pred_root"
+      - "topk_roots"
+      - "topk_scores"
+    quality_hints:
+      - "Quantify confidence with Top1-Top2 margin"
+      - "Reference graph evidence and time order"
+  - id: "chain_comparison"
+    title: "Chain Comparison"
+    required: true
+    must_include:
+      - "pred_chain"
+      - "true_chain"
+    quality_hints:
+      - "List exact matches/mismatches"
+      - "Explain temporal consistency"
+  - id: "evidence"
+    title: "Evidence Bullets"
+    required: true
+    must_include:
+      - "modal_contributions"
+    quality_hints:
+      - "Cite scores and node ids"
+      - "Avoid unverifiable claims"
+  - id: "actions"
+    title: "Remediation Steps & Monitoring"
+    required: true
+    quality_hints:
+      - "Short and prioritized"
+      - "Immediate containment first"
+  - id: "limits"
+    title: "Limitations & Next Checks"
+    required: false
+    quality_hints:
+      - "What to verify next"
+      - "Risk of false positives"
+
+constraints:
+  language: ["zh","en"]
+  max_tokens: 1200
+  style: ["concise","detailed"]

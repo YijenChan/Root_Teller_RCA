@@ -1,4 +1,4 @@
-# 🧠 Agentic RCA v1.2
+<img width="1165" height="748" alt="{011F3309-89D0-4EDD-9F53-2CD345790BF9}" src="https://github.com/user-attachments/assets/095a0e4c-f1c2-4a8a-a736-4128726de707" /># 🧠 Agentic RCA v1.2
 
 ### Multi-Modal Root Cause Analysis with Agentic AI
 
@@ -51,7 +51,7 @@ agentic_rca/
 ├── utils/               # IO / env / seed helpers
 └── outputs/             # Generated artifacts (perception / reasoning / reports / feedback)
 ```
-![Uploading {6DE0490A-27D0-4519-913F-29888B799A1B}.png…]()
+<img width="970" height="626" alt="{7AE8656B-9783-40DD-8BAA-A7E5D46EAF61}" src="https://github.com/user-attachments/assets/572690fb-3ba0-4c2c-a557-bfc93a4b7ed6" />
 
 ---
 
@@ -133,6 +133,7 @@ python -m pipelines.demo_feedback_loop
 * [ ] Add visual RCA graph and interactive report viewer
 
 ---
+
 
 
 

@@ -1,34 +1,39 @@
-# Agentic RCA: Multi-Modal Root Cause Analysis with Agentic AI
+# 🧠 Agentic RCA v1.2
 
-> 🚀 **Agentic RCA** is an experimental pipeline for cybersecurity root cause analysis (RCA),
-> combining **multi-modal perception**, **graph reasoning (R-GAT+time)**,
-> and **LLM-based reporting with agentic feedback & verification**.
+### Multi-Modal Root Cause Analysis with Agentic AI
+
+> 🚀 **Agentic RCA** is a reproducible framework for cybersecurity root-cause analysis (RCA),
+> integrating **multi-modal perception**, **graph reasoning (R-GAT + time)**,
+> and **LLM-based reporting with agentic feedback and verification**.
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-* **Stage A – Perception**
-  Mid-level fusion of **logs / metrics / traces** with adaptive quality-aware gating.
-
-* **Stage B – Reasoning**
-  **R-GAT(+time)** graph neural network for root-cause localization & attack-chain reconstruction.
-
-* **Stage C – Reporter**
-  LLM-enhanced Markdown reports with **uncertainty margins, modal contributions, and remediation advice**.
-  Fallback templates ensure robustness when LLM is unavailable.
-
-* **Verifier Agent**
-  Independent consistency check between evidence constraints and LLM predictions.
-
-* **Feedback Agent**
-  Human-in-the-loop reinforcement: stores structured feedback and updates a persistent `profile.yaml`.
+| Stage                 | Module                                  | Purpose                                                                              |
+| :-------------------- | :-------------------------------------- | :----------------------------------------------------------------------------------- |
+| 🅰 **Perception**     | `stage_a_perception/`                   | Mid-level fusion of **logs / metrics / traces** using adaptive quality-aware gating. |
+| 🅱 **Reasoning**      | `stage_b_reasoning/`                    | **R-GAT (+time)** network for root-cause localization & attack-chain reconstruction. |
+| 🅲 **Reporter**       | `stage_c_reporter/`                     | LLM-generated Markdown reports with confidence margins & modal contributions.        |
+| 🔎 **Verifier Agent** | `stage_c_reporter/feedback_profiler.py` | Consistency check between evidence and LLM predictions.                              |
+| 🔁 **Feedback Agent** | `feedback/`                             | Human-in-the-loop reinforcement updating a persistent profile store.                 |
 
 ---
 
 ## 🧩 Methodology Overview
 
-（此处留空，方便你贴 methodology 图，例如整体架构或流程图）
+The **Agentic RCA Pipeline** follows a three-agent architecture:
+
+```
+Perception Agent  →  Reasoner Agent (R-GAT + time)  →  Reporter Agent (LLM + Verifier)
+          ↑                                                ↓
+          └───────────────  Feedback Loop (Consistency + Human Review) ───────────────┘
+```
+
+Each agent communicates via an **EventBus**, ensuring asynchronous yet verifiable execution.
+Outputs include both numerical metrics and explainable RCA reports.
+
+[fig5.pdf](https://github.com/user-attachments/files/23097165/fig5.pdf)
 
 ---
 
@@ -36,30 +41,28 @@
 
 ```text
 agentic_rca/
-├── agents/              # Agent implementations (perception, reasoner, reporter, verifier, feedback, etc.)
-├── configs/             # YAML configs for runs and paths
-├── data/                # Single-case demo builder
-├── feedback/            # Feedback schema, prompts, reward model
-├── pipelines/           # End-to-end pipelines (single_case, agentic_agents, validation, feedback demo)
-├── stage_a_perception/  # Fusion encoders & adapters
-├── stage_b_reasoning/   # R-GAT(+time) model & training
-├── stage_c_reporter/    # LLM client & predictor agent
-├── tools/               # Collectors for logs/metrics/traces (simulated)
-├── utils/               # IO, env, viz, seed utils
-└── outputs/             # Generated artifacts (perception / reasoning / reports / feedback memory)
+├── agents/              # Agentic wrappers (Perception / Reasoner / Reporter / Verifier / Feedback)
+├── configs/             # YAML configs (run paths, LLM endpoints)
+├── feedback/            # Feedback schema & reward model
+├── pipelines/           # End-to-end pipelines (single_case, agentic_agents)
+├── stage_a_perception/  # Multi-modal fusion (logs / metrics / traces)
+├── stage_b_reasoning/   # R-GAT(+time) model & training scripts
+├── stage_c_reporter/    # LLM client, predictor, verifier, feedback profiler
+├── utils/               # IO / env / seed helpers
+└── outputs/             # Generated artifacts (perception / reasoning / reports / feedback)
 ```
 
 ---
 
 ## ⚡ Quick Start
 
-### 1. Install dependencies
+### 1️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Run single-case pipeline
+### 2️⃣ Run a Single-Case Pipeline
 
 ```bash
 python -m pipelines.run_single_case
@@ -67,45 +70,39 @@ python -m pipelines.run_single_case
 
 This will:
 
-* Encode a synthetic **demo case**
+* Encode a synthetic demo case
 * Train R-GAT(+time)
-* Save outputs under `outputs/`
+* Generate LLM report and feedback stats under `outputs/`
 
-### 3. Run full agentic pipeline
+### 3️⃣ Optional — Run Full Agentic Pipeline
 
 ```bash
 python -m pipelines.run_agentic_agents
 ```
 
-This will:
-
-* Launch an **EventBus**
-* Sequentially run **Stage A → Stage B → Stage C → Verifier**
-* Save artifacts and reports under `outputs/`
+This launches an **EventBus** and executes
+`Stage A → Stage B → Stage C → Verifier`.
 
 ---
 
-## 📊 Sample Output
+## 📊 Sample Outputs
 
-* **Perception**: `outputs/perception/mm_node_embeddings.pt`
-* **Reasoning**:
+| Category       | Artifact Path                              | Description                                  |
+| -------------- | ------------------------------------------ | -------------------------------------------- |
+| **Perception** | `outputs/perception/mm_node_embeddings.pt` | Node embeddings and modal weights (α)        |
+| **Reasoning**  | `outputs/reasoning/single_case.json`       | Evaluation metrics + root/chain predictions  |
+| **Reporter**   | `outputs/reports/llm_report.md`            | LLM-generated RCA Markdown report            |
+| **Verifier**   | `outputs/reports/feedback_stats.json`      | Consistency / Jaccard / pass rate statistics |
+| **Event Log**  | `outputs/event_log.jsonl`                  | All agent messages via EventBus              |
 
-  * model → `outputs/reasoning/rgat_time_min.pt`
-  * metrics → `outputs/reasoning/single_case.json`
-* **Reports**:
-
-  * text summary → `outputs/reports/single_case_report.txt`
-  * LLM Markdown → `outputs/reports/llm_report.md`
-  * raw JSON → `outputs/reports/llm_report_raw.json`
-
-*(示例报告截图或片段可以放在这里)*
+<img width="1040" height="783" alt="{55C0092F-CB77-458E-B7F4-CD44CAA1C681}" src="https://github.com/user-attachments/assets/2c5b8be2-f7ee-44f1-8583-da1defa03a51" />
 
 ---
 
-## 🔍 Verification & Feedback
+## 🔍 Verification & Feedback Loop
 
-* **VerifierAgent** checks consistency of predicted chains vs. evidence constraints.
-* **FeedbackAgent** allows storing structured feedback (`feedback_store.jsonl`) and updating memory (`profile.yaml`).
+* **VerifierAgent** cross-checks predicted root/chain against evidence constraints.
+* **FeedbackAgent** stores human feedback (`feedback_store.jsonl`) and updates persistent `profile.yaml`.
 
 Run a demo feedback loop:
 
@@ -115,24 +112,25 @@ python -m pipelines.demo_feedback_loop
 
 ---
 
+## 🧪 Reproducibility Checklist
+
+| Item                                      | Status |
+| :---------------------------------------- | :----- |
+| GPU-based training (R-GAT)                | ✅      |
+| Deterministic seed control                | ✅      |
+| YAML configurable paths and LLM endpoints | ✅      |
+| Fallback template when LLM disabled       | ✅      |
+| Outputs reproducible under `outputs/`     | ✅      |
+
+---
+
 ## 🛠 Roadmap
 
-* [ ] Extend Stage-A encoders (support additional modalities)
-* [ ] Plug-in alternative GNN baselines (GCN, R-GCN, TGAT)
-* [ ] Expand LLM reporter with adaptive prompt rules (`feedback/prompts/prompt_rules.yaml`)
-* [ ] Integrate reinforcement signals from feedback into training loop
+* [ ] Expand Stage-A encoders for richer modalities
+* [ ] Integrate feedback-driven reinforcement into Reasoner
+* [ ] Support multi-agent parallel execution (A2A protocol)
+* [ ] Add visual RCA graph and interactive report viewer
 
 ---
 
-## 📜 License
-
-MIT License.
-Research prototype — not production-ready.
-
----
-
-## 🙌 Acknowledgements
-
-* Inspired by research on **AISecOps**, **multi-modal RCA**, and **agentic AI frameworks**.
-* Thanks to open-source GNN/LLM ecosystems and feedback contributors.
 

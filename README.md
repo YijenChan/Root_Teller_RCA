@@ -33,7 +33,7 @@ Perception Agent  →  Reasoner Agent (R-GAT + time)  →  Reporter Agent (LLM +
 Each agent communicates via an **EventBus**, ensuring asynchronous yet verifiable execution.
 Outputs include both numerical metrics and explainable RCA reports.
 
-[fig5.pdf](https://github.com/user-attachments/files/23097165/fig5.pdf)
+<img width="1269" height="738" alt="{7EF0E8FA-AC5D-4BB7-AF41-89C4ABA6DF92}" src="https://github.com/user-attachments/assets/e515f19a-dfe5-446b-ad40-3a430dedd9c0" />
 
 ---
 
@@ -51,6 +51,7 @@ agentic_rca/
 ├── utils/               # IO / env / seed helpers
 └── outputs/             # Generated artifacts (perception / reasoning / reports / feedback)
 ```
+![Uploading {6DE0490A-27D0-4519-913F-29888B799A1B}.png…]()
 
 ---
 
@@ -132,5 +133,6 @@ python -m pipelines.demo_feedback_loop
 * [ ] Add visual RCA graph and interactive report viewer
 
 ---
+
 
 

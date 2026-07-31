@@ -147,10 +147,6 @@ configs/                        Paper-aligned frozen public configurations
 tests/                          Unit, integration, and paper-alignment contracts
 ```
 
-Only RQ1 evaluation material is packaged. RQ2--RQ6 plots, workbooks, response
-caches, and intermediate results are intentionally excluded from this public
-code release.
-
 ## Release verification
 
 ```powershell

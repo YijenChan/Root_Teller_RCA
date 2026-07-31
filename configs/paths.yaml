@@ -1,5 +1,0 @@
-paths:
-  workdir: outputs
-  perception: outputs/perception
-  reasoning: outputs/reasoning
-  reports: outputs/reports

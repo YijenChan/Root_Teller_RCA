@@ -1,0 +1,23 @@
+{
+  "schema_version": "root-teller-public-release-audit-1.0",
+  "passed": true,
+  "checks": {
+    "required_files_present": true,
+    "no_credentials_or_runtime_payloads": true,
+    "no_api_key_literal": true,
+    "english_only_text": true,
+    "no_author_machine_paths": true,
+    "paper_configuration_matches": true,
+    "rq1_table_matches_paper": true,
+    "only_rq1_evaluation_is_packaged": true,
+    "six_baselines_are_packaged": true
+  },
+  "details": {
+    "missing": [],
+    "forbidden_payloads": [],
+    "secret_hits": [],
+    "cjk_hits": [],
+    "local_path_hits": [],
+    "tracked_files": 421
+  }
+}

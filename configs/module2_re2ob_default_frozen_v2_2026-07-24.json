@@ -1,0 +1,59 @@
+{
+  "status": "frozen_after_validation",
+  "checkpoint": 3,
+  "protocol": "default-exhaustive",
+  "supersedes_for_default_evaluation": "module2_re2ob_frozen_2026-07-24.json",
+  "dataset": "RCAEval RE2-OB",
+  "condition": "CLEAN",
+  "feedback_enabled": false,
+  "schema_version": "module2-config-2.0",
+  "prompt_version": "crt-re2ob-v2",
+  "model": "gpt-4o-mini",
+  "temperature": 0.0,
+  "window_policy": {
+    "window_seconds": 60,
+    "overlap": 0,
+    "activation_order": "latest available window to adjacent earlier windows",
+    "consume_all_available_windows": true,
+    "available_windows_per_case": 24,
+    "early_stopping_enabled": false,
+    "abstention_enabled": false
+  },
+  "hierarchical_rca_loop": {
+    "max_validation_tasks_per_round": 2,
+    "max_hierarchical_rounds": 2,
+    "sequence": [
+      "Evidence Steward global reasoning",
+      "targeted inspection task generation",
+      "Window Investigator evidence validation",
+      "Evidence Steward global synthesis and revision"
+    ],
+    "investigator_access": "only task-referenced Evidence Pack excerpts",
+    "steward_is_only_rmg_writer": true
+  },
+  "ranking": {
+    "top_k": 5,
+    "recency_decay": 0.94,
+    "deterministic_weight": 0.8,
+    "steward_weight": 0.2
+  },
+  "agent_execution": {
+    "typed_json_contracts": true,
+    "bounded_retries": 2,
+    "response_cache": true,
+    "deterministic_fallback": true,
+    "raw_telemetry_in_prompt": false,
+    "ground_truth_in_prompt": false
+  },
+  "module1_checkpoint_policy": "use the refit checkpoint for the current outer fold and seed",
+  "engineering_validation": {
+    "scope": "schema, API, and full-window execution checks only",
+    "paper_result_source": "evaluation/rq1/results/paper_table.csv",
+    "mean_activated_windows": 24.0,
+    "failures": 0,
+    "api_errors": 0,
+    "schema_errors": 0
+  },
+  "blind_protocol_note": "Conclude/Expand/Abstain, premature-stop, over-expansion, and window-saving metrics belong to the separate blind protocol and are not part of this default run.",
+  "heldout_test_feedback_to_configuration": false
+}

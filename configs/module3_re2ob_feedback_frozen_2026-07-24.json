@@ -1,0 +1,44 @@
+{
+  "status": "frozen_after_validation",
+  "checkpoint": 4,
+  "dataset": "RCAEval RE2-OB",
+  "condition": "CLEAN",
+  "input_run": "${ROOTTELLER_WORKSPACE}/runs/module2_re2ob/clean_default_exhaustive",
+  "schema_version": "module3-config-1.0",
+  "prompt_version": "rca-interaction-v2",
+  "model": "gpt-4o-mini",
+  "temperature": 0.0,
+  "feedback_granularity": "service",
+  "feedback_budget": 20,
+  "feedback_score_decay": 0.9,
+  "score_update": "adjusted_score = immutable_base_score * decay^reject_count",
+  "feedback_semantics": {
+    "reject": "decrease hypothesis confidence without deleting telemetry, graph entities, dependency relations, or propagation evidence",
+    "accept": "mark the inspected hypothesis operator-confirmed",
+    "ground_truth_visible_to_steward": false,
+    "feedback_message_fields": [
+      "feedback_id",
+      "hypothesis_id",
+      "verdict"
+    ]
+  },
+  "truthful_protocol": {
+    "selected_cases": "initial Top-1 incorrect cases",
+    "stop": "current Top-1 equals evaluator target or budget exhausted"
+  },
+  "false_feedback_protocol": {
+    "false_rejection_budgets": [
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+      10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+    ],
+    "total_feedback_budget": 20,
+    "unresolved_curve_value": 20,
+    "selection": "all 60 clean test cases"
+  },
+  "validation_decision": {
+    "candidate_decays_checked": [0.55, 0.65, 0.75, 0.85, 0.9],
+    "selected_decay": 0.9,
+    "reason": "validation-only tradeoff between immediate correction and resilience to several false rejections"
+  },
+  "heldout_test_feedback_to_configuration": false
+}

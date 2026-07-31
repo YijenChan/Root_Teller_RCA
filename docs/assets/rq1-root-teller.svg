@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
+  <title id="title">Root-Teller RQ1 localization accuracy</title>
+  <desc id="desc">Grouped bars for A at 1, A at 3, and Avg at 5 on RE2-OB, RE2-TT, and Eadro-SN.</desc>
+  <rect width="1200" height="430" rx="24" fill="#F8FAFC"/>
+  <text x="46" y="48" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" font-weight="700" fill="#0F172A">Root-Teller localization accuracy</text>
+  <text x="46" y="76" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="#64748B">Complete observability · full-range windows · no SRE feedback</text>
+  <g stroke="#CBD5E1" stroke-width="1">
+    <line x1="90" y1="340" x2="1150" y2="340"/>
+    <line x1="90" y1="278" x2="1150" y2="278" stroke-dasharray="4 6"/>
+    <line x1="90" y1="216" x2="1150" y2="216" stroke-dasharray="4 6"/>
+    <line x1="90" y1="154" x2="1150" y2="154" stroke-dasharray="4 6"/>
+    <line x1="90" y1="92" x2="1150" y2="92" stroke-dasharray="4 6"/>
+  </g>
+  <g font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" fill="#64748B" text-anchor="end">
+    <text x="78" y="345">0.0</text><text x="78" y="283">0.25</text><text x="78" y="221">0.50</text><text x="78" y="159">0.75</text><text x="78" y="97">1.0</text>
+  </g>
+  <g>
+    <rect x="180" y="162.2" width="54" height="177.8" rx="7" fill="#2563EB"/><rect x="242" y="114.1" width="54" height="225.9" rx="7" fill="#0EA5A4"/><rect x="304" y="119.5" width="54" height="220.5" rx="7" fill="#F59E0B"/>
+    <rect x="500" y="132.9" width="54" height="207.1" rx="7" fill="#2563EB"/><rect x="562" y="117.0" width="54" height="223.0" rx="7" fill="#0EA5A4"/><rect x="624" y="113.3" width="54" height="226.7" rx="7" fill="#F59E0B"/>
+    <rect x="820" y="216.0" width="54" height="124.0" rx="7" fill="#2563EB"/><rect x="882" y="144.3" width="54" height="195.7" rx="7" fill="#0EA5A4"/><rect x="944" y="154.0" width="54" height="186.0" rx="7" fill="#F59E0B"/>
+  </g>
+  <g font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" fill="#334155" text-anchor="middle">
+    <text x="207" y="153">.717</text><text x="269" y="105">.911</text><text x="331" y="110">.889</text>
+    <text x="527" y="124">.835</text><text x="589" y="108">.899</text><text x="651" y="104">.914</text>
+    <text x="847" y="207">.500</text><text x="909" y="135">.789</text><text x="971" y="145">.750</text>
+  </g>
+  <g font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16" font-weight="600" fill="#0F172A" text-anchor="middle">
+    <text x="269" y="378">RCAEval RE2-OB</text><text x="589" y="378">RCAEval RE2-TT</text><text x="909" y="378">Eadro-SN</text>
+  </g>
+  <g font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" fill="#334155">
+    <rect x="835" y="34" width="14" height="14" rx="3" fill="#2563EB"/><text x="856" y="46">A@1</text>
+    <rect x="904" y="34" width="14" height="14" rx="3" fill="#0EA5A4"/><text x="925" y="46">A@3</text>
+    <rect x="973" y="34" width="14" height="14" rx="3" fill="#F59E0B"/><text x="994" y="46">Avg@5</text>
+  </g>
+</svg>

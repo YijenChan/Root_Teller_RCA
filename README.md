@@ -1,170 +1,101 @@
-<div align="center">
+# Root-Teller local system
 
-# Root-Teller
+The local system is a thin FastAPI and browser layer over the paper
+implementation in `src/root_teller`. It does not reimplement the model or
+prompts. A case supplied by path or ZIP archive passes through multimodal
+feature extraction, the Perception Agent, Evidence Pack generation, the
+hierarchical RCA loop, verified reporting, and optional structured feedback.
 
-### Progressive root-cause analysis via agentic collaboration
+## Install
 
-[![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![PyTorch 2.5](https://img.shields.io/badge/PyTorch-2.5-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![Artifact](https://img.shields.io/badge/artifact-paper--aligned-0F766E)](docs/PAPER_CODE_ALIGNMENT.md)
-[![UI](https://img.shields.io/badge/local_UI-FastAPI-009688?logo=fastapi&logoColor=white)](system/README.md)
-
-**Availability-aware perception · progressive investigation · evidence-grounded reporting · structured SRE feedback**
-
-</div>
-
-Root-Teller is an end-to-end RCA framework for microservice systems. It fuses
-metrics, logs, and traces under incomplete observation, constructs
-provenance-linked graph evidence, and coordinates a stateful **Evidence
-Steward** with stateless **Window Investigators**. Diagnosis state is preserved
-in an **RCA Memory Graph (RMG)** so that historical windows and operator
-feedback refine hypotheses without deleting structural evidence.
-
-## Architecture
-
-```mermaid
-flowchart LR
-    T["Metrics · Logs · Traces"] --> P["Perception Agent<br/>availability-aware fusion + R-GAT"]
-    P --> X["Graph Evidence Excavator<br/>60-second Evidence Packs"]
-    X --> S["Evidence Steward<br/>global reasoning + progressive control"]
-    S <--> W["Window Investigator<br/>targeted local validation"]
-    S <--> R[("RCA Memory Graph")]
-    R --> I["RCA Interaction Agent<br/>Interpreter–Verifier"]
-    I --> O["Evidence-grounded RCA report"]
-    H["SRE Accept / Reject"] --> I
-    I --> R
-
-    classDef core fill:#E8F3FF,stroke:#1677FF,color:#0B1F33,stroke-width:1.5px;
-    classDef memory fill:#ECFDF5,stroke:#0F8A6A,color:#0B1F33,stroke-width:1.5px;
-    classDef human fill:#FFF7E8,stroke:#F59E0B,color:#0B1F33,stroke-width:1.5px;
-    class P,X,S,W,I,O core;
-    class R memory;
-    class H human;
-```
-
-## RQ1 snapshot
-
-The packaged RQ1 path uses complete telemetry, full-range access, no SRE
-feedback, grouped outer folds, and seeds 41/42/43. Values below are the
-Root-Teller rows from the paper; the complete six-baseline table is available
-in [`evaluation/rq1/results/paper_table.csv`](evaluation/rq1/results/paper_table.csv).
-
-![Root-Teller RQ1 accuracy across three systems](docs/assets/rq1-root-teller.svg)
-
-| System | A@1 | A@3 | Avg@5 |
-|---|---:|---:|---:|
-| RCAEval RE2-OB | 0.717 | **0.911** | 0.889 |
-| RCAEval RE2-TT | **0.835** | **0.899** | **0.914** |
-| Eadro-SN | **0.500** | **0.789** | **0.750** |
-
-Across the three systems, Root-Teller obtains macro-averages of 0.684 A@1,
-0.866 A@3, and 0.851 Avg@5. See the
-[`paper-to-code alignment`](docs/PAPER_CODE_ALIGNMENT.md) for the precise
-experimental boundary and claim mapping.
-
-## Local interactive system
-
-The bundled local interface accepts an absolute case path or a ZIP archive,
-runs the same core implementation, and exposes progressive window access, RMG
-state, ranked hypotheses, verified reports, and structured feedback.
-
-<table>
-<tr>
-<td width="50%"><img src="docs/assets/progressive-investigation.png" alt="Blind-progressive investigation interface"></td>
-<td width="50%"><img src="docs/assets/feedback-refinement.png" alt="Human-in-the-loop feedback interface"></td>
-</tr>
-<tr>
-<td align="center"><b>Blind-progressive investigation</b></td>
-<td align="center"><b>Feedback-driven refinement</b></td>
-</tr>
-</table>
-
-### Quick start on Windows
+From the repository root:
 
 ```powershell
 py -3.12 -m venv .venv
-.\.venv\Scripts\python -m pip install --upgrade pip
 .\.venv\Scripts\python -m pip install -e ".[logs,test]"
 .\.venv\Scripts\python -m pip install -r system\requirements.txt
+```
 
+## Configure
+
+`ROOTTELLER_WORKSPACE` points to the directory that contains local datasets,
+caches, and experiment runs. API credentials are optional and are read from
+environment variables:
+
+```powershell
 $env:ROOTTELLER_WORKSPACE = "D:\path\to\your\workspace"
 $env:ROOTTELLER_API_KEY = "your-openai-compatible-key"
 $env:ROOTTELLER_API_BASE = "https://your-endpoint.example/v1"
+```
 
+For compatibility with private experiment workspaces, the backend can also
+read an untracked `config/API_KEY.txt`; environment variables take precedence.
+Never commit that file.
+
+## Start
+
+```powershell
 .\system\start.ps1 -Workspace $env:ROOTTELLER_WORKSPACE -Port 4315
 ```
 
-Open <http://127.0.0.1:4315/>. The API variables are optional: without them,
-the interface runs the deterministic evidence path and clearly labels the
-fallback. Credentials are never sent to the browser or written to exported RCA
-artifacts. See [`system/README.md`](system/README.md) for supported case layouts
-and validation details.
+Open <http://127.0.0.1:4315/>. Omitting API credentials activates the
+deterministic evidence path and labels the run as a fallback in the UI.
 
-## RQ1 reproduction
+## Supported inputs
 
-Place the public datasets under the workspace layout documented in
-[`evaluation/rq1/README.md`](evaluation/rq1/README.md), set the API variables,
-and run each dataset/seed pair in an isolated directory:
+The path inspector accepts:
 
-```powershell
-python -m root_teller.multidataset.rq1_three_seed --stage all --dataset re2_ob --seed 41
-python -m root_teller.multidataset.rq1_three_seed --stage all --dataset re2_tt --seed 41
-python -m root_teller.multidataset.rq1_three_seed --stage all --dataset eadro_sn --seed 41
+- an RCAEval RE2-OB fault-family directory or numeric repetition directory;
+- an RCAEval RE2-TT fault-family directory or numeric repetition directory;
+- an Eadro-SN data directory, capture directory, or `SN.fault-*.json` file;
+- a ZIP archive containing one of those layouts.
 
-# Repeat with seeds 42 and 43, then aggregate and verify.
-python -m root_teller.multidataset.rq1_three_seed --stage aggregate
-python -m root_teller.multidataset.verify_rq1_three_seed
-```
-
-Generated checkpoints, LLM responses, predictions, and raw data remain under
-the local workspace and are ignored by Git.
-
-## Telemetry-unavailability views
-
-The repository does not redistribute the 18 materialized GMO/IAMI dataset
-views. Generate them locally with:
-
-```powershell
-python tools\telemetry_unavailability\prepare.py --help
-```
-
-The generator implements GMO-Metric/Log/Trace and IAMI-Metric/Log/Trace for
-RCAEval RE2-OB, RCAEval RE2-TT, and Eadro-SN. See
-[`tools/telemetry_unavailability/README.md`](tools/telemetry_unavailability/README.md).
-
-## Repository map
+Example layout:
 
 ```text
-src/root_teller/module1/        Perception Agent, multimodal encoders, R-GAT
-src/root_teller/module2/        Evidence Packs, agents, RMG, progressive control
-src/root_teller/module3/        Verified reporting and feedback refinement
-src/root_teller/multidataset/   RQ1 grouped-fold and three-seed reproduction
-system/                         Local FastAPI application and web interface
-evaluation/rq1/                 RQ1 protocol and compact paper result table
-tools/telemetry_unavailability/ GMO/IAMI view generator and semantic validator
-baselines/                      Six upstream baseline implementations
-configs/                        Paper-aligned frozen public configurations
-tests/                          Unit, integration, and paper-alignment contracts
+workspace/
+  dataset/
+    RCAEval RE/
+      RE2/
+        RE2-OB/RE2-OB/<service_fault>/<repetition>/
+        RE2-TT/RE2-TT/<service_fault>/<repetition>/
+    Eadro-SN/SN Dataset/SN Dataset/data/
 ```
 
-Only RQ1 evaluation material is packaged. RQ2--RQ6 plots, workbooks, response
-caches, and intermediate results are intentionally excluded from this public
-code release.
+Uploaded archives are checked for traversal and size limits before extraction.
+Runtime files are isolated under `system/runtime/` and ignored by Git.
 
-## Release verification
+## Interface workflow
+
+1. **Overview** — inspect a path or upload a ZIP, choose an incident, protocol,
+   and whether to use live LLM agents.
+2. **Investigation** — observe window activation and the progressive decision.
+3. **Memory Graph** — inspect provenance-linked evidence, typed relations, and
+   hypothesis state.
+4. **Feedback** — submit a schema-bounded Accept or Reject verdict against an
+   active hypothesis. Rejection reduces confidence but preserves evidence.
+5. **Settings** — review runtime, model, and security boundaries.
+
+The `default` protocol incorporates the complete predefined observation range,
+matching RQ1. The `blind` protocol exposes earlier windows only when requested
+by progressive control, matching the RQ3 setting.
+
+## Checkpoints
+
+Small fold-specific Perception Agent checkpoints are bundled in
+`system/checkpoints/` so the UI can run without training first. They contain
+model parameters, reference statistics, and fold manifests; raw benchmark
+telemetry is not included.
+
+## Tests
 
 ```powershell
-python -m pytest -q
-root-teller audit-release --release-root . --output-dir docs\audit
+python -m pytest system\tests -q
 ```
 
-The audit checks paper constants and RQ1 values, the six-baseline/RQ1-only
-release boundary, credentials, local paths, English-only text, and runtime data
-leakage. It also emits SHA-256 checksums for the packaged files.
+Set `ROOTTELLER_TEST_CASE` to a locally installed RE2-OB family directory to
+enable the dataset-dependent path-inspection test. The remaining tests are
+self-contained.
 
-## Baselines and data
-
-Baseline code retains its upstream license and dependency terms; provenance is
-listed in [`baselines/README.md`](baselines/README.md). RCAEval and Eadro-SN are
-not redistributed and remain subject to their original project licenses and
-access conditions.
+The validation record is in [`VALIDATION.md`](VALIDATION.md), and the product
+layer boundary is documented in [`ARCHITECTURE.md`](ARCHITECTURE.md).

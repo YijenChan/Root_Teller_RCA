@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Root-Teller · Progressive RCA</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">RT</div><div>ROOT<br>TELLER</div></div>
+    <nav>
+      <button data-view="overview" class="nav-item active"><span>OV</span>Overview</button>
+      <button data-view="investigation" class="nav-item"><span>IN</span>Investigation</button>
+      <button data-view="memory" class="nav-item"><span>MG</span>Memory Graph</button>
+      <button data-view="feedback" class="nav-item"><span>FB</span>Feedback</button>
+      <button data-view="settings" class="nav-item"><span>ST</span>Settings</button>
+    </nav>
+    <div class="sidebar-status"><small>MODEL</small><strong id="sidebarModel">not connected</strong><span id="sidebarMode">LOCAL SYSTEM</span></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div><div class="eyebrow" id="breadcrumb">OVERVIEW / CASE INTAKE</div><h1 id="pageTitle">Root-Teller Workspace</h1></div>
+      <div class="top-actions">
+        <span class="status-chip" id="runStatus"><i></i>READY</span>
+        <button class="secondary" id="newCase">New case</button>
+        <a class="primary hidden" id="exportResult">Export JSON</a>
+      </div>
+    </header>
+
+    <section class="view active" id="view-overview">
+      <div class="hero-card">
+        <div class="hero-copy">
+          <div class="eyebrow">END-TO-END ROOT CAUSE ANALYSIS</div>
+          <h2>From raw telemetry to an evidence-grounded diagnosis.</h2>
+          <p>Load one incident from RCAEval RE2-OB, RE2-TT, or Eadro-SN. Root-Teller builds multimodal features, runs progressive agent collaboration, records an immutable RCA Memory Graph, and generates a verified report.</p>
+          <div class="pipeline"><span>01 Perception</span><b>→</b><span>02 Collaboration</span><b>→</b><span>03 RMG</span><b>→</b><span>04 Interaction</span></div>
+        </div>
+        <div class="intake-card">
+          <div class="tabs"><button class="tab active" data-intake="path">Absolute path</button><button class="tab" data-intake="upload">Upload ZIP</button></div>
+          <div id="pathIntake">
+            <label>Case or dataset path</label>
+            <div class="path-row"><input id="casePath" placeholder="Enter the absolute path to an RE2-OB, RE2-TT, or Eadro-SN case"><button id="inspectPath" class="primary">Inspect</button></div>
+            <p class="hint">A case-family directory is expanded into its available injection repetitions.</p>
+          </div>
+          <div id="uploadIntake" class="hidden">
+            <label class="dropzone" for="caseZip"><strong>Drop or choose a ZIP archive</strong><span>One incident, case family, or Eadro-SN capture</span></label>
+            <input type="file" id="caseZip" accept=".zip" hidden>
+          </div>
+          <div id="inspection" class="inspection empty">No case inspected yet.</div>
+        </div>
+      </div>
+      <div class="overview-grid">
+        <article class="card compact"><div class="icon blue">M</div><div><b>Availability-aware perception</b><p>Metrics, logs, and traces are encoded with modality masks and relational structure.</p></div></article>
+        <article class="card compact"><div class="icon teal">A</div><div><b>Hierarchical RCA loop</b><p>The Evidence Steward delegates focused checks to stateless Window Investigators.</p></div></article>
+        <article class="card compact"><div class="icon orange">G</div><div><b>Provenance-preserving memory</b><p>Evidence, hypotheses, relations, and feedback remain inspectable in the RMG.</p></div></article>
+      </div>
+    </section>
+
+    <section class="view" id="view-investigation">
+      <div class="empty-state" id="investigationEmpty">Run a diagnosis to open the investigation trace.</div>
+      <div id="investigationContent" class="hidden">
+        <article class="card storyline-card">
+          <div class="section-heading"><div><div class="eyebrow">01 · PROGRESSIVE CONTROL</div><h2>Anomaly storyline across historical windows</h2></div><div class="legend"><span class="dot gray"></span>not accessed <span class="dot blue"></span>investigated</div></div>
+          <svg id="timelineChart" viewBox="0 0 1320 210" role="img" aria-label="Progressive investigation timeline"></svg>
+        </article>
+        <div class="investigation-grid">
+          <article class="card graph-card"><div class="section-heading"><div><div class="eyebrow">02 · RCA MEMORY GRAPH</div><h2>Evidence-grounded agent collaboration</h2></div><span class="pill success">GROUNDED</span></div><div id="collaborationGraph" class="graph-canvas"></div></article>
+          <article class="card ranking-card"><div class="section-heading"><div><div class="eyebrow">03 · ROOT-TELLER OUTPUT</div><h2>Root-cause confidence</h2></div><span class="pill success" id="topStatus">RANKED</span></div><div id="rankingList"></div><div class="card-footer" id="rankingFooter"></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-memory">
+      <div class="empty-state" id="memoryEmpty">Run a diagnosis to inspect the RCA Memory Graph.</div>
+      <div id="memoryContent" class="hidden">
+        <article class="card memory-hero"><div><div class="eyebrow">IMMUTABLE EVIDENCE LEDGER</div><h2 id="memoryTitle">RCA Memory Graph</h2><p id="memorySummary"></p></div><div class="memory-stats" id="memoryStats"></div></article>
+        <article class="card"><div class="section-heading"><div><div class="eyebrow">GRAPH EXPLORER</div><h2>Windows → evidence → hypotheses</h2></div><span class="pill">PROVENANCE LINKED</span></div><div id="memoryGraph" class="large-graph"></div></article>
+      </div>
+    </section>
+
+    <section class="view" id="view-feedback">
+      <div class="empty-state" id="feedbackEmpty">Run a diagnosis before submitting SRE feedback.</div>
+      <div id="feedbackContent" class="hidden">
+        <article class="card resolution-board"><div class="eyebrow">FEEDBACK RESOLUTION BOARD</div><h2>Hypothesis-targeted feedback changes confidence—not evidence</h2><div id="resolutionFlow"></div></article>
+        <div class="feedback-grid">
+          <article class="card chat-card"><div class="section-heading"><div><div class="eyebrow">RCA INTERACTION AGENT</div><h2>Human-in-the-loop RCA</h2></div><span class="pill success" id="feedbackRounds">ROUND 0</span></div><div id="conversation" class="conversation"></div><form id="feedbackForm" class="composer"><div class="composer-head"><b>Hypothesis-targeted feedback</b><div><select id="feedbackEntity"></select><select id="feedbackVerdict"><option value="REJECT">Reject</option><option value="ACCEPT">Accept</option></select></div></div><div class="compose-row"><textarea id="feedbackMessage" placeholder="Describe the observed system response after validating this hypothesis…"></textarea><button class="primary" type="submit">Send feedback</button></div><small>Only a structured Accept/Reject verdict is committed to the RMG.</small></form></article>
+          <article class="card"><div class="section-heading"><div><div class="eyebrow">RANKING SHIFT</div><h2>Current hypothesis state</h2></div><span class="pill">EVIDENCE IMMUTABLE</span></div><div id="feedbackRanking"></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-settings">
+      <div class="settings-grid">
+        <article class="card"><div class="eyebrow">RUNTIME</div><h2>Local system status</h2><div id="healthDetails" class="detail-list">Checking…</div></article>
+        <article class="card"><div class="eyebrow">DIAGNOSIS DEFAULTS</div><h2>Execution policy</h2><div class="detail-list"><div><span>Window size</span><b>60 seconds</b></div><div><span>Progressive protocol</span><b>Blind or full-range</b></div><div><span>Feedback decay</span><b>0.90 per rejection</b></div><div><span>Report verification</span><b>Enabled</b></div></div></article>
+        <article class="card"><div class="eyebrow">SECURITY BOUNDARY</div><h2>Local-first operation</h2><p class="settings-copy">Absolute paths are read locally. ZIP uploads are extracted with traversal and size checks. API credentials remain in the workspace configuration and are never returned to the browser or exported artifacts.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <div class="run-overlay hidden" id="runOverlay"><div class="run-modal"><div class="scanner"></div><div class="eyebrow">ROOT-TELLER IS ANALYZING</div><h2 id="progressMessage">Preparing incident</h2><div class="progress-track"><i id="progressBar"></i></div><div class="progress-meta"><span id="progressPercent">0%</span><span>Evidence remains local until an LLM call is requested</span></div></div></div>
+  <div class="toast hidden" id="toast"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

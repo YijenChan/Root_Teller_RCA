@@ -147,17 +147,6 @@ configs/                        Paper-aligned frozen public configurations
 tests/                          Unit, integration, and paper-alignment contracts
 ```
 
-## Release verification
-
-```powershell
-python -m pytest -q
-root-teller audit-release --release-root . --output-dir docs\audit
-```
-
-The audit checks paper constants and RQ1 values, the six-baseline/RQ1-only
-release boundary, credentials, local paths, English-only text, and runtime data
-leakage. It also emits SHA-256 checksums for the packaged files.
-
 ## Baselines and data
 
 Baseline code retains its upstream license and dependency terms; provenance is

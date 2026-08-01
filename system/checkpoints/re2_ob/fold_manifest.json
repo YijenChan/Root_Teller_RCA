@@ -1,0 +1,2432 @@
+[
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_cpu/1",
+    "family": [
+      "productcatalogservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_loss/1",
+    "family": [
+      "productcatalogservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_cpu/1",
+    "family": [
+      "recommendationservice",
+      "cpu"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_loss/1",
+    "family": [
+      "recommendationservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_cpu/1",
+    "family": [
+      "emailservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_loss/1",
+    "family": [
+      "emailservice",
+      "loss"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_cpu/1",
+    "family": [
+      "checkoutservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_mem/1",
+    "family": [
+      "productcatalogservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_disk/1",
+    "family": [
+      "productcatalogservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_disk/1",
+    "family": [
+      "recommendationservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_disk/1",
+    "family": [
+      "emailservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_disk/1",
+    "family": [
+      "checkoutservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_loss/1",
+    "family": [
+      "checkoutservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_disk/1",
+    "family": [
+      "currencyservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_loss/1",
+    "family": [
+      "currencyservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_socket/1",
+    "family": [
+      "productcatalogservice",
+      "socket"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_delay/1",
+    "family": [
+      "productcatalogservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_socket/1",
+    "family": [
+      "recommendationservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_delay/1",
+    "family": [
+      "recommendationservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_mem/1",
+    "family": [
+      "recommendationservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_mem/1",
+    "family": [
+      "checkoutservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_mem/1",
+    "family": [
+      "currencyservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_mem/1",
+    "family": [
+      "emailservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_socket/1",
+    "family": [
+      "currencyservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_cpu/2",
+    "family": [
+      "productcatalogservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_cpu/3",
+    "family": [
+      "productcatalogservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_mem/2",
+    "family": [
+      "productcatalogservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_mem/3",
+    "family": [
+      "productcatalogservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_disk/2",
+    "family": [
+      "productcatalogservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_socket/2",
+    "family": [
+      "productcatalogservice",
+      "socket"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_socket/3",
+    "family": [
+      "productcatalogservice",
+      "socket"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_delay/2",
+    "family": [
+      "productcatalogservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_delay/3",
+    "family": [
+      "productcatalogservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_loss/2",
+    "family": [
+      "productcatalogservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_cpu/2",
+    "family": [
+      "recommendationservice",
+      "cpu"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_cpu/3",
+    "family": [
+      "recommendationservice",
+      "cpu"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_mem/2",
+    "family": [
+      "recommendationservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_mem/3",
+    "family": [
+      "recommendationservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_disk/2",
+    "family": [
+      "recommendationservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_disk/3",
+    "family": [
+      "recommendationservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_socket/2",
+    "family": [
+      "recommendationservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_socket/3",
+    "family": [
+      "recommendationservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_delay/2",
+    "family": [
+      "recommendationservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_delay/3",
+    "family": [
+      "recommendationservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_loss/2",
+    "family": [
+      "recommendationservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_cpu/2",
+    "family": [
+      "emailservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_cpu/3",
+    "family": [
+      "emailservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_mem/2",
+    "family": [
+      "emailservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_mem/3",
+    "family": [
+      "emailservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_disk/2",
+    "family": [
+      "emailservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_cpu/3",
+    "family": [
+      "checkoutservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_mem/2",
+    "family": [
+      "checkoutservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_mem/3",
+    "family": [
+      "checkoutservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_socket/1",
+    "family": [
+      "checkoutservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_socket/2",
+    "family": [
+      "checkoutservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_socket/3",
+    "family": [
+      "checkoutservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_delay/1",
+    "family": [
+      "checkoutservice",
+      "delay"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_delay/2",
+    "family": [
+      "checkoutservice",
+      "delay"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_delay/3",
+    "family": [
+      "checkoutservice",
+      "delay"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_loss/2",
+    "family": [
+      "checkoutservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_cpu/1",
+    "family": [
+      "currencyservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_cpu/2",
+    "family": [
+      "currencyservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_cpu/3",
+    "family": [
+      "currencyservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_mem/3",
+    "family": [
+      "currencyservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_disk/2",
+    "family": [
+      "currencyservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_disk/3",
+    "family": [
+      "currencyservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_socket/2",
+    "family": [
+      "currencyservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_socket/3",
+    "family": [
+      "currencyservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_delay/1",
+    "family": [
+      "currencyservice",
+      "delay"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_delay/2",
+    "family": [
+      "currencyservice",
+      "delay"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_delay/3",
+    "family": [
+      "currencyservice",
+      "delay"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_loss/2",
+    "family": [
+      "currencyservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_loss/3",
+    "family": [
+      "currencyservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_loss/3",
+    "family": [
+      "productcatalogservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_disk/3",
+    "family": [
+      "emailservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_socket/1",
+    "family": [
+      "emailservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_socket/2",
+    "family": [
+      "emailservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_socket/3",
+    "family": [
+      "emailservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_delay/1",
+    "family": [
+      "emailservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_delay/2",
+    "family": [
+      "emailservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_delay/3",
+    "family": [
+      "emailservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_loss/2",
+    "family": [
+      "emailservice",
+      "loss"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "emailservice_loss/3",
+    "family": [
+      "emailservice",
+      "loss"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "currencyservice_mem/2",
+    "family": [
+      "currencyservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "recommendationservice_loss/3",
+    "family": [
+      "recommendationservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_disk/2",
+    "family": [
+      "checkoutservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_disk/3",
+    "family": [
+      "checkoutservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "productcatalogservice_disk/3",
+    "family": [
+      "productcatalogservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_cpu/2",
+    "family": [
+      "checkoutservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "checkoutservice_loss/3",
+    "family": [
+      "checkoutservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_cpu/1",
+    "family": [
+      "productcatalogservice",
+      "cpu"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_loss/1",
+    "family": [
+      "productcatalogservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_cpu/1",
+    "family": [
+      "recommendationservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_loss/1",
+    "family": [
+      "recommendationservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_cpu/1",
+    "family": [
+      "emailservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_loss/1",
+    "family": [
+      "emailservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_cpu/1",
+    "family": [
+      "checkoutservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_mem/1",
+    "family": [
+      "productcatalogservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_disk/1",
+    "family": [
+      "productcatalogservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_disk/1",
+    "family": [
+      "recommendationservice",
+      "disk"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_disk/1",
+    "family": [
+      "emailservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_disk/1",
+    "family": [
+      "checkoutservice",
+      "disk"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_loss/1",
+    "family": [
+      "checkoutservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_disk/1",
+    "family": [
+      "currencyservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_loss/1",
+    "family": [
+      "currencyservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_socket/1",
+    "family": [
+      "productcatalogservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_delay/1",
+    "family": [
+      "productcatalogservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_socket/1",
+    "family": [
+      "recommendationservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_delay/1",
+    "family": [
+      "recommendationservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_mem/1",
+    "family": [
+      "recommendationservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_mem/1",
+    "family": [
+      "checkoutservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_mem/1",
+    "family": [
+      "currencyservice",
+      "mem"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_mem/1",
+    "family": [
+      "emailservice",
+      "mem"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_socket/1",
+    "family": [
+      "currencyservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_cpu/2",
+    "family": [
+      "productcatalogservice",
+      "cpu"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_cpu/3",
+    "family": [
+      "productcatalogservice",
+      "cpu"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_mem/2",
+    "family": [
+      "productcatalogservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_mem/3",
+    "family": [
+      "productcatalogservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_disk/2",
+    "family": [
+      "productcatalogservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_socket/2",
+    "family": [
+      "productcatalogservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_socket/3",
+    "family": [
+      "productcatalogservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_delay/2",
+    "family": [
+      "productcatalogservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_delay/3",
+    "family": [
+      "productcatalogservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_loss/2",
+    "family": [
+      "productcatalogservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_cpu/2",
+    "family": [
+      "recommendationservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_cpu/3",
+    "family": [
+      "recommendationservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_mem/2",
+    "family": [
+      "recommendationservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_mem/3",
+    "family": [
+      "recommendationservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_disk/2",
+    "family": [
+      "recommendationservice",
+      "disk"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_disk/3",
+    "family": [
+      "recommendationservice",
+      "disk"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_socket/2",
+    "family": [
+      "recommendationservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_socket/3",
+    "family": [
+      "recommendationservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_delay/2",
+    "family": [
+      "recommendationservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_delay/3",
+    "family": [
+      "recommendationservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_loss/2",
+    "family": [
+      "recommendationservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_cpu/2",
+    "family": [
+      "emailservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_cpu/3",
+    "family": [
+      "emailservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_mem/2",
+    "family": [
+      "emailservice",
+      "mem"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_mem/3",
+    "family": [
+      "emailservice",
+      "mem"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_disk/2",
+    "family": [
+      "emailservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_cpu/3",
+    "family": [
+      "checkoutservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_mem/2",
+    "family": [
+      "checkoutservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_mem/3",
+    "family": [
+      "checkoutservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_socket/1",
+    "family": [
+      "checkoutservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_socket/2",
+    "family": [
+      "checkoutservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_socket/3",
+    "family": [
+      "checkoutservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_delay/1",
+    "family": [
+      "checkoutservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_delay/2",
+    "family": [
+      "checkoutservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_delay/3",
+    "family": [
+      "checkoutservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_loss/2",
+    "family": [
+      "checkoutservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_cpu/1",
+    "family": [
+      "currencyservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_cpu/2",
+    "family": [
+      "currencyservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_cpu/3",
+    "family": [
+      "currencyservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_mem/3",
+    "family": [
+      "currencyservice",
+      "mem"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_disk/2",
+    "family": [
+      "currencyservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_disk/3",
+    "family": [
+      "currencyservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_socket/2",
+    "family": [
+      "currencyservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_socket/3",
+    "family": [
+      "currencyservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_delay/1",
+    "family": [
+      "currencyservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_delay/2",
+    "family": [
+      "currencyservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_delay/3",
+    "family": [
+      "currencyservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_loss/2",
+    "family": [
+      "currencyservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_loss/3",
+    "family": [
+      "currencyservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_loss/3",
+    "family": [
+      "productcatalogservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_disk/3",
+    "family": [
+      "emailservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_socket/1",
+    "family": [
+      "emailservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_socket/2",
+    "family": [
+      "emailservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_socket/3",
+    "family": [
+      "emailservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_delay/1",
+    "family": [
+      "emailservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_delay/2",
+    "family": [
+      "emailservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_delay/3",
+    "family": [
+      "emailservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_loss/2",
+    "family": [
+      "emailservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "emailservice_loss/3",
+    "family": [
+      "emailservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "currencyservice_mem/2",
+    "family": [
+      "currencyservice",
+      "mem"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "recommendationservice_loss/3",
+    "family": [
+      "recommendationservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_disk/2",
+    "family": [
+      "checkoutservice",
+      "disk"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_disk/3",
+    "family": [
+      "checkoutservice",
+      "disk"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "productcatalogservice_disk/3",
+    "family": [
+      "productcatalogservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_cpu/2",
+    "family": [
+      "checkoutservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "checkoutservice_loss/3",
+    "family": [
+      "checkoutservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_cpu/1",
+    "family": [
+      "productcatalogservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_loss/1",
+    "family": [
+      "productcatalogservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_cpu/1",
+    "family": [
+      "recommendationservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_loss/1",
+    "family": [
+      "recommendationservice",
+      "loss"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_cpu/1",
+    "family": [
+      "emailservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_loss/1",
+    "family": [
+      "emailservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_cpu/1",
+    "family": [
+      "checkoutservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_mem/1",
+    "family": [
+      "productcatalogservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_disk/1",
+    "family": [
+      "productcatalogservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_disk/1",
+    "family": [
+      "recommendationservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_disk/1",
+    "family": [
+      "emailservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_disk/1",
+    "family": [
+      "checkoutservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_loss/1",
+    "family": [
+      "checkoutservice",
+      "loss"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_disk/1",
+    "family": [
+      "currencyservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_loss/1",
+    "family": [
+      "currencyservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_socket/1",
+    "family": [
+      "productcatalogservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_delay/1",
+    "family": [
+      "productcatalogservice",
+      "delay"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_socket/1",
+    "family": [
+      "recommendationservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_delay/1",
+    "family": [
+      "recommendationservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_mem/1",
+    "family": [
+      "recommendationservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_mem/1",
+    "family": [
+      "checkoutservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_mem/1",
+    "family": [
+      "currencyservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_mem/1",
+    "family": [
+      "emailservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_socket/1",
+    "family": [
+      "currencyservice",
+      "socket"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_cpu/2",
+    "family": [
+      "productcatalogservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_cpu/3",
+    "family": [
+      "productcatalogservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_mem/2",
+    "family": [
+      "productcatalogservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_mem/3",
+    "family": [
+      "productcatalogservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_disk/2",
+    "family": [
+      "productcatalogservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_socket/2",
+    "family": [
+      "productcatalogservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_socket/3",
+    "family": [
+      "productcatalogservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_delay/2",
+    "family": [
+      "productcatalogservice",
+      "delay"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_delay/3",
+    "family": [
+      "productcatalogservice",
+      "delay"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_loss/2",
+    "family": [
+      "productcatalogservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_cpu/2",
+    "family": [
+      "recommendationservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_cpu/3",
+    "family": [
+      "recommendationservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_mem/2",
+    "family": [
+      "recommendationservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_mem/3",
+    "family": [
+      "recommendationservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_disk/2",
+    "family": [
+      "recommendationservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_disk/3",
+    "family": [
+      "recommendationservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_socket/2",
+    "family": [
+      "recommendationservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_socket/3",
+    "family": [
+      "recommendationservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_delay/2",
+    "family": [
+      "recommendationservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_delay/3",
+    "family": [
+      "recommendationservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_loss/2",
+    "family": [
+      "recommendationservice",
+      "loss"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_cpu/2",
+    "family": [
+      "emailservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_cpu/3",
+    "family": [
+      "emailservice",
+      "cpu"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_mem/2",
+    "family": [
+      "emailservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_mem/3",
+    "family": [
+      "emailservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_disk/2",
+    "family": [
+      "emailservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_cpu/3",
+    "family": [
+      "checkoutservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_mem/2",
+    "family": [
+      "checkoutservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_mem/3",
+    "family": [
+      "checkoutservice",
+      "mem"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_socket/1",
+    "family": [
+      "checkoutservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_socket/2",
+    "family": [
+      "checkoutservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_socket/3",
+    "family": [
+      "checkoutservice",
+      "socket"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_delay/1",
+    "family": [
+      "checkoutservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_delay/2",
+    "family": [
+      "checkoutservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_delay/3",
+    "family": [
+      "checkoutservice",
+      "delay"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_loss/2",
+    "family": [
+      "checkoutservice",
+      "loss"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_cpu/1",
+    "family": [
+      "currencyservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_cpu/2",
+    "family": [
+      "currencyservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_cpu/3",
+    "family": [
+      "currencyservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_mem/3",
+    "family": [
+      "currencyservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_disk/2",
+    "family": [
+      "currencyservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_disk/3",
+    "family": [
+      "currencyservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_socket/2",
+    "family": [
+      "currencyservice",
+      "socket"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_socket/3",
+    "family": [
+      "currencyservice",
+      "socket"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_delay/1",
+    "family": [
+      "currencyservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_delay/2",
+    "family": [
+      "currencyservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_delay/3",
+    "family": [
+      "currencyservice",
+      "delay"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_loss/2",
+    "family": [
+      "currencyservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_loss/3",
+    "family": [
+      "currencyservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_loss/3",
+    "family": [
+      "productcatalogservice",
+      "loss"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_disk/3",
+    "family": [
+      "emailservice",
+      "disk"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_socket/1",
+    "family": [
+      "emailservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_socket/2",
+    "family": [
+      "emailservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_socket/3",
+    "family": [
+      "emailservice",
+      "socket"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_delay/1",
+    "family": [
+      "emailservice",
+      "delay"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_delay/2",
+    "family": [
+      "emailservice",
+      "delay"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_delay/3",
+    "family": [
+      "emailservice",
+      "delay"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_loss/2",
+    "family": [
+      "emailservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "emailservice_loss/3",
+    "family": [
+      "emailservice",
+      "loss"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "currencyservice_mem/2",
+    "family": [
+      "currencyservice",
+      "mem"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "recommendationservice_loss/3",
+    "family": [
+      "recommendationservice",
+      "loss"
+    ],
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_disk/2",
+    "family": [
+      "checkoutservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_disk/3",
+    "family": [
+      "checkoutservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "productcatalogservice_disk/3",
+    "family": [
+      "productcatalogservice",
+      "disk"
+    ],
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_cpu/2",
+    "family": [
+      "checkoutservice",
+      "cpu"
+    ],
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "checkoutservice_loss/3",
+    "family": [
+      "checkoutservice",
+      "loss"
+    ],
+    "role": "validation"
+  }
+]

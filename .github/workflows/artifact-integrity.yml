@@ -1,0 +1,19 @@
+name: artifact-integrity
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lightweight-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify compact evaluation package
+        run: python evaluation/rq1/scripts/verify_artifact.py
+      - name: Compile first-party Python sources
+        run: python -m compileall -q src tests system tools evaluation
+

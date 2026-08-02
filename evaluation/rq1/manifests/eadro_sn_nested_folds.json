@@ -1,0 +1,1154 @@
+[
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c00-f00",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-text-service-1",
+    "fault_type": "cpu_load",
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c00-f01",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-text-service-1",
+    "fault_type": "network_delay",
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c00-f02",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-text-service-1",
+    "fault_type": "network_loss",
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c00-f03",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-home-timeline-service-1",
+    "fault_type": "cpu_load",
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c00-f04",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-home-timeline-service-1",
+    "fault_type": "network_delay",
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c00-f05",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-home-timeline-service-1",
+    "fault_type": "network_loss",
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c00-f06",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-media-service-1",
+    "fault_type": "cpu_load",
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c00-f07",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-media-service-1",
+    "fault_type": "network_delay",
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c00-f08",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-media-service-1",
+    "fault_type": "network_loss",
+    "role": "test"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c01-f00",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-post-storage-service-1",
+    "fault_type": "cpu_load",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c01-f01",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-post-storage-service-1",
+    "fault_type": "network_delay",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c01-f02",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-post-storage-service-1",
+    "fault_type": "network_loss",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c01-f03",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-social-graph-service-1",
+    "fault_type": "cpu_load",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c01-f04",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-social-graph-service-1",
+    "fault_type": "network_delay",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c01-f05",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-social-graph-service-1",
+    "fault_type": "network_loss",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c01-f06",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-url-shorten-service-1",
+    "fault_type": "cpu_load",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c01-f07",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-url-shorten-service-1",
+    "fault_type": "network_delay",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c01-f08",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-url-shorten-service-1",
+    "fault_type": "network_loss",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c02-f00",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-nginx-thrift-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c02-f01",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-nginx-thrift-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c02-f02",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-nginx-thrift-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c02-f03",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-unique-id-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c02-f04",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-unique-id-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c02-f05",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-unique-id-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c02-f06",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-user-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c02-f07",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-user-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c02-f08",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-user-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c03-f00",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-compose-post-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c03-f01",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-compose-post-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c03-f02",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-compose-post-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c03-f03",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-timeline-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c03-f04",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-timeline-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c03-f05",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-timeline-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c03-f06",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-mention-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c03-f07",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-mention-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 0,
+    "incident_id": "sn-c03-f08",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-mention-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c00-f00",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-text-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c00-f01",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-text-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c00-f02",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-text-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c00-f03",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-home-timeline-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c00-f04",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-home-timeline-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c00-f05",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-home-timeline-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c00-f06",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-media-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c00-f07",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-media-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c00-f08",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-media-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c01-f00",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-post-storage-service-1",
+    "fault_type": "cpu_load",
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c01-f01",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-post-storage-service-1",
+    "fault_type": "network_delay",
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c01-f02",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-post-storage-service-1",
+    "fault_type": "network_loss",
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c01-f03",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-social-graph-service-1",
+    "fault_type": "cpu_load",
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c01-f04",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-social-graph-service-1",
+    "fault_type": "network_delay",
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c01-f05",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-social-graph-service-1",
+    "fault_type": "network_loss",
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c01-f06",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-url-shorten-service-1",
+    "fault_type": "cpu_load",
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c01-f07",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-url-shorten-service-1",
+    "fault_type": "network_delay",
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c01-f08",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-url-shorten-service-1",
+    "fault_type": "network_loss",
+    "role": "test"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c02-f00",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-nginx-thrift-1",
+    "fault_type": "cpu_load",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c02-f01",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-nginx-thrift-1",
+    "fault_type": "network_delay",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c02-f02",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-nginx-thrift-1",
+    "fault_type": "network_loss",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c02-f03",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-unique-id-service-1",
+    "fault_type": "cpu_load",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c02-f04",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-unique-id-service-1",
+    "fault_type": "network_delay",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c02-f05",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-unique-id-service-1",
+    "fault_type": "network_loss",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c02-f06",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-user-service-1",
+    "fault_type": "cpu_load",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c02-f07",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-user-service-1",
+    "fault_type": "network_delay",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c02-f08",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-user-service-1",
+    "fault_type": "network_loss",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c03-f00",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-compose-post-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c03-f01",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-compose-post-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c03-f02",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-compose-post-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c03-f03",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-timeline-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c03-f04",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-timeline-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c03-f05",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-timeline-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c03-f06",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-mention-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c03-f07",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-mention-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 1,
+    "incident_id": "sn-c03-f08",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-mention-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c00-f00",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-text-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c00-f01",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-text-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c00-f02",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-text-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c00-f03",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-home-timeline-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c00-f04",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-home-timeline-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c00-f05",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-home-timeline-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c00-f06",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-media-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c00-f07",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-media-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c00-f08",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-media-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c01-f00",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-post-storage-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c01-f01",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-post-storage-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c01-f02",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-post-storage-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c01-f03",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-social-graph-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c01-f04",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-social-graph-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c01-f05",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-social-graph-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c01-f06",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-url-shorten-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c01-f07",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-url-shorten-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c01-f08",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-url-shorten-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c02-f00",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-nginx-thrift-1",
+    "fault_type": "cpu_load",
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c02-f01",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-nginx-thrift-1",
+    "fault_type": "network_delay",
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c02-f02",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-nginx-thrift-1",
+    "fault_type": "network_loss",
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c02-f03",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-unique-id-service-1",
+    "fault_type": "cpu_load",
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c02-f04",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-unique-id-service-1",
+    "fault_type": "network_delay",
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c02-f05",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-unique-id-service-1",
+    "fault_type": "network_loss",
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c02-f06",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-user-service-1",
+    "fault_type": "cpu_load",
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c02-f07",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-user-service-1",
+    "fault_type": "network_delay",
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c02-f08",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-user-service-1",
+    "fault_type": "network_loss",
+    "role": "test"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c03-f00",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-compose-post-service-1",
+    "fault_type": "cpu_load",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c03-f01",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-compose-post-service-1",
+    "fault_type": "network_delay",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c03-f02",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-compose-post-service-1",
+    "fault_type": "network_loss",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c03-f03",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-timeline-service-1",
+    "fault_type": "cpu_load",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c03-f04",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-timeline-service-1",
+    "fault_type": "network_delay",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c03-f05",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-timeline-service-1",
+    "fault_type": "network_loss",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c03-f06",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-mention-service-1",
+    "fault_type": "cpu_load",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c03-f07",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-mention-service-1",
+    "fault_type": "network_delay",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 2,
+    "incident_id": "sn-c03-f08",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-mention-service-1",
+    "fault_type": "network_loss",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c00-f00",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-text-service-1",
+    "fault_type": "cpu_load",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c00-f01",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-text-service-1",
+    "fault_type": "network_delay",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c00-f02",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-text-service-1",
+    "fault_type": "network_loss",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c00-f03",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-home-timeline-service-1",
+    "fault_type": "cpu_load",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c00-f04",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-home-timeline-service-1",
+    "fault_type": "network_delay",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c00-f05",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-home-timeline-service-1",
+    "fault_type": "network_loss",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c00-f06",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-media-service-1",
+    "fault_type": "cpu_load",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c00-f07",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-media-service-1",
+    "fault_type": "network_delay",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c00-f08",
+    "capture_id": "SN.2022-04-17T181245D2022-04-17T183616",
+    "root_cause_service": "socialnetwork-media-service-1",
+    "fault_type": "network_loss",
+    "role": "validation"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c01-f00",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-post-storage-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c01-f01",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-post-storage-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c01-f02",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-post-storage-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c01-f03",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-social-graph-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c01-f04",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-social-graph-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c01-f05",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-social-graph-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c01-f06",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-url-shorten-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c01-f07",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-url-shorten-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c01-f08",
+    "capture_id": "SN.2022-04-17T183729D2022-04-17T190100",
+    "root_cause_service": "socialnetwork-url-shorten-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c02-f00",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-nginx-thrift-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c02-f01",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-nginx-thrift-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c02-f02",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-nginx-thrift-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c02-f03",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-unique-id-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c02-f04",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-unique-id-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c02-f05",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-unique-id-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c02-f06",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-user-service-1",
+    "fault_type": "cpu_load",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c02-f07",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-user-service-1",
+    "fault_type": "network_delay",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c02-f08",
+    "capture_id": "SN.2022-04-17T190213D2022-04-17T192544",
+    "root_cause_service": "socialnetwork-user-service-1",
+    "fault_type": "network_loss",
+    "role": "train"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c03-f00",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-compose-post-service-1",
+    "fault_type": "cpu_load",
+    "role": "test"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c03-f01",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-compose-post-service-1",
+    "fault_type": "network_delay",
+    "role": "test"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c03-f02",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-compose-post-service-1",
+    "fault_type": "network_loss",
+    "role": "test"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c03-f03",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-timeline-service-1",
+    "fault_type": "cpu_load",
+    "role": "test"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c03-f04",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-timeline-service-1",
+    "fault_type": "network_delay",
+    "role": "test"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c03-f05",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-timeline-service-1",
+    "fault_type": "network_loss",
+    "role": "test"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c03-f06",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-mention-service-1",
+    "fault_type": "cpu_load",
+    "role": "test"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c03-f07",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-mention-service-1",
+    "fault_type": "network_delay",
+    "role": "test"
+  },
+  {
+    "outer_fold": 3,
+    "incident_id": "sn-c03-f08",
+    "capture_id": "SN.2022-04-17T192658D2022-04-17T195031",
+    "root_cause_service": "socialnetwork-user-mention-service-1",
+    "fault_type": "network_loss",
+    "role": "test"
+  }
+]

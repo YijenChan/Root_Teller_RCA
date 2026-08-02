@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "datasets": {
+    "re2_ob": {
+      "unique_cases": 90,
+      "fold_role_counts": {
+        "0:test": 30,
+        "0:train": 45,
+        "0:validation": 15,
+        "1:test": 30,
+        "1:train": 45,
+        "1:validation": 15,
+        "2:test": 30,
+        "2:train": 45,
+        "2:validation": 15
+      },
+      "service_fault_family_role_conflicts": []
+    },
+    "re2_tt": {
+      "unique_cases": 90,
+      "fold_role_counts": {
+        "0:test": 30,
+        "0:train": 45,
+        "0:validation": 15,
+        "1:test": 30,
+        "1:train": 45,
+        "1:validation": 15,
+        "2:test": 30,
+        "2:train": 45,
+        "2:validation": 15
+      },
+      "service_fault_family_role_conflicts": []
+    },
+    "eadro_sn": {
+      "unique_cases": 36,
+      "fold_role_counts": {
+        "0:test": 9,
+        "0:train": 18,
+        "0:validation": 9,
+        "1:test": 9,
+        "1:train": 18,
+        "1:validation": 9,
+        "2:test": 9,
+        "2:train": 18,
+        "2:validation": 9,
+        "3:test": 9,
+        "3:train": 18,
+        "3:validation": 9
+      },
+      "capture_role_conflicts": []
+    }
+  }
+}

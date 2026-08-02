@@ -1,0 +1,12 @@
+# RCLAgent dependencies — Python 3.10+
+
+# Core runtime
+requests>=2.28
+flask>=2.2
+pandas>=1.5
+numpy>=1.23
+tenacity>=8.0
+
+# BARO baseline evaluation (optional — only needed for evaluate_baro.py)
+# BARO source: https://github.com/phamquiluan/baro
+baro>=0.2.0

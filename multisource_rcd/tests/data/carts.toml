@@ -1,0 +1,9 @@
+[Regex]
+DATETIME = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{3}"
+LEVEL = "(?:WARN|INFO)"
+TRACE = "\\[carts,.*,.*,.*\\]"
+
+[LogTemplate]
+E1 = "at <*>(<*>)<*>"
+E2 = "<:DATETIME:>  <:LEVEL:> <:TRACE:> <*> : Dropped <*> spans due to <*>"
+E3 = "nan"

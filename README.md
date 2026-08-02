@@ -170,20 +170,6 @@ private per-case evaluator files are intentionally excluded. See
 [`docs/PAPER_CODE_ALIGNMENT.md`](docs/PAPER_CODE_ALIGNMENT.md) for the precise
 public-release scope.
 
-## Release verification
-
-```powershell
-python -m pytest -q
-root-teller audit-release --release-root . --output-dir docs\audit
-```
-
-The audit checks paper constants and the compact RQ1 table, the documented
-baseline boundary, credentials, local paths, English-only text, and runtime
-data leakage within the Root-Teller artifact. It also emits SHA-256 checksums
-for the packaged Root-Teller files. These
-checks validate release integrity; they do not replace rerunning experiments
-with the public benchmark data and the configured LLM backend.
-
 ## Baselines and data
 
 Baseline provenance, upstream artifacts, and redistribution boundaries are

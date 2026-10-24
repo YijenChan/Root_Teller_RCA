@@ -72,13 +72,22 @@ Runtime files are isolated under `system/runtime/` and ignored by Git.
 2. **Investigation** — observe window activation and the progressive decision.
 3. **Memory Graph** — inspect provenance-linked evidence, typed relations, and
    hypothesis state.
-4. **Feedback** — submit a schema-bounded Accept or Reject verdict against an
-   active hypothesis. Rejection reduces confidence but preserves evidence.
+4. **Feedback** — support, challenge or request a check of a root-role,
+   observation or propagation claim. The coordinator binds the target, delegates
+   bounded checks, re-synthesizes diagnosis and regenerates a verified report.
+   Accept diagnosis is a separate terminal action. Source evidence is preserved.
 5. **Settings** — review runtime, model, and security boundaries.
 
 The `default` protocol incorporates the complete predefined observation range,
 matching RQ1. The `blind` protocol exposes earlier windows only when requested
 by progressive control, matching the RQ3 setting.
+
+The feedback API also accepts up to three explicit structured `items`, a unique
+`feedback_id` and `snapshot_version`. Duplicate IDs do not repeat investigation;
+stale versions are rejected. Offline feedback is labelled typed-evidence
+execution and is not a model-effectiveness result. Read
+[`docs/REVISION2_ALIGNMENT.md`](../docs/REVISION2_ALIGNMENT.md) for the boundary
+between historical checkpoints and the revised method.
 
 ## Checkpoints
 
@@ -86,6 +95,10 @@ Small fold-specific Perception Agent checkpoints are bundled in
 `system/checkpoints/` so the UI can run without training first. They contain
 model parameters, reference statistics, and fold manifests; raw benchmark
 telemetry is not included.
+
+These are historical 60-second-bin weights. Launching the UI does not retrain
+them for the revised one-second feature preset. Historical screenshots and
+live-model smoke results do not establish revised-method accuracy.
 
 ## Tests
 

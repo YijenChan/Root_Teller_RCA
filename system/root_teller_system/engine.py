@@ -7,6 +7,8 @@ import os
 import shutil
 import time
 import zipfile
+import copy
+import uuid
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Callable
@@ -26,6 +28,9 @@ from root_teller.module2.llm import CachedJSONClient, load_api_settings
 from root_teller.module2.run import run_case_blind, run_case_default
 from root_teller.module3.config import Module3Config
 from root_teller.module3.feedback import FeedbackRMGOverlay
+from root_teller.module3.session import build_coordinator, state_from_diagnosis
+from root_teller.module3.structured.state import FeedbackState
+from root_teller.module3.structured.contracts import default_item, event_for
 from root_teller.module3.reporting import generate_verified_report
 from root_teller.multidataset import rq1_sn, rq1_tt
 from root_teller.multidataset.rq1_protocol_v2 import configure_services
@@ -300,7 +305,7 @@ def _export_packs(case: dict[str, Any], checkpoint_path: Path, pack_root: Path, 
     reference = ReferenceStats.from_state_dict(checkpoint["reference"])
     digest = hashlib.sha256(checkpoint_path.read_bytes()).hexdigest()
     pack_root.mkdir(parents=True, exist_ok=True)
-    bins = int(case["metric_x"].shape[1])
+    bins = window_export._window_count(case)
     for activation_order, bin_index in enumerate(range(bins - 1, -1, -1)):
         sliced = window_export._slice_case(case, bin_index)
         tensor_case = to_torch_case(sliced, reference, device)
@@ -420,27 +425,75 @@ def diagnose(
     return payload
 
 
-def apply_feedback(payload: dict[str, Any], entity: str, verdict: str, message: str) -> dict[str, Any]:
-    feedback = payload.get("feedback", {})
-    base_scores = {row["entity_id"]: float(row["base_score"]) for row in feedback.get("current_ranking", payload["ranking"])}
-    overlay = FeedbackRMGOverlay(payload["result"]["incident_id"], base_scores)
-    overlay.reject_counts.update({str(k): int(v) for k, v in feedback.get("reject_counts", {}).items()})
-    overlay.feedback_events.extend(feedback.get("feedback_events", []))
-    overlay.confirmed_hypothesis_id = feedback.get("confirmed_hypothesis_id")
-    if entity not in base_scores:
+def apply_feedback(payload: dict[str, Any], entity: str, verdict: str, message: str,
+                   *, items: list[dict] | None = None, feedback_id: str | None = None,
+                   snapshot_version: int | None = None, scope: str = "root",
+                   window_id: str | None = None) -> dict[str, Any]:
+    """Bind feedback, investigate, synthesize, and regenerate a verified report.
+
+    Only an explicit ACCEPT ends a session. Supporting a claim does not accept
+    the diagnosis. The legacy overlay is retained solely as an initial display
+    record; fixed-score mutation is not the active feedback implementation.
+    """
+    if entity not in {row["entity_id"] for row in payload["ranking"]}:
         raise ValueError("Feedback can only target a current RMG hypothesis.")
-    event = overlay.commit(entity=entity, verdict=verdict, round_index=len(overlay.feedback_events) + 1)
-    event["operator_message"] = message[:1200]
-    overlay.feedback_events[-1]["operator_message"] = message[:1200]
-    payload["feedback"] = overlay.artifact(decay=0.90)
-    payload["ranking"] = payload["feedback"]["current_ranking"]
-    payload["report"]["report"]["root_cause_summary"] = (
-        f"{payload['ranking'][0]['entity_id']} is the leading evidence-grounded root-cause hypothesis after structured SRE feedback."
-    )
-    payload["report"]["report"]["ranked_alternatives"] = [row["entity_id"] for row in payload["ranking"][1:5]]
-    job_root = RUNTIME_ROOT / "jobs" / payload["job_id"]
-    (job_root / "result.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    return {"event": event, "feedback": payload["feedback"], "ranking": payload["ranking"], "report": payload["report"]}
+    working = copy.deepcopy(payload)
+    saved = working.get("feedback_state")
+    state = FeedbackState.restore(saved) if saved else state_from_diagnosis(working["result"], working["rmg"])
+    job_root = RUNTIME_ROOT / "jobs" / working["job_id"]
+    client = _client(job_root, working.get("live_llm", False), Module2Config())
+    if working.get("live_llm") and client is None:
+        raise ValueError("Model feedback requested but the configured model client is unavailable")
+    coordinator = build_coordinator(state, client=client)
+    verdict = verdict.upper()
+    if items is None:
+        kinds = {"root_role_global"} if scope == "root" else {"model_observation", "observation"} if scope == "observation" else {"propagation_explanation"}
+        matches = [c for c in state.claims.values() if c["kind"] in kinds and entity in c["entity_ids"]
+                   and (scope == "root" or window_id in c["window_ids"])]
+        if len(matches) != 1:
+            raise ValueError("Feedback target is ambiguous; supply the exact claim ID and observation window")
+        claim = matches[0]
+        stance = {"REJECT": "challenge", "SUPPORT": "support", "CHECK": "unsure", "ACCEPT": "support"}.get(verdict)
+        if stance is None:
+            raise ValueError("Unknown feedback action")
+        items = [default_item(item_id="review-1", target_claim_id=claim["claim_id"],
+                 entity_ids=claim["entity_ids"], window_ids=claim["window_ids"], stance=stance,
+                 reason=message[:1200], requested_check=message[:600] if verdict == "CHECK" else "")]
+    event = event_for(state, feedback_id or uuid.uuid4().hex, items,
+                      event_type="final_accept" if verdict == "ACCEPT" else "comment")
+    if snapshot_version is not None:
+        event["snapshot_version"] = snapshot_version
+    response = coordinator.submit(event)
+    if response["event_status"] == "IDEMPOTENT_REPLAY" and response.get("snapshot"):
+        return {"event": response, "feedback": payload["feedback"],
+                "ranking": payload["ranking"], "report": payload["report"]}
+    if not response.get("committed"):
+        raise ValueError("Feedback was not committed: " + response["event_status"])
+    state = coordinator.state
+    snapshot = state.snapshots[-1]
+    ranking = [{**row, "feedback_confidence": row["score"],
+                "reject_count": row["global_challenge_count"]} for row in snapshot["synthesis"]["ranked_candidates"]]
+    previous = working.get("feedback", {}).get("feedback_events", [])
+    if response.get("new_interactions", 1):
+        previous.append({"feedback_id": event["feedback_id"], "entity_id": entity, "verdict": verdict,
+                         "operator_message": message[:1200], "target_claim_ids": [i["target_claim_id"] for i in items],
+                         "selected_entity": snapshot["synthesis"]["selected_entity"],
+                         "snapshot_id": snapshot["snapshot_id"], "targeted_checks": len(response.get("task_results", [])),
+                         "pipeline_trace": response["pipeline_trace"]})
+    working["feedback_state"] = state.artifact()
+    working["feedback"] = {"schema_version": "claim-feedback-system-2.0", "version": state.version,
+        "feedback_events": previous, "current_ranking": ranking, "session_closed": state.session_closed,
+        "execution_mode": snapshot["synthesis"]["execution_mode"], "source_evidence_immutable": True}
+    working["ranking"] = ranking
+    working["report"] = {"report": snapshot["report"], "verification": snapshot["verification"],
+                         "snapshot_id": snapshot["snapshot_id"]}
+    job_root.mkdir(parents=True, exist_ok=True)
+    temporary = job_root / "result.json.tmp"
+    temporary.write_text(json.dumps(working, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(job_root / "result.json")
+    payload.clear()
+    payload.update(working)
+    return {"event": response, "feedback": payload["feedback"], "ranking": ranking, "report": payload["report"]}
 
 
 def copy_upload(upload: Path, target: Path) -> Path:

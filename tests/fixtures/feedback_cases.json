@@ -1,0 +1,787 @@
+{
+  "schema_version": "cp1-synthetic-fixtures-1.0",
+  "status": "\u9884\u671f\u8f93\u5165\u4e0e\u884c\u4e3a\uff0c\u975e\u6267\u884c\u540e\u7684\u6a21\u578b\u8f93\u51fa",
+  "base_ledger": "synthetic_ledger.yaml",
+  "event_defaults": {
+    "schema_version": "feedback-cp1-proposal-1.0",
+    "incident_id": "SYN-INC-001",
+    "snapshot_version": 1,
+    "source_mode": "structured",
+    "binding_confirmed": true,
+    "event_type": "comment"
+  },
+  "item_defaults": {
+    "target_kind": "existing_claim",
+    "target_claim_id": null,
+    "entity_ids": [],
+    "entity_labels": [],
+    "window_ids": [],
+    "reason": "",
+    "requested_check": "",
+    "evidence_refs": [],
+    "proposed_text": null
+  },
+  "cases": [
+    {
+      "id": "F01",
+      "name": "\u8d28\u7591\u5168\u5c40\u6839\u56e0\u5019\u9009",
+      "user_view": "\u6211\u76ee\u524d\u4e0d\u63a5\u53d7Payment\u4f5c\u4e3a\u6839\u56e0\uff0c\u8bf7\u590d\u67e5\u5176\u652f\u6301\u8bc1\u636e\u3002",
+      "event": {
+        "feedback_id": "FB-SYN-001",
+        "items": [
+          {
+            "item_id": "I01",
+            "target_claim_id": "C02",
+            "entity_ids": [
+              "S-P"
+            ],
+            "window_ids": [
+              "W1",
+              "W2",
+              "W3"
+            ],
+            "stance": "challenge",
+            "requested_check": "\u590d\u67e5Payment\u7684\u6839\u56e0\u89e3\u91ca\u53ca\u4e3b\u8981\u7ade\u4e89\u89e3\u91ca"
+          }
+        ]
+      },
+      "expected": {
+        "event_status": "ACCEPTED_FOR_INVESTIGATION",
+        "vector_sparse": [
+          {
+            "axis": "C02",
+            "mask": 1,
+            "stance_value": -1
+          }
+        ],
+        "gate": [
+          {
+            "item_id": "I01",
+            "status": "UNRESOLVED",
+            "evidence_value": 0,
+            "evidence_mask": 0
+          }
+        ],
+        "review_windows": [
+          "W1",
+          "W2",
+          "W3"
+        ],
+        "soft_prior_targets": [
+          "C02"
+        ],
+        "strong_state_changes": [],
+        "actions": [
+          "RECORD_OPERATOR_CHALLENGE",
+          "DEPRIORITIZE_ONLY_THIS_HYPOTHESIS_AS_SOFT_INPUT",
+          "INSPECT_COMPETING_ROOT_CLAIMS",
+          "GLOBAL_SYNTHESIS"
+        ],
+        "forbidden": [
+          "DECLARE_PAYMENT_FALSE_FROM_VERDICT_ALONE",
+          "DELETE_PAYMENT_EVIDENCE"
+        ],
+        "new_interactions": 1,
+        "end_session": false
+      }
+    },
+    {
+      "id": "F02",
+      "name": "\u652f\u6301\u5c40\u90e8\u89c2\u6d4b\u4e0d\u63a5\u53d7\u6574\u4e2a\u8bca\u65ad",
+      "user_view": "W3\u786e\u5b9e\u6709Payment timeout\u65e5\u5fd7\uff0c\u4f46\u6211\u8fd8\u6ca1\u6709\u5224\u65ad\u6839\u56e0\u3002",
+      "event": {
+        "feedback_id": "FB-SYN-002",
+        "items": [
+          {
+            "item_id": "I02",
+            "target_claim_id": "C01",
+            "entity_ids": [
+              "S-P"
+            ],
+            "window_ids": [
+              "W3"
+            ],
+            "stance": "support",
+            "evidence_refs": [
+              "E01"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "event_status": "ACCEPTED_FOR_INVESTIGATION",
+        "vector_sparse": [
+          {
+            "axis": "C01",
+            "mask": 1,
+            "stance_value": 1
+          }
+        ],
+        "gate": [
+          {
+            "item_id": "I02",
+            "status": "SUPPORTED",
+            "evidence_value": 1,
+            "evidence_mask": 1
+          }
+        ],
+        "review_windows": [
+          "W3"
+        ],
+        "soft_prior_targets": [],
+        "strong_state_changes": [],
+        "actions": [
+          "RECORD_LOCAL_SUPPORT",
+          "KEEP_EXISTING_VERIFIED_OBSERVATION",
+          "RECORD_NO_NEW_DIAGNOSTIC_EVIDENCE"
+        ],
+        "forbidden": [
+          "BOOST_ROOT_PAYMENT_FROM_TIMEOUT_SUPPORT",
+          "END_SESSION_FROM_LOCAL_SUPPORT",
+          "COUNT_SAME_E01_AS_NEW_INDEPENDENT_PROOF"
+        ],
+        "new_interactions": 1,
+        "end_session": false
+      }
+    },
+    {
+      "id": "F03",
+      "name": "\u660e\u786e\u4e0d\u786e\u5b9a\u4e0e\u672a\u63d0\u53ca\u533a\u5206",
+      "user_view": "\u4e0d\u786e\u5b9aCheckout\u662f\u5426\u628a\u6545\u969c\u4f20\u64ad\u5230Payment\uff0c\u8bf7\u6838\u67e5\u3002",
+      "event": {
+        "feedback_id": "FB-SYN-003",
+        "items": [
+          {
+            "item_id": "I03",
+            "target_claim_id": "C05",
+            "entity_ids": [
+              "S-C",
+              "S-P"
+            ],
+            "window_ids": [
+              "W2",
+              "W3"
+            ],
+            "stance": "unsure",
+            "requested_check": "\u68c0\u67e5\u4f20\u64ad\u89e3\u91ca\u662f\u5426\u6709\u8d85\u51fa\u4f9d\u8d56\u548c\u5148\u540e\u987a\u5e8f\u7684\u652f\u6301"
+          }
+        ]
+      },
+      "expected": {
+        "event_status": "ACCEPTED_FOR_INVESTIGATION",
+        "vector_sparse": [
+          {
+            "axis": "C05",
+            "mask": 1,
+            "stance_value": 0
+          }
+        ],
+        "gate": [
+          {
+            "item_id": "I03",
+            "status": "UNRESOLVED",
+            "evidence_value": 0,
+            "evidence_mask": 0
+          }
+        ],
+        "review_windows": [
+          "W2",
+          "W3"
+        ],
+        "soft_prior_targets": [],
+        "strong_state_changes": [],
+        "actions": [
+          "RECORD_EXPLICIT_UNCERTAINTY",
+          "VALIDATE_PROPAGATION_CLAIM",
+          "RETAIN_EVIDENCE_GAP"
+        ],
+        "forbidden": [
+          "INTERPRET_UNSURE_AS_REJECT",
+          "INTERPRET_MISSING_MASK_AS_UNSURE",
+          "INFER_CAUSATION_FROM_DEPENDENCY_ALONE"
+        ],
+        "new_interactions": 1,
+        "end_session": false
+      }
+    },
+    {
+      "id": "F04",
+      "name": "\u540c\u6279\u90e8\u5206\u652f\u6301\u90e8\u5206\u8d28\u7591\u5e76\u8bf7\u6c42\u65f6\u5e8f\u6838\u67e5",
+      "user_view": "\u8ba4\u53efW3\u7684timeout\u8bb0\u5f55\uff1b\u8d28\u7591Payment\u5728\u8be5\u7a97\u53e3\u662f\u6545\u969c\u8d77\u70b9\uff1b\u8bf7\u6838\u5bf9Checkout\u662f\u5426\u66f4\u65e9\u5f02\u5e38\u3002",
+      "event": {
+        "feedback_id": "FB-SYN-004",
+        "items": [
+          {
+            "item_id": "I04a",
+            "target_claim_id": "C01",
+            "entity_ids": [
+              "S-P"
+            ],
+            "window_ids": [
+              "W3"
+            ],
+            "stance": "support",
+            "evidence_refs": [
+              "E01"
+            ]
+          },
+          {
+            "item_id": "I04b",
+            "target_claim_id": "C08",
+            "entity_ids": [
+              "S-P"
+            ],
+            "window_ids": [
+              "W3"
+            ],
+            "stance": "challenge",
+            "reason": "\u5c40\u90e8\u6839\u56e0\u89e3\u91ca\u4ecd\u6709\u4e0a\u6e38\u7ade\u4e89\u89e3\u91ca"
+          },
+          {
+            "item_id": "I04c",
+            "target_claim_id": "C04",
+            "entity_ids": [
+              "S-C",
+              "S-P"
+            ],
+            "window_ids": [
+              "W2",
+              "W3"
+            ],
+            "stance": "unsure",
+            "requested_check": "\u6838\u5bf9\u5df2\u89c2\u6d4b\u5f02\u5e38\u7684\u5148\u540e\u987a\u5e8f"
+          }
+        ]
+      },
+      "expected": {
+        "event_status": "ACCEPTED_FOR_INVESTIGATION",
+        "vector_sparse": [
+          {
+            "axis": "C01",
+            "mask": 1,
+            "stance_value": 1
+          },
+          {
+            "axis": "C08",
+            "mask": 1,
+            "stance_value": -1
+          },
+          {
+            "axis": "C04",
+            "mask": 1,
+            "stance_value": 0
+          }
+        ],
+        "gate": [
+          {
+            "item_id": "I04a",
+            "status": "SUPPORTED",
+            "evidence_value": 1,
+            "evidence_mask": 1
+          },
+          {
+            "item_id": "I04b",
+            "status": "UNRESOLVED",
+            "evidence_value": 0,
+            "evidence_mask": 0
+          },
+          {
+            "item_id": "I04c",
+            "status": "SUPPORTED",
+            "evidence_value": 1,
+            "evidence_mask": 1
+          }
+        ],
+        "review_windows": [
+          "W2",
+          "W3"
+        ],
+        "soft_prior_targets": [
+          "C08"
+        ],
+        "strong_state_changes": [
+          {
+            "claim_id": "C04",
+            "from": "unresolved",
+            "to": "supported",
+            "evidence_refs": [
+              "E03"
+            ]
+          }
+        ],
+        "actions": [
+          "COMMIT_SEPARATE_LOCAL_ITEMS",
+          "DEPRIORITIZE_LOCAL_ROOT_INTERPRETATION_ONLY",
+          "PRESERVE_TIMEOUT_RECORD",
+          "INSPECT_UPSTREAM_ALTERNATIVE",
+          "GLOBAL_SYNTHESIS"
+        ],
+        "forbidden": [
+          "DECAY_ENTIRE_W3",
+          "DIRECTLY_REJECT_GLOBAL_C02_WITHOUT_SCOPE_MAPPING",
+          "TREAT_THREE_ITEMS_AS_THREE_FEEDBACK_ROUNDS"
+        ],
+        "new_interactions": 1,
+        "end_session": false
+      }
+    },
+    {
+      "id": "F05",
+      "name": "\u7a97\u53e3\u9519\u914d",
+      "user_view": "\u53cd\u9988C01\u4f46\u5c06\u7a97\u53e3\u8bef\u9009\u6210W2\u3002",
+      "event": {
+        "feedback_id": "FB-SYN-005",
+        "items": [
+          {
+            "item_id": "I05",
+            "target_claim_id": "C01",
+            "entity_ids": [
+              "S-P"
+            ],
+            "window_ids": [
+              "W2"
+            ],
+            "stance": "support"
+          }
+        ]
+      },
+      "expected": {
+        "event_status": "NEEDS_CLARIFICATION",
+        "vector_sparse": [],
+        "gate": [
+          {
+            "item_id": "I05",
+            "status": "INVALID_SCOPE",
+            "evidence_value": 0,
+            "evidence_mask": 0
+          }
+        ],
+        "review_windows": [],
+        "soft_prior_targets": [],
+        "strong_state_changes": [],
+        "actions": [
+          "SHOW_SCOPE_MISMATCH",
+          "ASK_USER_TO_CONFIRM_WINDOW"
+        ],
+        "forbidden": [
+          "SILENTLY_CHANGE_W2_TO_W3",
+          "UPDATE_W2_OTHER_CLAIMS"
+        ],
+        "new_interactions": 1,
+        "end_session": false
+      }
+    },
+    {
+      "id": "F06",
+      "name": "\u65e0\u6548\u8bc1\u636e\u5f15\u7528",
+      "user_view": "\u8d28\u7591Payment\u6839\u56e0\uff0c\u4f46\u6240\u586b\u5199\u7684E404\u4e0d\u5b58\u5728\u3002",
+      "event": {
+        "feedback_id": "FB-SYN-006",
+        "items": [
+          {
+            "item_id": "I06",
+            "target_claim_id": "C02",
+            "entity_ids": [
+              "S-P"
+            ],
+            "window_ids": [
+              "W1",
+              "W2",
+              "W3"
+            ],
+            "stance": "challenge",
+            "evidence_refs": [
+              "E404"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "event_status": "NEEDS_CLARIFICATION",
+        "vector_sparse": [
+          {
+            "axis": "C02",
+            "mask": 1,
+            "stance_value": -1
+          }
+        ],
+        "gate": [
+          {
+            "item_id": "I06",
+            "status": "INVALID_REFERENCE",
+            "evidence_value": 0,
+            "evidence_mask": 0
+          }
+        ],
+        "review_windows": [],
+        "soft_prior_targets": [],
+        "strong_state_changes": [],
+        "actions": [
+          "FLAG_REFERENCE_NOT_FOUND",
+          "RETAIN_RAW_FEEDBACK_FOR_CORRECTION"
+        ],
+        "forbidden": [
+          "INVENT_E404",
+          "TREAT_UNKNOWN_REFERENCE_AS_CORROBORATION",
+          "APPLY_REJECTION_PENALTY_BEFORE_CORRECTION"
+        ],
+        "new_interactions": 1,
+        "end_session": false
+      }
+    },
+    {
+      "id": "F07",
+      "name": "\u8fc7\u671fSnapshot\u7ed1\u5b9a",
+      "user_view": "\u540e\u53f0\u5df2\u751f\u6210\u7b2c2\u7248\uff0c\u4f46\u63d0\u4ea4\u4ecd\u7ed1\u5b9a\u7b2c1\u7248\u3002",
+      "context_override": {
+        "current_snapshot_version": 2
+      },
+      "event": {
+        "feedback_id": "FB-SYN-007",
+        "items": [
+          {
+            "item_id": "I07",
+            "target_claim_id": "C02",
+            "entity_ids": [
+              "S-P"
+            ],
+            "window_ids": [
+              "W1",
+              "W2",
+              "W3"
+            ],
+            "stance": "challenge"
+          }
+        ]
+      },
+      "expected": {
+        "event_status": "STALE_SNAPSHOT",
+        "vector_sparse": [],
+        "gate": [],
+        "review_windows": [],
+        "soft_prior_targets": [],
+        "strong_state_changes": [],
+        "actions": [
+          "ASK_USER_TO_REVIEW_CURRENT_SNAPSHOT",
+          "PRESERVE_OLD_SUBMISSION_AS_AUDIT_RECORD"
+        ],
+        "forbidden": [
+          "REINTERPRET_OLD_VERDICT_AS_CURRENT_VERDICT_WITHOUT_CONFIRMATION"
+        ],
+        "new_interactions": 1,
+        "end_session": false
+      }
+    },
+    {
+      "id": "F08",
+      "name": "\u672a\u51fa\u73b0\u5b9e\u4f53\u4f5c\u4e3a\u65b0\u7ebf\u7d22",
+      "user_view": "\u53ef\u80fd\u8fd8\u6709redis-cache\uff0c\u8bf7\u5148\u786e\u8ba4\u8be5\u5b9e\u4f8b\u662f\u5426\u5b58\u5728\u4e8e\u672cincident\u3002",
+      "event": {
+        "feedback_id": "FB-SYN-008",
+        "items": [
+          {
+            "item_id": "I08",
+            "target_kind": "external_clue",
+            "target_claim_id": null,
+            "entity_labels": [
+              "redis-cache"
+            ],
+            "window_ids": [
+              "W3"
+            ],
+            "stance": "unsure",
+            "proposed_text": "redis-cache\u53ef\u80fd\u76f8\u5173",
+            "requested_check": "\u6838\u9a8c\u90e8\u7f72\u8eab\u4efd\u6216\u8bf7\u6c42\u7528\u6237\u6f84\u6e05"
+          }
+        ]
+      },
+      "expected": {
+        "event_status": "PENDING_ENTITY_RESOLUTION",
+        "vector_sparse": [],
+        "gate": [
+          {
+            "item_id": "I08",
+            "status": "UNRESOLVED_ENTITY",
+            "evidence_value": 0,
+            "evidence_mask": 0
+          }
+        ],
+        "review_windows": [
+          "W3"
+        ],
+        "soft_prior_targets": [],
+        "strong_state_changes": [],
+        "actions": [
+          "STORE_OPERATOR_REPORTED_CLUE",
+          "VERIFY_ENTITY_IDENTITY"
+        ],
+        "forbidden": [
+          "CREATE_OBSERVED_REDIS_NODE_WITHOUT_EVIDENCE",
+          "ASSIGN_REDIS_HIGH_ROOT_SCORE",
+          "DELETE_CLUE_ONLY_BECAUSE_CURRENT_LEDGER_LACKS_IT"
+        ],
+        "new_interactions": 1,
+        "end_session": false
+      }
+    },
+    {
+      "id": "F09",
+      "name": "\u5df2\u5b58\u5728\u5b9e\u4f53\u7684\u65b0\u5c40\u90e8\u5047\u8bbe",
+      "user_view": "\u6000\u7591Checkout\u5728W2\u53d1\u751fworker pool\u8017\u5c3d\uff0c\u8bf7\u67e5\u76f8\u5173\u6307\u6807\u3002",
+      "event": {
+        "feedback_id": "FB-SYN-009",
+        "items": [
+          {
+            "item_id": "I09",
+            "target_kind": "new_hypothesis",
+            "target_claim_id": null,
+            "entity_ids": [
+              "S-C"
+            ],
+            "window_ids": [
+              "W2"
+            ],
+            "stance": "support",
+            "proposed_text": "Checkout\u5728W2\u53d1\u751fworker pool\u8017\u5c3d",
+            "requested_check": "\u67e5\u8be2\u7ebf\u7a0b\u6216worker\u76f8\u5173\u8bb0\u5f55\uff0c\u4e0d\u80fd\u4ec5\u51ed\u961f\u5217\u53d8\u5316\u786e\u8ba4"
+          }
+        ]
+      },
+      "expected": {
+        "event_status": "ACCEPTED_AS_PENDING_HYPOTHESIS",
+        "vector_sparse": [
+          {
+            "axis": "PENDING-F09-I09",
+            "mask": 1,
+            "stance_value": 1
+          }
+        ],
+        "gate": [
+          {
+            "item_id": "I09",
+            "status": "UNRESOLVED",
+            "evidence_value": 0,
+            "evidence_mask": 0
+          }
+        ],
+        "review_windows": [
+          "W2"
+        ],
+        "soft_prior_targets": [],
+        "strong_state_changes": [],
+        "actions": [
+          "REGISTER_PENDING_DERIVED_HYPOTHESIS",
+          "REQUEST_SPECIFIC_EVIDENCE",
+          "LEAVE_NUMERICAL_WEIGHT_UNCONFIRMED"
+        ],
+        "forbidden": [
+          "CREATE_RAW_METRIC_RECORD_FROM_TEXT",
+          "TREAT_WORKER_EXHAUSTION_AS_KNOWN_FAULT_TYPE",
+          "BOOST_GLOBAL_CHECKOUT_ROOT_FROM_MENTION_ALONE"
+        ],
+        "new_interactions": 1,
+        "end_session": false
+      }
+    },
+    {
+      "id": "F10",
+      "name": "\u540cID\u540c\u5185\u5bb9\u91cd\u590d\u63d0\u4ea4",
+      "user_view": "\u7f51\u7edc\u91cd\u8bd5\u518d\u6b21\u53d1\u9001\u5df2\u5e94\u7528\u7684\u540c\u4e00\u4e8b\u4ef6\u3002",
+      "context_override": {
+        "already_applied_same_payload": true
+      },
+      "event": {
+        "feedback_id": "FB-SYN-010",
+        "items": [
+          {
+            "item_id": "I10",
+            "target_claim_id": "C02",
+            "entity_ids": [
+              "S-P"
+            ],
+            "window_ids": [
+              "W1",
+              "W2",
+              "W3"
+            ],
+            "stance": "challenge"
+          }
+        ]
+      },
+      "expected": {
+        "event_status": "IDEMPOTENT_REPLAY",
+        "vector_sparse": [
+          {
+            "axis": "C02",
+            "mask": 1,
+            "stance_value": -1
+          }
+        ],
+        "gate": [],
+        "review_windows": [],
+        "soft_prior_targets": [],
+        "strong_state_changes": [],
+        "actions": [
+          "RETURN_PREVIOUS_TRANSACTION_RESULT"
+        ],
+        "forbidden": [
+          "INCREMENT_REJECTION_COUNT_AGAIN",
+          "RUN_INVESTIGATOR_AGAIN",
+          "COUNT_TRANSPORT_RETRY_AS_NEW_INTERACTION"
+        ],
+        "new_interactions": 0,
+        "end_session": false
+      }
+    },
+    {
+      "id": "F11",
+      "name": "\u7528\u6237\u7acb\u573a\u4e0e\u5df2\u6838\u5b9e\u8bb0\u5f55\u76f8\u53cd",
+      "user_view": "\u5426\u8ba4W3\u6709timeout\u65e5\u5fd7\uff0c\u540c\u65f6\u652f\u6301Payment\u53d8\u5316\u65e9\u4e8eCheckout\u7684\u9519\u8bef\u65f6\u5e8f\u3002",
+      "event": {
+        "feedback_id": "FB-SYN-011",
+        "items": [
+          {
+            "item_id": "I11a",
+            "target_claim_id": "C01",
+            "entity_ids": [
+              "S-P"
+            ],
+            "window_ids": [
+              "W3"
+            ],
+            "stance": "challenge",
+            "reason": "\u58f0\u79f0\u8be5\u7a97\u53e3\u6ca1\u6709timeout\u65e5\u5fd7"
+          },
+          {
+            "item_id": "I11b",
+            "target_claim_id": "C07",
+            "entity_ids": [
+              "S-P",
+              "S-C"
+            ],
+            "window_ids": [
+              "W2",
+              "W3"
+            ],
+            "stance": "support",
+            "reason": "\u58f0\u79f0Payment\u66f4\u65e9\u5f02\u5e38"
+          }
+        ]
+      },
+      "expected": {
+        "event_status": "ACCEPTED_FOR_INVESTIGATION",
+        "vector_sparse": [
+          {
+            "axis": "C01",
+            "mask": 1,
+            "stance_value": -1
+          },
+          {
+            "axis": "C07",
+            "mask": 1,
+            "stance_value": 1
+          }
+        ],
+        "gate": [
+          {
+            "item_id": "I11a",
+            "status": "SUPPORTED",
+            "evidence_value": 1,
+            "evidence_mask": 1
+          },
+          {
+            "item_id": "I11b",
+            "status": "CONTRADICTED",
+            "evidence_value": -1,
+            "evidence_mask": 1
+          }
+        ],
+        "review_windows": [
+          "W2",
+          "W3"
+        ],
+        "soft_prior_targets": [],
+        "strong_state_changes": [
+          {
+            "claim_id": "C07",
+            "from": "unresolved",
+            "to": "contradicted",
+            "evidence_refs": [
+              "E03"
+            ]
+          }
+        ],
+        "actions": [
+          "PRESERVE_ORIGINAL_OPERATOR_STANCE",
+          "SHOW_EVIDENCE_DISAGREEMENT",
+          "KEEP_C01_SUPPORTED",
+          "REVISE_FALSE_DERIVED_ORDER_CLAIM",
+          "GLOBAL_SYNTHESIS"
+        ],
+        "forbidden": [
+          "DELETE_E01_TO_AGREE_WITH_OPERATOR",
+          "INCREASE_C07_CREDIBILITY_FROM_RAW_SUPPORT",
+          "TURN_TIME_ORDER_INTO_UNIQUE_CAUSAL_PROOF"
+        ],
+        "new_interactions": 1,
+        "end_session": false
+      }
+    },
+    {
+      "id": "F12",
+      "name": "\u6700\u7ec8\u63a5\u53d7\u4e0e\u5c40\u90e8\u652f\u6301\u5206\u522b\u5904\u7406",
+      "user_view": "\u6211\u63a5\u53d7\u5f53\u524d\u9996\u9009Payment\u8bca\u65ad\uff0c\u7ed3\u675f\u672c\u6b21\u53cd\u9988\u4f1a\u8bdd\u3002",
+      "event": {
+        "feedback_id": "FB-SYN-012",
+        "event_type": "final_accept",
+        "items": [
+          {
+            "item_id": "I12",
+            "target_claim_id": "C02",
+            "entity_ids": [
+              "S-P"
+            ],
+            "window_ids": [
+              "W1",
+              "W2",
+              "W3"
+            ],
+            "stance": "support"
+          }
+        ]
+      },
+      "expected": {
+        "event_status": "OPERATOR_ACCEPTED",
+        "vector_sparse": [
+          {
+            "axis": "C02",
+            "mask": 1,
+            "stance_value": 1
+          }
+        ],
+        "gate": [
+          {
+            "item_id": "I12",
+            "status": "UNRESOLVED",
+            "evidence_value": 0,
+            "evidence_mask": 0
+          }
+        ],
+        "review_windows": [],
+        "soft_prior_targets": [],
+        "strong_state_changes": [],
+        "actions": [
+          "RECORD_OPERATOR_ACCEPTANCE",
+          "END_OPERATOR_FEEDBACK_SESSION",
+          "KEEP_EVIDENCE_STATUS_UNRESOLVED"
+        ],
+        "forbidden": [
+          "DECLARE_GROUND_TRUTH_CORRECT_WITHOUT_PRIVATE_EVALUATION",
+          "CONVERT_OPERATOR_ACCEPTANCE_TO_VERIFIED_CAUSAL_FACT"
+        ],
+        "new_interactions": 1,
+        "end_session": true
+      }
+    }
+  ]
+}

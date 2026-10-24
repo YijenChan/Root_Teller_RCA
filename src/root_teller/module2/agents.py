@@ -10,6 +10,7 @@ from .contracts import (
 )
 from .llm import CachedJSONClient
 from .rmg import RCAMemoryGraph
+from .cross_window import select_prompt_relations
 
 
 STEWARD_SYSTEM_PROMPT = """You are the Evidence Steward in a microservice RCA system.
@@ -69,11 +70,10 @@ class EvidenceSteward:
             "incident_id": rmg.incident_id,
             "activated_windows": compact_windows,
             "deterministic_candidate_ledger": deterministic[: self.config.top_k],
-            "validated_cross_window_relations": [
-                relation
-                for relation in rmg.relations
-                if relation["type"] == "propagation-continuation"
-            ][:20],
+            "cross_window_relation_context": select_prompt_relations(rmg.relations,maximum=20),
+            "cross_window_relation_coverage": {"full_records":len(rmg.relations),
+                "non_adjacent_records":sum(r.get("window_gap",1)>1 for r in rmg.relations)},
+            "relation_warning": "Context links and legacy validated identity/model states do not prove fault causality.",
             "prior_validation_results": rmg.validation_results[-10:],
             "hypothesis_states": [
                 {

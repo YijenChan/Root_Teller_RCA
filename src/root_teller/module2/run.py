@@ -15,6 +15,13 @@ from .config import Module2Config, Module2Paths
 from .contracts import stable_id
 from .llm import CachedJSONClient, load_api_settings
 from .rmg import RCAMemoryGraph
+from .cross_window import CrossWindowPolicy
+
+
+def _new_rmg(incident_id: str, config: Module2Config) -> RCAMemoryGraph:
+    return RCAMemoryGraph(incident_id,cross_window_policy=CrossWindowPolicy(
+        enabled=config.cross_window_enabled,max_neighbors=config.cross_window_neighbors,
+        max_chain_pairs=config.cross_window_chain_pairs,anomaly_threshold=config.cross_window_anomaly_threshold))
 
 
 def _args() -> argparse.Namespace:
@@ -192,7 +199,7 @@ def run_case_blind(
     if not pack_files:
         raise ValueError(f"no window packs in {case_root}")
     first = _load_pack(pack_files[0])
-    rmg = RCAMemoryGraph(first["incident_id"])
+    rmg = _new_rmg(first["incident_id"],config)
     rounds = []
     final_state: dict[str, Any] | None = None
     action = "ABSTAIN"
@@ -265,7 +272,7 @@ def run_case_blind(
             break
     assert final_state is not None
 
-    full_rmg = RCAMemoryGraph(first["incident_id"])
+    full_rmg = _new_rmg(first["incident_id"],config)
     for pack_file in pack_files:
         full_rmg.add_window(_load_pack(pack_file))
     if steward_agent is None:
@@ -358,7 +365,7 @@ def run_case_default(
     if not pack_files:
         raise ValueError(f"no window packs in {case_root}")
     first = _load_pack(pack_files[0])
-    rmg = RCAMemoryGraph(first["incident_id"])
+    rmg = _new_rmg(first["incident_id"],config)
     ingestion_trace = []
     for pack_file in pack_files:
         pack = _load_pack(pack_file)

@@ -51,6 +51,11 @@ The nested fold JSON files are the authoritative split definitions.
 
 ## Root-Teller
 
+These three-seed orchestration entry points retain historical preprocessing
+and checkpoint conventions. They do not automatically switch all datasets to
+one-second feature aggregation or regenerate revision-matched weights. See
+[implementation and empirical boundaries](../../docs/REVISION2_ALIGNMENT.md).
+
 Run every dataset with seeds 41, 42, and 43 as documented in the repository
 README. Each run writes its fold manifest, private evaluation file, summary,
 and checksum under the configured workspace. Use
@@ -74,6 +79,11 @@ Then invoke the selected adapter. Repeat for all outer folds and aggregate
 predictions only after every incident has been evaluated exactly once. See
 `baseline_adapters/README.md` for method-specific commands and adaptation
 boundaries.
+
+For the two added methods, use `python -m root_teller.baselines.run` with an
+explicit dataset/fold/split rather than the original six-method dataset
+wrappers. Preparation is the default; live calls require `--mode live`.
+The current default backend records a local adaptation, not native-model parity.
 
 ## Results and provenance
 

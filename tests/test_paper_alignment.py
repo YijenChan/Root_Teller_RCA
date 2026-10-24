@@ -13,7 +13,7 @@ from root_teller.multidataset.rq1_three_seed import SEEDS
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_perception_defaults_match_the_paper() -> None:
+def test_perception_defaults_preserve_historical_checkpoint_contract() -> None:
     features = FeatureConfig()
     model = ModelConfig()
     assert features.bin_seconds == 60
@@ -30,7 +30,7 @@ def test_perception_defaults_match_the_paper() -> None:
     assert model.use_availability_mask is True
 
 
-def test_agent_defaults_match_the_paper() -> None:
+def test_agent_defaults_preserve_historical_controls_and_shared_budgets() -> None:
     collaboration = Module2Config()
     interaction = Module3Config()
     assert collaboration.window_seconds == 60
@@ -48,9 +48,9 @@ def test_agent_defaults_match_the_paper() -> None:
 
 def test_rq1_root_teller_rows_match_the_paper() -> None:
     expected = {
-        "RE2-OB": (0.717, 0.911, 0.889),
-        "RE2-TT": (0.835, 0.899, 0.914),
-        "Eadro-SN": (0.500, 0.789, 0.750),
+        "RE2-OB": (0.719, 0.911, 0.889),
+        "RE2-TT": (0.833, 0.900, 0.914),
+        "Eadro-SN": (0.500, 0.787, 0.750),
     }
     with (ROOT / "evaluation/rq1/results/paper_table.csv").open(
         newline="", encoding="utf-8"

@@ -108,7 +108,7 @@ def export_cases(
         }
         case_root = split_root / case_id
         case_root.mkdir(parents=True, exist_ok=True)
-        bins = int(raw_case["metric_x"].shape[1])
+        bins = window_export._window_count(raw_case)
         for activation_order, bin_index in enumerate(range(bins - 1, -1, -1)):
             destination = case_root / f"W{activation_order:02d}.json"
             if destination.exists() and not overwrite:

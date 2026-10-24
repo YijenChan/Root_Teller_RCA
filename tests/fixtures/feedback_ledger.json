@@ -1,0 +1,236 @@
+{
+  "schema_version": "synthetic-cp1-ledger-1.0",
+  "purpose": "\u624b\u5de5\u6784\u9020\u7684\u63a5\u53e3\u6d4b\u8bd5\u4e16\u754c\uff1b\u4e0d\u662f\u4efb\u4f55\u771f\u5b9eincident\uff0c\u4e0d\u7528\u4e8e\u8bba\u6587\u6027\u80fd\u8bc4\u4ef7",
+  "incident_id": "SYN-INC-001",
+  "snapshot_version": 1,
+  "current_leading_root_claim": "C02",
+  "available_windows": {
+    "W1": {
+      "start_seconds": 0,
+      "end_seconds": 60
+    },
+    "W2": {
+      "start_seconds": 60,
+      "end_seconds": 120
+    },
+    "W3": {
+      "start_seconds": 120,
+      "end_seconds": 180
+    }
+  },
+  "canonical_entities": {
+    "S-C": {
+      "label": "Checkout",
+      "aliases": [
+        "checkoutservice"
+      ]
+    },
+    "S-P": {
+      "label": "Payment",
+      "aliases": [
+        "paymentservice"
+      ]
+    }
+  },
+  "relations": {
+    "R-CP": {
+      "source": "S-C",
+      "target": "S-P",
+      "type": "observed_dependency",
+      "evidence_refs": [
+        "E04"
+      ]
+    }
+  },
+  "evidence": {
+    "E01": {
+      "kind": "log_observation",
+      "entity_ids": [
+        "S-P"
+      ],
+      "window_ids": [
+        "W3"
+      ],
+      "description": "Payment timeout\u65e5\u5fd7\u8bb0\u5f55\u5728145\u79d2\u548c148\u79d2\uff1b\u4ec5\u8bc1\u660e\u65e5\u5fd7\u5185\u5bb9\u5b58\u5728"
+    },
+    "E02": {
+      "kind": "metric_observation",
+      "entity_ids": [
+        "S-C"
+      ],
+      "window_ids": [
+        "W2"
+      ],
+      "description": "Checkout\u961f\u5217\u6307\u6807\u572890\u79d2\u5f00\u59cb\u504f\u79bb\u53c2\u8003\u533a\u95f4"
+    },
+    "E03": {
+      "kind": "measured_onset_comparison",
+      "entity_ids": [
+        "S-C",
+        "S-P"
+      ],
+      "window_ids": [
+        "W2",
+        "W3"
+      ],
+      "checkout_onset_seconds": 90,
+      "payment_timeout_onset_seconds": 145,
+      "description": "\u5df2\u89c2\u6d4b\u6307\u6807\u7684\u8d77\u59cb\u987a\u5e8f\uff0c\u4e0d\u8bc1\u660e\u7269\u7406\u6839\u56e0\u6216\u56e0\u679c\u4f20\u64ad"
+    },
+    "E04": {
+      "kind": "trace_dependency",
+      "entity_ids": [
+        "S-C",
+        "S-P"
+      ],
+      "window_ids": [
+        "W2",
+        "W3"
+      ],
+      "description": "trace\u5305\u542bCheckout\u8c03\u7528Payment\uff1b\u4f9d\u8d56\u65b9\u5411\u4e0d\u7b49\u4e8e\u5df2\u8bc1\u5b9e\u6545\u969c\u4f20\u64ad"
+    }
+  },
+  "vector_axes": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08"
+  ],
+  "claims": {
+    "C01": {
+      "kind": "observation",
+      "entity_ids": [
+        "S-P"
+      ],
+      "window_ids": [
+        "W3"
+      ],
+      "text": "Payment\u7684W3\u65e5\u5fd7\u5305\u542btimeout\u8bb0\u5f55",
+      "initial_state": "supported",
+      "fixture_evidence_verdict": "SUPPORTED",
+      "verdict_evidence_refs": [
+        "E01"
+      ]
+    },
+    "C02": {
+      "kind": "root_role_global",
+      "entity_ids": [
+        "S-P"
+      ],
+      "window_ids": [
+        "W1",
+        "W2",
+        "W3"
+      ],
+      "text": "Payment\u662f\u672cincident\u7684\u6839\u56e0\u5019\u9009",
+      "initial_state": "unresolved",
+      "fixture_evidence_verdict": "UNRESOLVED",
+      "verdict_evidence_refs": []
+    },
+    "C03": {
+      "kind": "observation",
+      "entity_ids": [
+        "S-C"
+      ],
+      "window_ids": [
+        "W2"
+      ],
+      "text": "Checkout\u7684W2\u961f\u5217\u6307\u6807\u51fa\u73b0\u5f02\u5e38\u504f\u79bb",
+      "initial_state": "supported",
+      "fixture_evidence_verdict": "SUPPORTED",
+      "verdict_evidence_refs": [
+        "E02"
+      ]
+    },
+    "C04": {
+      "kind": "measured_temporal_order",
+      "entity_ids": [
+        "S-C",
+        "S-P"
+      ],
+      "window_ids": [
+        "W2",
+        "W3"
+      ],
+      "text": "\u5df2\u89c2\u6d4bCheckout\u961f\u5217\u53d8\u5316\u65e9\u4e8e\u5df2\u89c2\u6d4bPayment timeout\u53d8\u5316",
+      "initial_state": "unresolved",
+      "fixture_evidence_verdict": "SUPPORTED",
+      "verdict_evidence_refs": [
+        "E03"
+      ]
+    },
+    "C05": {
+      "kind": "propagation_explanation",
+      "entity_ids": [
+        "S-C",
+        "S-P"
+      ],
+      "window_ids": [
+        "W2",
+        "W3"
+      ],
+      "text": "Checkout\u7684\u6545\u969c\u4f20\u64ad\u5230Payment",
+      "initial_state": "unresolved",
+      "fixture_evidence_verdict": "UNRESOLVED",
+      "verdict_evidence_refs": [
+        "E03",
+        "E04"
+      ]
+    },
+    "C06": {
+      "kind": "root_role_global",
+      "entity_ids": [
+        "S-C"
+      ],
+      "window_ids": [
+        "W1",
+        "W2",
+        "W3"
+      ],
+      "text": "Checkout\u662f\u672cincident\u7684\u6839\u56e0\u5019\u9009",
+      "initial_state": "unresolved",
+      "fixture_evidence_verdict": "UNRESOLVED",
+      "verdict_evidence_refs": []
+    },
+    "C07": {
+      "kind": "measured_temporal_order",
+      "entity_ids": [
+        "S-P",
+        "S-C"
+      ],
+      "window_ids": [
+        "W2",
+        "W3"
+      ],
+      "text": "\u5df2\u89c2\u6d4bPayment timeout\u53d8\u5316\u65e9\u4e8e\u5df2\u89c2\u6d4bCheckout\u961f\u5217\u53d8\u5316",
+      "initial_state": "unresolved",
+      "fixture_evidence_verdict": "CONTRADICTED",
+      "verdict_evidence_refs": [
+        "E03"
+      ]
+    },
+    "C08": {
+      "kind": "root_role_local",
+      "entity_ids": [
+        "S-P"
+      ],
+      "window_ids": [
+        "W3"
+      ],
+      "text": "Payment\u5728W3\u7684\u5f02\u5e38\u5e94\u88ab\u89e3\u91ca\u4e3a\u5c40\u90e8\u6545\u969c\u8d77\u70b9",
+      "initial_state": "unresolved",
+      "fixture_evidence_verdict": "UNRESOLVED",
+      "verdict_evidence_refs": []
+    }
+  },
+  "invariants": [
+    "\u65e0benchmark ground-truth\u6839\u56e0\u6807\u7b7e",
+    "\u672a\u7ed9\u51fa\u4efb\u4f55\u771f\u5b9e\u6a21\u578b\u5206\u6570",
+    "\u8bc1\u636e\u5b58\u5728\u548c\u5148\u540e\u987a\u5e8f\u4e0d\u81ea\u52a8\u8bc1\u660eroot role\u6216\u4f20\u64ad\u56e0\u679c",
+    "Gate\u6807\u6ce8\u4ec5\u7528\u4e8e\u68c0\u67e5\u5de5\u7a0bfixture\u4e00\u81f4\u6027\uff0c\u4e0d\u4ee3\u8868LLM\u5df2\u8bc6\u522b\u8fd9\u4e9b\u72b6\u6001"
+  ]
+}

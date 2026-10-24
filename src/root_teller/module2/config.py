@@ -56,6 +56,10 @@ class Module2Config:
     recency_decay: float = 0.94
     steward_weight: float = 0.20
     deterministic_weight: float = 0.80
+    cross_window_enabled: bool = True
+    cross_window_neighbors: int = 3
+    cross_window_chain_pairs: int = 8
+    cross_window_anomaly_threshold: float = 0.5
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)

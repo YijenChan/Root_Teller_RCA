@@ -15,3 +15,8 @@ separate redistribution permission.
 This notice is factual inventory information, not legal advice and not a
 replacement for a repository-level license selected by the Root-Teller
 authors.
+
+RCACopilot and RCAgent are additional Root-Teller-authored, paper-based
+adaptations in `src/root_teller/baselines/`, not bundled official author source.
+Their provenance, benchmark adaptation and model limits are documented in
+[`baselines/REPRODUCTIONS.md`](../../../baselines/REPRODUCTIONS.md).

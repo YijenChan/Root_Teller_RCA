@@ -16,9 +16,9 @@ RQ1 = ROOT / "evaluation" / "rq1"
 def main() -> None:
     with (RQ1 / "results" / "paper_table.csv").open(newline="", encoding="utf-8") as stream:
         table = list(csv.DictReader(stream))
-    assert len(table) == 21
+    assert len(table) == 27
     assert {row["method"] for row in table} == {
-        "Eadro", "Nezha", "Multi-source RCD", "TORAI", "ThinkFL", "RCLAgent", "Root-Teller"
+        "Eadro", "Nezha", "Multi-source RCD", "TORAI", "ThinkFL", "RCLAgent", "RCACopilot", "RCAgent", "Root-Teller"
     }
     assert all(0.0 <= float(row[key]) <= 1.0 for row in table for key in ("A@1", "A@3", "Avg@5"))
 

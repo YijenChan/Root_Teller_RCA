@@ -1,0 +1,14 @@
+{
+  "schema_version": "root-teller-revision2-method-1.0",
+  "status": "method_source_alignment_not_empirical_validation",
+  "observation": {"rca_window_seconds": 60, "aggregation_seconds": 1, "legacy_released_checkpoint_aggregation_seconds": 60},
+  "cross_window": {"enabled": true, "max_neighbors": 3, "max_chain_pairs": 8, "anomaly_threshold": 0.5},
+  "feedback": {
+    "max_items": 3, "max_tasks": 2, "max_windows_per_task": 2, "interaction_budget": 20,
+    "gamma": 0.9, "model_rank_weight": 0.2, "offline_model_rank_weight": 0.0,
+    "score_order": "fresh synthesis followed by cumulative hypothesis penalty once",
+    "operator_acceptance": "separate terminal event, not claim support"
+  },
+  "runtime": {"model": "gpt-4o-mini", "temperature": 0, "credentials": "environment variables"},
+  "historical_outputs": "not regenerated or automatically validated by this source update"
+}

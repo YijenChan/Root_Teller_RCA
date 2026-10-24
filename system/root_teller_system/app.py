@@ -42,8 +42,13 @@ class DiagnoseRequest(BaseModel):
 
 class FeedbackRequest(BaseModel):
     entity: str
-    verdict: str = Field(pattern="^(ACCEPT|REJECT|accept|reject)$")
+    verdict: str = Field(pattern="^(ACCEPT|REJECT|SUPPORT|CHECK|accept|reject|support|check)$")
     message: str = Field(default="", max_length=1200)
+    items: list[dict[str, Any]] | None = Field(default=None, max_length=3)
+    feedback_id: str | None = Field(default=None, max_length=128)
+    snapshot_version: int | None = Field(default=None, ge=1)
+    scope: str = Field(default="root", pattern="^(root|observation|propagation)$")
+    window_id: str | None = None
 
 
 app = FastAPI(title="Root-Teller Local System", version="0.1.0")
@@ -137,7 +142,10 @@ def feedback(job_id: str, request: FeedbackRequest) -> dict[str, Any]:
     if job["status"] != "complete":
         raise HTTPException(status_code=409, detail="Diagnosis is not complete.")
     try:
-        update = apply_feedback(job["result"], request.entity, request.verdict.upper(), request.message)
+        with LOCK:
+            update = apply_feedback(job["result"], request.entity, request.verdict.upper(), request.message,
+                items=request.items, feedback_id=request.feedback_id, snapshot_version=request.snapshot_version,
+                scope=request.scope, window_id=request.window_id)
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
     with LOCK:

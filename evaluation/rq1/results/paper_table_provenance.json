@@ -1,0 +1,11 @@
+{
+  "status": "manuscript_transcription_not_execution_log",
+  "source": "Root_Teller__Progressive_Root_Cause_Analysis_in_Microservice_Systems_via_a_Cross_Window_Memory_Graph (6).pdf",
+  "table": "Table 3",
+  "transcribed_on": "2026-10-24",
+  "methods": 9,
+  "systems": 3,
+  "new_experiments_run_for_this_update": false,
+  "prior_transcription": "paper_table_legacy_r1.csv",
+  "model_and_seed_provenance": "Requires corresponding execution manifests; see docs/REVISION2_ALIGNMENT.md"
+}

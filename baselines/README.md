@@ -1,6 +1,7 @@
 # Baseline provenance and source snapshots
 
-This directory records the six baselines evaluated in RQ1. Where redistribution
+This directory records eight baseline entries. The six original provenance
+entries are retained, and two additional paper-based adaptations are documented. Where redistribution
 terms are available, a convenience source snapshot is included. Portable
 Root-Teller-specific adapters are provided separately under
 `evaluation/rq1/baseline_adapters/`. Generated predictions, caches, benchmark
@@ -14,6 +15,11 @@ data, and private reproduction outputs are intentionally excluded.
 | `torai` | TORAI | <https://figshare.com/articles/software/31938495> |
 | `thinkfl` | ThinkFL | <https://github.com/LLM4AIOps/OpenRLHF-ThinkFL> |
 | `rclagent` | RCLAgent | <https://github.com/LLM4AIOps/RCLAgent-V2> |
+| `rcacopilot` | RCACopilot adaptation | Root-Teller paper-based implementation; see directory README |
+| `rcagent` | RCAgent CIKM 2024 adaptation | Root-Teller paper-based implementation; see directory README |
+
+Read [the reproduction boundary](REPRODUCTIONS.md) before interpreting model
+settings or comparing the adapted outputs with native author results.
 
 Each baseline remains subject to its upstream license and dependency terms.
 The Eadro directory contains only provenance and acquisition instructions

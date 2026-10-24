@@ -14,6 +14,8 @@ IGNORED_PARTS = {
     ".pytest_cache",
     ".git",
     ".venv",
+    "build",
+    "dist",
     # Independently maintained material retained in the public repository;
     # it is not part of the Root-Teller paper artifact or its checksum scope.
     "office_mini_storm_dataset",
@@ -60,9 +62,9 @@ def _tracked_files(root: Path) -> list[Path]:
 
 def _paper_table_matches(root: Path) -> bool:
     expected = {
-        "RE2-OB": (0.717, 0.911, 0.889),
-        "RE2-TT": (0.835, 0.899, 0.914),
-        "Eadro-SN": (0.500, 0.789, 0.750),
+        "RE2-OB": (0.719, 0.911, 0.889),
+        "RE2-TT": (0.833, 0.900, 0.914),
+        "Eadro-SN": (0.500, 0.787, 0.750),
     }
     table = root / "evaluation/rq1/results/paper_table.csv"
     if not table.exists():
@@ -84,7 +86,7 @@ def _paper_table_matches(root: Path) -> bool:
     return actual == expected
 
 
-def _configuration_matches(root: Path) -> bool:
+def _historical_configuration_preserved(root: Path) -> bool:
     perception = json.loads(
         (root / "configs/module1_re2ob_frozen_2026-07-24.json").read_text(
             encoding="utf-8"
@@ -122,11 +124,35 @@ def _configuration_matches(root: Path) -> bool:
     )
 
 
+def _revision_configuration_matches(root: Path) -> bool:
+    """Check the declared source contract, not empirical/model equivalence."""
+    try:
+        config = json.loads((root / "configs/revision2_method.json").read_text(encoding="utf-8"))
+        observation, cross, feedback = (config[k] for k in ("observation", "cross_window", "feedback"))
+        return all((
+            observation["aggregation_seconds"] == 1,
+            observation["rca_window_seconds"] == 60,
+            observation["legacy_released_checkpoint_aggregation_seconds"] == 60,
+            cross["enabled"] is True, cross["max_neighbors"] == 3,
+            cross["max_chain_pairs"] == 8, cross["anomaly_threshold"] == 0.5,
+            feedback["max_items"] == 3, feedback["max_tasks"] == 2,
+            feedback["max_windows_per_task"] == 2, feedback["interaction_budget"] == 20,
+            feedback["gamma"] == 0.9, feedback["model_rank_weight"] == 0.2,
+            feedback["offline_model_rank_weight"] == 0.0,
+            config["status"] == "method_source_alignment_not_empirical_validation",
+        ))
+    except (OSError, ValueError, KeyError, TypeError):
+        return False
+
+
 def audit_release(root: Path, output_dir: Path | None = None) -> dict[str, Any]:
     root = root.resolve()
     required = [
         root / "README.md",
         root / "pyproject.toml",
+        root / "CHANGELOG.md",
+        root / "configs/revision2_method.json",
+        root / "docs/REVISION2_ALIGNMENT.md",
         root / "docs/PAPER_CODE_ALIGNMENT.md",
         root / "evaluation/README.md",
         root / "evaluation/rq1/results/paper_table.csv",
@@ -184,18 +210,21 @@ def audit_release(root: Path, output_dir: Path | None = None) -> dict[str, Any]:
         "no_api_key_literal": not secret_hits,
         "english_only_text": not cjk_hits,
         "no_author_machine_paths": not local_path_hits,
-        "paper_configuration_matches": _configuration_matches(root),
+        "historical_configuration_preserved": _historical_configuration_preserved(root),
+        "revision_reference_contract_matches": _revision_configuration_matches(root),
         "rq1_table_matches_paper": _paper_table_matches(root),
-        "evaluation_release_boundary_matches": evaluations == ["rq1", "rq2"],
-        "six_baselines_are_documented": baselines
-        == ["eadro", "multisource_rcd", "nezha", "rclagent", "thinkfl", "torai"],
+        "evaluation_release_boundary_matches": evaluations == ["feedback", "rq1", "rq2"],
+        "eight_baselines_are_documented": baselines
+        == ["eadro", "multisource_rcd", "nezha", "rcacopilot", "rcagent", "rclagent", "thinkfl", "torai"],
+        "revised_feedback_schema_present": (root / "src/root_teller/module3/structured/feedback_schema.json").is_file(),
+        "revised_feedback_entrypoint_present": (root / "src/root_teller/module3/session.py").is_file(),
     }
     manifest = {
         str(path.relative_to(root)).replace("\\", "/"): _sha256(path)
         for path in _tracked_files(root)
     }
     result = {
-        "schema_version": "root-teller-public-release-audit-1.0",
+        "schema_version": "root-teller-public-release-audit-2.0",
         "passed": all(checks.values()),
         "checks": checks,
         "details": {

@@ -8,6 +8,7 @@ or experiment-host API responses.
 |---|---|
 | `rq1/` | Frozen split manifests, compact paper table, portable baseline adapters, and integrity scripts |
 | `rq2/` | The path contract connecting the GMO/IAMI generator to evaluation consumers |
+| `feedback/` | Revised paired-feedback runner, controls, success and capped-cost accounting |
 
 The raw RCAEval and Eadro-SN datasets are not included. Experiment-host
 checkpoints, private labels, response caches, per-case rankings, and LLM

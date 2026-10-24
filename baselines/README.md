@@ -1,7 +1,7 @@
 # Baseline provenance and source snapshots
 
-This directory records eight baseline entries. The six original source snapshots
-are retained, and two additional paper-based adaptations are documented. Where redistribution
+This directory records eight baseline entries. The six original provenance
+entries are retained, and two additional paper-based adaptations are documented. Where redistribution
 terms are available, a convenience source snapshot is included. Portable
 Root-Teller-specific adapters are provided separately under
 `evaluation/rq1/baseline_adapters/`. Generated predictions, caches, benchmark

@@ -13,7 +13,7 @@ from root_teller.multidataset.rq1_three_seed import SEEDS
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_perception_defaults_match_the_paper() -> None:
+def test_perception_defaults_preserve_historical_checkpoint_contract() -> None:
     features = FeatureConfig()
     model = ModelConfig()
     assert features.bin_seconds == 60
@@ -30,7 +30,7 @@ def test_perception_defaults_match_the_paper() -> None:
     assert model.use_availability_mask is True
 
 
-def test_agent_defaults_match_the_paper() -> None:
+def test_agent_defaults_preserve_historical_controls_and_shared_budgets() -> None:
     collaboration = Module2Config()
     interaction = Module3Config()
     assert collaboration.window_seconds == 60

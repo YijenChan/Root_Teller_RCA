@@ -9,7 +9,7 @@ workspaces. Complete it from a clean clone before creating a public tag.
   reporting, and feedback refinement;
 - frozen public configurations and grouped split manifests;
 - compact manuscript result table and common evaluator definitions;
-- portable compatibility adapters and provenance records for all six
+- portable compatibility adapters and provenance records for all eight
   baselines;
 - GMO/IAMI dataset-view generator and semantic validator;
 - local interactive system, small fold-specific perception checkpoints, and
@@ -20,9 +20,8 @@ workspaces. Complete it from a clean clone before creating a public tag.
 
 1. Confirm that `evaluation/rq1/results/paper_table.csv` matches the submitted
    manuscript exactly.
-2. Select and add an appropriate repository-level `LICENSE` or clearly state
-   the applicable distribution terms. Do not infer or overwrite third-party
-   licenses.
+2. Review the existing repository-level MIT `LICENSE` and the separately
+   retained third-party terms. Do not infer or overwrite third-party licenses.
 3. Review `evaluation/rq1/baseline_adapters/THIRD_PARTY_STATUS.md` before
    redistributing upstream snapshots, especially Eadro.
 4. Confirm that no raw benchmark telemetry, private labels, API responses,
@@ -31,6 +30,12 @@ workspaces. Complete it from a clean clone before creating a public tag.
    with the release record.
 6. Create a release tag and record the public commit hash/tag in the response
    letter or artifact appendix.
+7. Resolve model/backbone differences for the added adaptations and verify the
+   actual temporal aggregation and trained weights against the manuscript.
+   Match any revised-method claim to a versioned run manifest; a passing audit
+   or transcribed result table is not empirical validation.
+8. Keep historical UI/live-model records labelled historical and confirm that
+   the README's runnable entry points match the final merged source.
 
 ## Fresh-clone commands
 

@@ -47,9 +47,11 @@ is performed by the alignment tests.
 ## Configuration and use
 
 The new configuration is `configs/revision2_method.json`.
-It declares the temporal contract, cross-window policy, evidence budgets,
-feedback representation and score ordering. Historical frozen JSON files retain
-their original meanings.
+It records the temporal contract, cross-window policy, evidence budgets,
+feedback representation and score ordering. It is a reference specification,
+not an automatically loaded universal runtime config. Select matching presets
+and entry-point options explicitly. Historical frozen JSON files retain their
+original meanings.
 
 From Python:
 

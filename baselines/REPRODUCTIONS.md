@@ -19,6 +19,7 @@ experiment. GPT-5 deployments that omit temperature are recorded as such.
 The paper's model labels, three-seed aggregation and provenance must be checked
 against actual execution manifests before claiming a direct reproduction.
 
-The original six upstream snapshots are retained untouched. The two new methods
+The original six provenance entries and available source snapshots are retained
+untouched; Eadro implementation code is not bundled. The two new methods
 are distributed as Root-Teller's paper-based adaptation code under
 `root_teller.baselines`; no third-party demonstration data is used as a ranker.

@@ -1,5 +1,5 @@
 {
-  "schema_version": "root-teller-public-release-audit-1.0",
+  "schema_version": "root-teller-public-release-audit-2.0",
   "passed": true,
   "checks": {
     "required_files_present": true,
@@ -8,10 +8,13 @@
     "no_api_key_literal": true,
     "english_only_text": true,
     "no_author_machine_paths": true,
-    "paper_configuration_matches": true,
+    "historical_configuration_preserved": true,
+    "revision_reference_contract_matches": true,
     "rq1_table_matches_paper": true,
     "evaluation_release_boundary_matches": true,
-    "six_baselines_are_documented": true
+    "eight_baselines_are_documented": true,
+    "revised_feedback_schema_present": true,
+    "revised_feedback_entrypoint_present": true
   },
   "details": {
     "missing": [],
@@ -19,6 +22,6 @@
     "secret_hits": [],
     "cjk_hits": [],
     "local_path_hits": [],
-    "tracked_files": 438
+    "tracked_files": 483
   }
 }

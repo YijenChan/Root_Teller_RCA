@@ -96,6 +96,10 @@ Small fold-specific Perception Agent checkpoints are bundled in
 model parameters, reference statistics, and fold manifests; raw benchmark
 telemetry is not included.
 
+These are historical 60-second-bin weights. Launching the UI does not retrain
+them for the revised one-second feature preset. Historical screenshots and
+live-model smoke results do not establish revised-method accuracy.
+
 ## Tests
 
 ```powershell

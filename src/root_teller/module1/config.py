@@ -71,6 +71,15 @@ class FeatureConfig:
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
 
+    @classmethod
+    def paper_intervals(cls, **kwargs) -> "FeatureConfig":
+        """One-second input intervals for the revised 60-second RCA windows.
+
+        Existing released checkpoints retain their recorded 60-second feature
+        configuration. Do not silently relabel their caches as this preset.
+        """
+        return cls(bin_seconds=1, **kwargs)
+
     @property
     def log_content_dim(self) -> int:
         return self.log_sbert_dim if self.log_backend == "sbert" else self.log_hash_dim

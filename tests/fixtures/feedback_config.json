@@ -1,0 +1,17 @@
+{
+  "schema_version": "cp2-offline-engine-config-1.0",
+  "execution_mode": "offline_typed_evidence_pipeline_only",
+  "seed": 42,
+  "score_policy": "t0_soft_prior_fallback_v1",
+  "gamma": 0.9,
+  "feedback_forgetting_rho": 1.0,
+  "evidence_window_recency": 0.94,
+  "max_items": 3,
+  "max_tasks": 4,
+  "max_windows_per_task": 2,
+  "max_context_claims_per_task": 24,
+  "max_context_evidence_per_task": 160,
+  "submission_budget": 20,
+  "unknown_causality": "UNRESOLVED, even when a score or dependency exists",
+  "external_API_authorized": false
+}

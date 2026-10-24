@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:root-teller:feedback:cp1-proposal-v1",
+  "title": "Hypothesis and claim targeted feedback event",
+  "description": "CP1 proposed input contract. This schema checks format, not factual correctness.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "feedback_id", "incident_id", "snapshot_version", "source_mode", "binding_confirmed", "event_type", "items"],
+  "properties": {
+    "schema_version": {"const": "feedback-cp1-proposal-1.0"},
+    "feedback_id": {"type": "string", "minLength": 1, "maxLength": 128},
+    "incident_id": {"type": "string", "minLength": 1, "maxLength": 128},
+    "snapshot_version": {"type": "integer", "minimum": 1},
+    "source_mode": {"type": "string", "enum": ["structured", "confirmed_text"]},
+    "binding_confirmed": {"type": "boolean"},
+    "event_type": {"type": "string", "enum": ["comment", "final_accept"]},
+    "items": {
+      "type": "array", "minItems": 1, "maxItems": 3,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["item_id", "target_kind", "target_claim_id", "entity_ids", "entity_labels", "window_ids", "stance", "reason", "requested_check", "evidence_refs", "proposed_text"],
+        "properties": {
+          "item_id": {"type": "string", "minLength": 1, "maxLength": 128},
+          "target_kind": {"type": "string", "enum": ["existing_claim", "new_hypothesis", "external_clue"]},
+          "target_claim_id": {"type": ["string", "null"]},
+          "entity_ids": {"type": "array", "maxItems": 4, "uniqueItems": true, "items": {"type": "string"}},
+          "entity_labels": {"type": "array", "maxItems": 4, "uniqueItems": true, "items": {"type": "string", "maxLength": 128}},
+          "window_ids": {"type": "array", "maxItems": 24, "uniqueItems": true, "items": {"type": "string"}},
+          "stance": {"type": "string", "enum": ["support", "challenge", "unsure"]},
+          "reason": {"type": "string", "maxLength": 1600},
+          "requested_check": {"type": "string", "maxLength": 600},
+          "evidence_refs": {"type": "array", "maxItems": 8, "uniqueItems": true, "items": {"type": "string"}},
+          "proposed_text": {"type": ["string", "null"]}
+        }
+      }
+    }
+  }
+}

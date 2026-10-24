@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from .contracts import stable_id
+from .cross_window import CrossWindowPolicy, build_relations
 
 
 @dataclass
@@ -19,6 +20,7 @@ class RCAMemoryGraph:
     validation_results: list[dict[str, Any]] = field(default_factory=list)
     diagnostic_abstracts: dict[str, str] = field(default_factory=dict)
     synthesis_history: list[dict[str, Any]] = field(default_factory=list)
+    cross_window_policy: CrossWindowPolicy = field(default_factory=CrossWindowPolicy)
 
     def add_window(self, pack: dict[str, Any]) -> None:
         if pack["incident_id"] != self.incident_id:
@@ -49,6 +51,8 @@ class RCAMemoryGraph:
             f"local candidates: {local_candidates}; unavailable modalities: {unavailable}"
         )
         self._add_adjacent_relations(window_id)
+        self.relations.extend(build_relations(self.incident_id,window_id,self.windows,
+                                             self.immutable_hashes,self.cross_window_policy))
         self._refresh_hypotheses()
 
     def _add_adjacent_relations(self, window_id: str) -> None:
@@ -289,4 +293,5 @@ class RCAMemoryGraph:
             "validation_results": self.validation_results,
             "diagnostic_abstracts": self.diagnostic_abstracts,
             "synthesis_history": self.synthesis_history,
+            "cross_window_policy": self.cross_window_policy.to_dict(),
         }

@@ -48,9 +48,9 @@ def test_agent_defaults_match_the_paper() -> None:
 
 def test_rq1_root_teller_rows_match_the_paper() -> None:
     expected = {
-        "RE2-OB": (0.717, 0.911, 0.889),
-        "RE2-TT": (0.835, 0.899, 0.914),
-        "Eadro-SN": (0.500, 0.789, 0.750),
+        "RE2-OB": (0.719, 0.911, 0.889),
+        "RE2-TT": (0.833, 0.900, 0.914),
+        "Eadro-SN": (0.500, 0.787, 0.750),
     }
     with (ROOT / "evaluation/rq1/results/paper_table.csv").open(
         newline="", encoding="utf-8"

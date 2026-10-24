@@ -119,6 +119,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--full-dropout-probability", type=float, default=0.25)
     parser.add_argument("--suffix-dropout-probability", type=float, default=0.25)
     parser.add_argument("--log-backend", choices=["hash", "sbert"], default="sbert")
+    parser.add_argument("--aggregation-seconds", type=int, choices=[1, 60], default=60)
     parser.add_argument("--fusion-mode", choices=["adaptive", "static"], default="adaptive")
     parser.add_argument("--disable-availability-mask", action="store_true")
     return parser.parse_args()
@@ -130,7 +131,7 @@ def main() -> None:
     seed_everything(args.seed)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     paths = Paths()
-    feature_config = FeatureConfig(log_backend=args.log_backend)
+    feature_config = FeatureConfig(log_backend=args.log_backend, bin_seconds=args.aggregation_seconds)
     model_config = ModelConfig(
         hidden_dim=args.hidden_dim,
         embedding_dim=args.embedding_dim,

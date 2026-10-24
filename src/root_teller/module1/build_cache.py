@@ -23,14 +23,16 @@ def parse_args() -> argparse.Namespace:
         required=True,
     )
     parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--log-backend", choices=["hash", "sbert"], default="hash")
+    parser.add_argument("--log-backend", choices=["hash", "sbert"], default="sbert")
+    parser.add_argument("--aggregation-seconds", type=int, choices=[1, 60], default=60,
+                        help="Use 1 for revision inputs; 60 preserves historical checkpoint compatibility")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
     paths = Paths()
-    config = FeatureConfig(log_backend=args.log_backend)
+    config = FeatureConfig(log_backend=args.log_backend, bin_seconds=args.aggregation_seconds)
     specs = [
         spec
         for spec in load_case_specs(paths)

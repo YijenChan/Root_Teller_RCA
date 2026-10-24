@@ -1,3 +1,4 @@
+"""Legacy fixed-score evaluator; use module3.evaluate_feedback for revision runs."""
 from __future__ import annotations
 
 import argparse

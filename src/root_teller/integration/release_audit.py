@@ -14,6 +14,8 @@ IGNORED_PARTS = {
     ".pytest_cache",
     ".git",
     ".venv",
+    "build",
+    "dist",
     # Independently maintained material retained in the public repository;
     # it is not part of the Root-Teller paper artifact or its checksum scope.
     "office_mini_storm_dataset",
@@ -60,9 +62,9 @@ def _tracked_files(root: Path) -> list[Path]:
 
 def _paper_table_matches(root: Path) -> bool:
     expected = {
-        "RE2-OB": (0.717, 0.911, 0.889),
-        "RE2-TT": (0.835, 0.899, 0.914),
-        "Eadro-SN": (0.500, 0.789, 0.750),
+        "RE2-OB": (0.719, 0.911, 0.889),
+        "RE2-TT": (0.833, 0.900, 0.914),
+        "Eadro-SN": (0.500, 0.787, 0.750),
     }
     table = root / "evaluation/rq1/results/paper_table.csv"
     if not table.exists():
@@ -186,9 +188,11 @@ def audit_release(root: Path, output_dir: Path | None = None) -> dict[str, Any]:
         "no_author_machine_paths": not local_path_hits,
         "paper_configuration_matches": _configuration_matches(root),
         "rq1_table_matches_paper": _paper_table_matches(root),
-        "evaluation_release_boundary_matches": evaluations == ["rq1", "rq2"],
-        "six_baselines_are_documented": baselines
-        == ["eadro", "multisource_rcd", "nezha", "rclagent", "thinkfl", "torai"],
+        "evaluation_release_boundary_matches": evaluations == ["feedback", "rq1", "rq2"],
+        "eight_baselines_are_documented": baselines
+        == ["eadro", "multisource_rcd", "nezha", "rcacopilot", "rcagent", "rclagent", "thinkfl", "torai"],
+        "revised_feedback_schema_present": (root / "src/root_teller/module3/structured/feedback_schema.json").is_file(),
+        "revised_feedback_entrypoint_present": (root / "src/root_teller/module3/session.py").is_file(),
     }
     manifest = {
         str(path.relative_to(root)).replace("\\", "/"): _sha256(path)

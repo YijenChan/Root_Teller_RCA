@@ -25,14 +25,30 @@ def _args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def _slice_case(case: dict[str, object], bin_index: int) -> dict[str, object]:
+def _window_count(case: dict[str, object], window_seconds: int = 60) -> int:
+    interval = int(case["bin_seconds"])
+    if interval < 1 or window_seconds < interval or window_seconds % interval:
+        raise ValueError("RCA window must contain an integer number of feature intervals")
+    per_window = window_seconds // interval
+    count = int(case["metric_x"].shape[1])
+    return (count + per_window - 1) // per_window
+
+
+def _slice_case(case: dict[str, object], bin_index: int, window_seconds: int = 60) -> dict[str, object]:
+    """Slice an RCA window, preserving all its one-second feature intervals."""
+    count = _window_count(case, window_seconds)
+    if not 0 <= bin_index < count:
+        raise IndexError("RCA window index outside observation range")
+    intervals = window_seconds // int(case["bin_seconds"])
+    first, last = bin_index * intervals, (bin_index + 1) * intervals
     sliced = dict(case)
     for modality in ("metric", "log", "trace"):
-        sliced[f"{modality}_x"] = case[f"{modality}_x"][:, bin_index : bin_index + 1].copy()
+        sliced[f"{modality}_x"] = case[f"{modality}_x"][:, first:last].copy()
         sliced[f"{modality}_mask"] = case[f"{modality}_mask"][
-            :, bin_index : bin_index + 1
+            :, first:last
         ].copy()
-    sliced["start_time"] = float(case["start_time"]) + bin_index * int(case["bin_seconds"])
+    sliced["start_time"] = float(case["start_time"]) + first * int(case["bin_seconds"])
+    sliced["window_seconds"] = min(window_seconds, (int(case["metric_x"].shape[1]) - first) * int(case["bin_seconds"]))
     return sliced
 
 
@@ -72,6 +88,7 @@ def _pack(
                 "source_likeness": round(float(source_likeness[index]), 8),
                 "temporal_lead": round(float(temporal_lead[index]), 8),
                 "onset_bin": None if onset[index] < 0 else int(onset[index]),
+                "onset_timestamp": None if onset[index] < 0 else float(case["start_time"]) + int(onset[index]) * int(case["bin_seconds"]),
                 "fusion_weights": {
                     "metric": round(float(fusion[index, 0]), 8),
                     "log": round(float(fusion[index, 1]), 8),
@@ -105,7 +122,7 @@ def _pack(
         "window": {
             "window_id": window_id,
             "start_time": float(case["start_time"]),
-            "end_time": float(case["start_time"]) + int(case["bin_seconds"]),
+            "end_time": float(case["start_time"]) + int(case.get("window_seconds", case["bin_seconds"])),
             "bin_seconds": int(case["bin_seconds"]),
             "source_bin_index": source_bin_index,
             "activation_order": int(window_id[1:]),
@@ -173,7 +190,7 @@ def export(
         }
         case_root = split_root / case_id
         case_root.mkdir(parents=True, exist_ok=True)
-        bins = int(raw_case["metric_x"].shape[1])
+        bins = _window_count(raw_case)
         for activation_order, bin_index in enumerate(range(bins - 1, -1, -1)):
             window_id = f"W{activation_order:02d}"
             destination = case_root / f"{window_id}.json"

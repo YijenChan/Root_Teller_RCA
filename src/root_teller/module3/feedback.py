@@ -1,3 +1,8 @@
+"""Historical fixed-score downweighting control.
+
+The revised Root-Teller workflow lives in module3.session and structured/.
+This control performs no targeted validation or fresh model synthesis.
+"""
 from __future__ import annotations
 
 import copy

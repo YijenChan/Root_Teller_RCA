@@ -2,7 +2,7 @@
 
 # Root-Teller
 
-### Progressive root-cause analysis via agentic collaboration
+### Progressive root-cause analysis via a cross-window memory graph
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![PyTorch 2.5](https://img.shields.io/badge/PyTorch-2.5-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
@@ -20,6 +20,15 @@ Steward** with stateless **Window Investigators**. Diagnosis state is preserved
 in an **RCA Memory Graph (RMG)** so that historical windows and operator
 feedback refine hypotheses without deleting structural evidence.
 
+## Revision implementation
+
+The revised feedback path performs target binding, bounded evidence checks,
+fresh diagnosis synthesis and report regeneration. Cross-window context includes
+bounded non-adjacent associations. Read [the alignment notes](docs/REVISION2_ALIGNMENT.md)
+for source provenance, historical checkpoint compatibility and unresolved
+experiment-to-manuscript configuration differences. This source update does not
+rerun or certify the reported experiments.
+
 ## Architecture
 
 ```mermaid
@@ -29,9 +38,9 @@ flowchart LR
     X --> S["Evidence Steward<br/>global reasoning + progressive control"]
     S <--> W["Window Investigator<br/>targeted local validation"]
     S <--> R[("RCA Memory Graph")]
-    R --> I["RCA Interaction Agent<br/>Interpreter–Verifier"]
+    R --> I["RCA Feedback Agent<br/>Interpreter–Verifier"]
     I --> O["Evidence-grounded RCA report"]
-    H["SRE Accept / Reject"] --> I
+    H["SRE support / challenge / check"] --> I
     I --> R
 
     classDef core fill:#E8F3FF,stroke:#1677FF,color:#0B1F33,stroke-width:1.5px;
@@ -45,20 +54,20 @@ flowchart LR
 ## Paper result snapshot
 
 The table below reproduces the Root-Teller rows reported in the manuscript.
-The complete seven-method table is available in
+The complete nine-method table is available in
 [`evaluation/rq1/results/paper_table.csv`](evaluation/rq1/results/paper_table.csv).
 The public evaluation package documents the grouped outer-fold protocol,
 frozen split manifests, common evaluator, and method adapters used to produce
 the paper-facing rankings. The CSV is a compact transcription of the reported
 table and is not used by training or inference code.
 
-![Root-Teller RQ1 accuracy across three systems](docs/assets/rq1-root-teller.svg)
+The table is a manuscript transcription, not a newly executed benchmark.
 
 | System | A@1 | A@3 | Avg@5 |
 |---|---:|---:|---:|
-| RCAEval RE2-OB | 0.717 | **0.911** | 0.889 |
-| RCAEval RE2-TT | **0.835** | **0.899** | **0.914** |
-| Eadro-SN | **0.500** | **0.789** | **0.750** |
+| RCAEval RE2-OB | 0.719 | **0.911** | 0.889 |
+| RCAEval RE2-TT | **0.833** | **0.900** | **0.914** |
+| Eadro-SN | **0.500** | **0.787** | **0.750** |
 
 Across the three systems, Root-Teller obtains macro-averages of 0.684 A@1,
 0.866 A@3, and 0.851 Avg@5. See the
@@ -71,16 +80,8 @@ The bundled local interface accepts an absolute case path or a ZIP archive,
 runs the same core implementation, and exposes progressive window access, RMG
 state, ranked hypotheses, verified reports, and structured feedback.
 
-<table>
-<tr>
-<td width="50%"><img src="docs/assets/progressive-investigation.png" alt="Blind-progressive investigation interface"></td>
-<td width="50%"><img src="docs/assets/feedback-refinement.png" alt="Human-in-the-loop feedback interface"></td>
-</tr>
-<tr>
-<td align="center"><b>Blind-progressive investigation</b></td>
-<td align="center"><b>Feedback-driven refinement</b></td>
-</tr>
-</table>
+Historical screenshots remain under `docs/assets/`; run the local system to
+inspect the revised claim-targeted feedback interface.
 
 ### Quick start on Windows
 
@@ -108,7 +109,7 @@ and validation details.
 Place the public datasets under the workspace layout documented in
 [`evaluation/rq1/README.md`](evaluation/rq1/README.md), set the API variables,
 and run each dataset/seed pair in an isolated directory. The commands below
-reconstruct the paper protocol from the released code; benchmark telemetry and
+retain the historical experiment entry points; benchmark telemetry and
 experiment-host API responses are not redistributed by this repository.
 
 ```powershell
@@ -148,14 +149,16 @@ RCAEval RE2-OB, RCAEval RE2-TT, and Eadro-SN. See
 ```text
 src/root_teller/module1/        Perception Agent, multimodal encoders, R-GAT
 src/root_teller/module2/        Evidence Packs, agents, RMG, progressive control
-src/root_teller/module3/        Verified reporting and feedback refinement
+src/root_teller/module3/        Claim feedback, targeted checks, fresh synthesis, reports
+src/root_teller/baselines/      RCACopilot and RCAgent paper-based adaptations
 src/root_teller/multidataset/   RQ1 grouped-fold and three-seed reproduction
 system/                         Local FastAPI application and web interface
 evaluation/rq1/                 RQ1 protocol and compact paper result table
 evaluation/rq2/                 GMO/IAMI generator-to-consumer path contract
+evaluation/feedback/            Paired-feedback protocol and controls
 tools/telemetry_unavailability/ GMO/IAMI view generator and semantic validator
-baselines/                      Six upstream baseline implementations
-configs/                        Paper-aligned frozen public configurations
+baselines/                      Six upstream snapshots and two documented adaptations
+configs/                        Historical frozen configs and explicit revision preset
 tests/                          Unit, integration, and paper-alignment contracts
 ```
 

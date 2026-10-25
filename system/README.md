@@ -85,9 +85,7 @@ by progressive control, matching the RQ3 setting.
 The feedback API also accepts up to three explicit structured `items`, a unique
 `feedback_id` and `snapshot_version`. Duplicate IDs do not repeat investigation;
 stale versions are rejected. Offline feedback is labelled typed-evidence
-execution and is not a model-effectiveness result. Read
-[`docs/REVISION2_ALIGNMENT.md`](../docs/REVISION2_ALIGNMENT.md) for the boundary
-between historical checkpoints and the revised method.
+execution and is not a model-effectiveness result.
 
 ## Checkpoints
 

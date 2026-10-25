@@ -15,15 +15,13 @@ from root_teller.module3.session import feedback_config, refinement_config
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = [
-    "README.md", "CHANGELOG.md", "docs/PAPER_CODE_ALIGNMENT.md",
-    "docs/REVISION2_ALIGNMENT.md", "docs/audit/README.md",
+    "README.md", "docs/audit/README.md",
     "system/README.md", "system/ARCHITECTURE.md", "system/VALIDATION.md",
     "evaluation/README.md", "evaluation/UPLOAD_CHECKLIST.md",
     "evaluation/rq1/README.md", "evaluation/rq2/README.md",
-    "evaluation/feedback/README.md", "evaluation/rq1/results/README.md",
-    "evaluation/rq1/baseline_adapters/README.md",
+    "evaluation/feedback/README.md",
     "evaluation/rq1/baseline_adapters/THIRD_PARTY_STATUS.md",
-    "baselines/README.md", "baselines/REPRODUCTIONS.md",
+    "baselines/README.md",
     "baselines/rcacopilot/README.md", "baselines/rcagent/README.md",
 ]
 

@@ -10,6 +10,4 @@ Unavailable Flink source-code and advisor databases are reported unavailable,
 not simulated. Text output is adapted to a distinct allowed-service Top-5.
 No private target is used to repair a malformed ranking.
 
-The runtime model and TSC sample count are explicit and recorded. The supplied
-local development source used a model-adapted configuration, which must not be
-labelled native Vicuna inference. See [shared reproduction notes](../REPRODUCTIONS.md).
+The runtime model and TSC sample count are explicit and recorded with each run.

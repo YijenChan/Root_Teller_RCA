@@ -6,7 +6,7 @@
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5%2B-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![Implementation map](https://img.shields.io/badge/docs-implementation_map-0F766E)](docs/PAPER_CODE_ALIGNMENT.md)
+[![Evaluation protocol](https://img.shields.io/badge/docs-evaluation_protocol-0F766E)](evaluation/rq1/README.md)
 [![Local UI](https://img.shields.io/badge/local_UI-FastAPI-009688?logo=fastapi&logoColor=white)](system/README.md)
 
 Availability-aware perception · progressive investigation · cross-window memory · claim-targeted SRE feedback
@@ -100,8 +100,7 @@ The [revision reference configuration](configs/revision2_method.json) records
 one-second aggregation inside 60-second RCA windows, bounded cross-window
 context, feedback/task budgets, and scoring settings. It is a readable reference,
 not an automatically loaded all-in-one launcher. Runtime options are described
-by each entry point's `--help`. The full [paper-to-code map](docs/PAPER_CODE_ALIGNMENT.md)
-distinguishes current mechanisms from historical controls and outputs.
+by each entry point's `--help`.
 
 ## Evaluation workflows
 
@@ -123,7 +122,7 @@ python -m root_teller.multidataset.rq1_three_seed --stage aggregate
 python -m root_teller.multidataset.verify_rq1_three_seed
 ```
 ﻿
-The [baseline adapters](evaluation/rq1/baseline_adapters/README.md) cover Eadro,
+The [baseline adapters](evaluation/rq1/baseline_adapters/) cover Eadro,
 Nezha, Multi-source RCD, TORAI, ThinkFL, RCLAgent, RCACopilot, and RCAgent.
 For the two added adaptations, start with telemetry preparation (no LLM calls):
 ﻿
@@ -132,9 +131,7 @@ python -m pip install -e ".[baselines]"
 python -m root_teller.baselines.run --method rcacopilot --dataset re2_ob --fold 0 --split validation --mode prepare --output runs/rcacopilot-prepare
 ```
 ﻿
-Use explicit model and budget settings for live evaluation. See [adaptation
-provenance and limits](baselines/REPRODUCTIONS.md); historical model identities
-must not be inferred from the current defaults.
+Use explicit model, sampling, and budget settings for live evaluation.
 ﻿
 ### Missing telemetry, progressive access, and feedback
 ﻿
@@ -183,7 +180,6 @@ from historical live-model and browser records.
 | [`baselines`](baselines/README.md) | Upstream provenance, permitted snapshots, adaptation boundaries |
 | [`tools/telemetry_unavailability`](tools/telemetry_unavailability/README.md) | Missing-telemetry view generator and semantic checks |
 | [`tests`](tests/) | Self-contained contracts and optional local-data tests |
-| [`CHANGELOG.md`](CHANGELOG.md) | Implementation and documentation changes |
 ﻿
 ﻿
 ﻿

@@ -14,4 +14,3 @@ using private labels or anomaly-score fallback.
 Historical examples use the inner training set for validation and the entire
 outer development set for outer test. The runner records manifest hashes,
 model, sampling parameters, source hashes, call/token budgets and failures.
-See [shared reproduction notes](../REPRODUCTIONS.md).

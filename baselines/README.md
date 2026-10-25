@@ -18,8 +18,8 @@ data, and private reproduction outputs are intentionally excluded.
 | `rcacopilot` | RCACopilot adaptation | Root-Teller paper-based implementation; see directory README |
 | `rcagent` | RCAgent CIKM 2024 adaptation | Root-Teller paper-based implementation; see directory README |
 
-Read [the reproduction boundary](REPRODUCTIONS.md) before interpreting model
-settings or comparing the adapted outputs with native author results.
+Run the added adaptations with `python -m root_teller.baselines.run`, selecting
+the model, sampling parameters, and inference budget explicitly.
 
 Each baseline remains subject to its upstream license and dependency terms.
 The Eadro directory contains only provenance and acquisition instructions

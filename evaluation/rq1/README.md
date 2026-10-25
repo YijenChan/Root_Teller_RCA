@@ -53,8 +53,7 @@ The nested fold JSON files are the authoritative split definitions.
 
 These three-seed orchestration entry points retain historical preprocessing
 and checkpoint conventions. They do not automatically switch all datasets to
-one-second feature aggregation or regenerate revision-matched weights. See
-[implementation and empirical boundaries](../../docs/REVISION2_ALIGNMENT.md).
+one-second feature aggregation or regenerate revision-matched weights.
 
 Run every dataset with seeds 41, 42, and 43 as documented in the repository
 README. Each run writes its fold manifest, private evaluation file, summary,
@@ -76,9 +75,8 @@ $env:ROOTTELLER_ACTIVE_SPLIT_MANIFEST = `
 ```
 
 Then invoke the selected adapter. Repeat for all outer folds and aggregate
-predictions only after every incident has been evaluated exactly once. See
-`baseline_adapters/README.md` for method-specific commands and adaptation
-boundaries.
+predictions only after every incident has been evaluated exactly once. Use
+the selected entry point's `--help` for method-specific options.
 
 For the two added methods, use `python -m root_teller.baselines.run` with an
 explicit dataset/fold/split rather than the original six-method dataset

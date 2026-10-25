@@ -150,13 +150,9 @@ def audit_release(root: Path, output_dir: Path | None = None) -> dict[str, Any]:
     required = [
         root / "README.md",
         root / "pyproject.toml",
-        root / "CHANGELOG.md",
         root / "configs/revision2_method.json",
-        root / "docs/REVISION2_ALIGNMENT.md",
-        root / "docs/PAPER_CODE_ALIGNMENT.md",
         root / "evaluation/README.md",
         root / "evaluation/rq1/results/paper_table.csv",
-        root / "evaluation/rq1/baseline_adapters/README.md",
         root / "baselines/README.md",
         root / "baselines/eadro/README.md",
         root / "src/root_teller/module1/model.py",

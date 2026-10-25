@@ -18,5 +18,5 @@ authors.
 
 RCACopilot and RCAgent are additional Root-Teller-authored, paper-based
 adaptations in `src/root_teller/baselines/`, not bundled official author source.
-Their provenance, benchmark adaptation and model limits are documented in
-[`baselines/REPRODUCTIONS.md`](../../../baselines/REPRODUCTIONS.md).
+Run these adaptations with `python -m root_teller.baselines.run`, using explicit
+model and sampling settings.

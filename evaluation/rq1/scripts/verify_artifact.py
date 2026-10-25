@@ -49,7 +49,7 @@ def main() -> None:
         ROOT / "README.md",
         ROOT / "evaluation" / "README.md",
         RQ1 / "README.md",
-        RQ1 / "baseline_adapters" / "README.md",
+        ROOT / "baselines" / "README.md",
     ):
         for target in link_pattern.findall(markdown.read_text(encoding="utf-8")):
             if target.startswith(("http://", "https://", "#")):

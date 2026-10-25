@@ -36,8 +36,9 @@ from . import rq1_sn, rq1_tt
 
 
 PROJECT = workspace_root()
-RUN_ROOT = PROJECT / "runs" / "rq1_protocol_v2_seed42"
 SEED = 42
+AGGREGATION_SECONDS = 1
+RUN_ROOT = PROJECT / "runs" / "rq1_protocol_v3" / "aggregation_1s" / "seed_42"
 MODEL_CONFIG = ModelConfig(
     hidden_dim=48,
     embedding_dim=48,
@@ -63,7 +64,7 @@ def configure_services(services: tuple[str, ...]) -> None:
 
 def load_ob() -> list[dict[str, object]]:
     paths = OBPaths()
-    config = FeatureConfig(log_backend="sbert")
+    config = FeatureConfig(log_backend="sbert", bin_seconds=AGGREGATION_SECONDS)
     cases = []
     for spec in ob_features.load_case_specs(paths):
         path = ob_features.cache_path(paths, spec, "CLEAN", config)
@@ -77,12 +78,13 @@ def load_ob() -> list[dict[str, object]]:
 def load_tt() -> list[dict[str, object]]:
     services = rq1_tt.discover_services()
     rq1_tt.configure_services(services)
-    config = FeatureConfig(log_backend="sbert")
+    config = FeatureConfig(log_backend="sbert", bin_seconds=AGGREGATION_SECONDS)
     cases = []
     for spec in rq1_tt.specs():
         path = rq1_tt.feature_path(spec, config)
         if not path.exists():
-            raise FileNotFoundError(path)
+            case = ob_features.extract_case(rq1_tt.TTPaths(), spec, "CLEAN", config)
+            ob_features.save_case(path, case)
         cases.append(ob_features.load_case(path))
     return cases
 
@@ -143,8 +145,13 @@ def predict(
     model.eval()
     predictions = []
     for case in cases:
-        tensor = to_torch_case(case, reference, device)
-        output = model(tensor)
+        probabilities = []
+        for index in range(window_export._window_count(case)):
+            tensor = to_torch_case(window_export._slice_case(case, index), reference, device)
+            probabilities.append(model(tensor)["localization_probabilities"])
+        scores = torch.stack(probabilities)
+        decay = scores.new_tensor([0.94 ** i for i in range(len(probabilities) - 1, -1, -1)])
+        output = {"localization_probabilities": (scores * decay[:, None]).sum(dim=0) / decay.sum()}
         order = torch.argsort(
             output["localization_probabilities"], descending=True
         ).cpu().tolist()
@@ -181,15 +188,17 @@ def train_epochs(
     seed_everything(seed)
     model = new_model(train_cases[0], device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-4)
-    weights = role_class_weights(train_cases, reference, device)
-    tensor_cases = [to_torch_case(case, reference, device) for case in train_cases]
+    windows = [window_export._slice_case(case, index) for case in train_cases
+               for index in range(window_export._window_count(case))]
+    weights = role_class_weights(windows, reference, device)
+    tensor_cases = [to_torch_case(case, reference, device) for case in windows]
     role_targets = [
         torch.as_tensor(
             weak_role_targets(normalize_case(case, reference), reference),
             dtype=torch.long,
             device=device,
         )
-        for case in train_cases
+        for case in windows
     ]
     generator = torch.Generator(device="cpu")
     generator.manual_seed(seed + 17)
@@ -231,7 +240,7 @@ def train_epochs(
             )["Avg@5"]
             row = {
                 "epoch": epoch,
-                "loss": round(epoch_loss / len(train_cases), 6),
+                "loss": round(epoch_loss / len(windows), 6),
                 "validation_Avg@5": score,
             }
             history.append(row)
@@ -271,7 +280,9 @@ def save_checkpoint(
             "services": list(services),
             "selected_epoch": selected_epoch,
             "seed": SEED,
-            "protocol": "rq1-protocol-v2",
+            "feature_config": FeatureConfig(log_backend="sbert", bin_seconds=AGGREGATION_SECONDS).to_dict(),
+            "protocol": "rq1-protocol-v3",
+            "rca_window_seconds": 60,
         },
         destination,
     )
@@ -496,6 +507,9 @@ def load_checkpoint(
     checkpoint_path: Path, raw_case: dict[str, object], device: torch.device
 ) -> tuple[PerceptionRCA, ReferenceStats, str]:
     checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
+    interval = checkpoint.get("feature_config", {}).get("bin_seconds", 60)
+    if interval != int(raw_case["bin_seconds"]):
+        raise ValueError("Checkpoint and input aggregation intervals differ")
     configure_services(tuple(checkpoint["services"]))
     model = new_model(raw_case, device)
     model.load_state_dict(checkpoint["model_state"])
@@ -532,7 +546,7 @@ def export_cases(
         }
         case_root = split_root / case_id
         case_root.mkdir(parents=True, exist_ok=True)
-        bins = int(raw_case["metric_x"].shape[1])
+        bins = window_export._window_count(raw_case)
         for activation_order, bin_index in enumerate(range(bins - 1, -1, -1)):
             destination = case_root / f"W{activation_order:02d}.json"
             sliced = window_export._slice_case(raw_case, bin_index)
@@ -654,7 +668,7 @@ def verify(dataset: str) -> dict[str, object]:
 
 
 def main() -> None:
-    global RUN_ROOT, SEED
+    global RUN_ROOT, SEED, AGGREGATION_SECONDS
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--dataset", choices=["re2_ob", "re2_tt", "eadro_sn"], required=True
@@ -664,10 +678,13 @@ def main() -> None:
     )
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--seed", type=int, choices=[41, 42, 43], default=42)
+    parser.add_argument("--aggregation-seconds", type=int, choices=[1, 60], default=1)
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
     SEED = args.seed
-    RUN_ROOT = PROJECT / "runs" / f"rq1_protocol_v2_seed{SEED}"
+    AGGREGATION_SECONDS = args.aggregation_seconds
+    RUN_ROOT = PROJECT / "runs" / "rq1_protocol_v3" / f"aggregation_{AGGREGATION_SECONDS}s" / f"seed_{SEED}"
+    rq1_sn.configure_intervals(AGGREGATION_SECONDS)
     RUN_ROOT.mkdir(parents=True, exist_ok=True)
     started = time.time()
     print(
@@ -676,6 +693,8 @@ def main() -> None:
                 "experiment": "Root-Teller RQ1 Protocol V2",
                 "dataset": args.dataset,
                 "seed": SEED,
+                "aggregation_seconds": AGGREGATION_SECONDS,
+                "rca_window_seconds": 60,
                 "selection": "predeclared; no seed or result cherry-picking",
                 "device": "cuda:0" if torch.cuda.is_available() else "cpu",
             }

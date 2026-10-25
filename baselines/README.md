@@ -13,7 +13,7 @@ data, and private reproduction outputs are intentionally excluded.
 | `nezha` | Nezha | <https://github.com/IntelligentDDS/Nezha> |
 | `multisource_rcd` | Multi-source RCD | <https://github.com/phamquiluan/RCAEval> |
 | `torai` | TORAI | <https://figshare.com/articles/software/31938495> |
-| `thinkfl` | ThinkFL | <https://github.com/LLM4AIOps/OpenRLHF-ThinkFL> |
+| `thinkfl` | ThinkFL | [Training](https://github.com/LLM4AIOps/OpenRLHF-ThinkFL), [inference](https://github.com/LLM4AIOps/ThinkFL), [weights](https://huggingface.co/Zhang-Lingzhe/ThinkFL-Llama3.2-3B) |
 | `rclagent` | RCLAgent | <https://github.com/LLM4AIOps/RCLAgent-V2> |
 | `rcacopilot` | RCACopilot adaptation | Root-Teller paper-based implementation; see directory README |
 | `rcagent` | RCAgent CIKM 2024 adaptation | Root-Teller paper-based implementation; see directory README |

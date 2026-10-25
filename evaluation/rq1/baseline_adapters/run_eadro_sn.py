@@ -14,12 +14,10 @@ import hashlib
 import importlib.util
 import json
 import random
-import re
 import sys
 from pathlib import Path
 
 import numpy as np
-import requests
 import torch
 from torch.nn import functional as F
 
@@ -31,16 +29,12 @@ from root_teller.module1.data import normalize_case  # noqa: E402
 from root_teller.multidataset import rq1_sn  # noqa: E402
 
 
-SERVICES = rq1_sn.services()
-SERVICE_INDEX = {service: index for index, service in enumerate(SERVICES)}
+SERVICES = ()
+SERVICE_INDEX = {}
 RUN_ROOT = PROJECT / "baselines"
 RUN_ID = "eadro_sn_clean_grouped_loco_2026-07-25"
 
 
-def actor_config() -> tuple[str, str]:
-    key = os.environ["ROOTTELLER_API_KEY"]
-    base = os.environ.get("ROOTTELLER_API_BASE", "https://api.openai.com/v1")
-    return key, base.rstrip("/")
 def percentile(values: np.ndarray) -> np.ndarray:
     values = np.asarray(values)
     unique = np.unique(values)
@@ -112,129 +106,6 @@ def rank_classical(method: str, case: dict, reference) -> tuple[list[str], dict]
     }
 
 
-def llm_call(system: str, prompt: str) -> tuple[list[str], str]:
-    key, base = actor_config()
-    response = requests.post(
-        base + "/chat/completions",
-        headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"},
-        json={
-            "model": "gpt-4o-mini",
-            "messages": [
-                {"role": "system", "content": system},
-                {"role": "user", "content": prompt},
-            ],
-            "temperature": 0,
-            "max_tokens": 220,
-        },
-        timeout=90,
-    )
-    response.raise_for_status()
-    raw = response.json()["choices"][0]["message"]["content"]
-    match = re.search(r"\{.*\}", raw, re.S)
-    proposed = json.loads(match.group(0)).get("ranking", []) if match else []
-    return [str(item).strip().lower() for item in proposed], raw
-
-
-def rank_thinkfl(case: dict, reference) -> tuple[list[str], dict]:
-    views = modality_scores(case, reference)
-    fallback_score = 0.55 * views["metric"] + 0.45 * views["trace"]
-    fallback = order_from(fallback_score)
-    metric_tool = [
-        {"service": service, "severity_percentile": round(float(views["metric"][SERVICE_INDEX[service]]), 4)}
-        for service in order_from(views["metric"])[:8]
-    ]
-    trace_tool = [
-        {"service": service, "severity_percentile": round(float(views["trace"][SERVICE_INDEX[service]]), 4)}
-        for service in order_from(views["trace"])[:8]
-    ]
-    prompt = (
-        "You are ThinkFL's failure-localization actor for the Social Network "
-        "microservice system. A 60-second progressive telemetry view was "
-        "normalized only against released no-fault captures. "
-        "search_fluctuating_metrics returned " + json.dumps(metric_tool) +
-        "; search_traces returned " + json.dumps(trace_tool) +
-        ". Self-check that a high downstream symptom need not be the root. "
-        "Return ONLY JSON {\"ranking\":[five service names]}. Candidates: " +
-        json.dumps(SERVICES)
-    )
-    try:
-        proposed, raw = llm_call("Use only supplied tool evidence.", prompt)
-    except Exception as exc:
-        proposed, raw = [], "API_FALLBACK:" + type(exc).__name__
-    ordered = []
-    for service in proposed + fallback + list(SERVICES):
-        if service in SERVICE_INDEX and service not in ordered:
-            ordered.append(service)
-    return ordered, {
-        "metric_tool": metric_tool,
-        "trace_tool": trace_tool,
-        "actor_output": raw,
-        "api_used": not raw.startswith("API_FALLBACK"),
-    }
-
-
-def rank_rclagent(case: dict, reference) -> tuple[list[str], dict]:
-    views = modality_scores(case, reference)
-    direct = 0.40 * views["metric"] + 0.25 * views["log"] + 0.35 * views["trace"]
-    graph = topology(case)
-    propagated = direct.copy()
-    for _ in range(len(SERVICES)):
-        changed = False
-        for parent, children in graph.items():
-            inherited = max(
-                (float(propagated[SERVICE_INDEX[child]]) for child in children), default=0.0
-            ) * 0.35
-            index = SERVICE_INDEX[parent]
-            if inherited > propagated[index] + 1e-9:
-                propagated[index] = inherited
-                changed = True
-        if not changed:
-            break
-    fallback = [
-        SERVICES[index]
-        for index in sorted(
-            range(len(SERVICES)),
-            key=lambda i: (-float(direct[i]), -float(propagated[i]), SERVICES[i]),
-        )
-    ]
-    compact = {
-        service: {
-            "metric": round(float(views["metric"][SERVICE_INDEX[service]]), 4),
-            "log": round(float(views["log"][SERVICE_INDEX[service]]), 4),
-            "trace": round(float(views["trace"][SERVICE_INDEX[service]]), 4),
-            "local_score": round(float(direct[SERVICE_INDEX[service]]), 4),
-            "propagated_score": round(float(propagated[SERVICE_INDEX[service]]), 4),
-            "children": graph.get(service, []),
-        }
-        for service in fallback
-    }
-    prompt = (
-        "You are RCLAgent's root-level Diagnosis Synthesizer for the Social "
-        "Network microservice system. Dedicated agents supplied normalized "
-        "metric/log/trace evidence, and child evidence was recursively "
-        "propagated over the observed topology. Prefer deepest direct causes "
-        "over inherited symptoms. Return ONLY JSON "
-        "{\"ranking\":[five service names]}. Candidates: " + json.dumps(SERVICES) +
-        "\nGlobal Evidence Graph:\n" + json.dumps(compact)
-    )
-    try:
-        proposed, raw = llm_call(
-            "Use only supplied evidence; do not assume a service prior.", prompt
-        )
-    except Exception as exc:
-        proposed, raw = [], "API_FALLBACK:" + type(exc).__name__
-    ordered = []
-    for service in proposed + fallback + list(SERVICES):
-        if service in SERVICE_INDEX and service not in ordered:
-            ordered.append(service)
-    return ordered, {
-        "global_evidence_graph": compact,
-        "service_edges": graph,
-        "actor_output": raw,
-        "api_used": not raw.startswith("API_FALLBACK"),
-    }
-
-
 def metrics(predictions: list[dict]) -> dict[str, float | int]:
     hits = np.zeros(5, dtype=np.float64)
     for item in predictions:
@@ -281,10 +152,6 @@ def run_ranker(method: str, cases: list[dict], reference) -> None:
     for index, case in enumerate(cases, 1):
         if method in {"nezha", "multisource_rcd", "torai"}:
             ranking, diagnostics = rank_classical(method, case, reference)
-        elif method == "thinkfl":
-            ranking, diagnostics = rank_thinkfl(case, reference)
-        elif method == "rclagent":
-            ranking, diagnostics = rank_rclagent(case, reference)
         else:
             raise ValueError(method)
         target = case["root_cause_service"]
@@ -308,8 +175,6 @@ def run_ranker(method: str, cases: list[dict], reference) -> None:
         "nezha": "Nezha event-behavior compatibility variant",
         "multisource_rcd": "Multi-source RCD common-feature compatibility variant",
         "torai": "TORAI KPI/topology compatibility variant",
-        "thinkfl": "ThinkFL GPT-4o-mini tool-interface compatibility variant",
-        "rclagent": "RCLAgent GPT-4o-mini recursive-evidence compatibility variant",
     }
     save(method, predictions, {"variant": variants[method]})
 
@@ -411,7 +276,7 @@ def run_eadro(cases: list[dict], reference, epochs: int) -> None:
 
 
 def main() -> None:
-    global RUN_ID
+    global RUN_ID, SERVICES, SERVICE_INDEX
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "method",
@@ -419,7 +284,16 @@ def main() -> None:
     )
     parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--run-id", default=RUN_ID)
-    args = parser.parse_args()
+    args, remaining = parser.parse_known_args()
+    if args.method in {"thinkfl", "rclagent"}:
+        from root_teller.baselines.run import main as run
+        sys.argv = [sys.argv[0], "--method", args.method, "--dataset", "eadro_sn", *remaining]
+        run()
+        return
+    if remaining:
+        parser.error("Unrecognized arguments: " + " ".join(remaining))
+    SERVICES = rq1_sn.services()
+    SERVICE_INDEX = {service: index for index, service in enumerate(SERVICES)}
     RUN_ID = args.run_id
     rq1_sn.configure(SERVICES)
     cases = rq1_sn.build_cases(False)

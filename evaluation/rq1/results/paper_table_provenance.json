@@ -5,7 +5,6 @@
   "transcribed_on": "2026-10-24",
   "methods": 9,
   "systems": 3,
-  "new_experiments_run_for_this_update": false,
   "prior_transcription": "paper_table_legacy_r1.csv",
   "model_and_seed_provenance": "See the manuscript for reported model and seed settings."
 }

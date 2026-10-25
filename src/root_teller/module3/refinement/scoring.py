@@ -4,7 +4,6 @@ import math
 
 
 def fuse(ranked_candidates, model_order, config):
-    """Explicit pilot policy, not calibrated probabilities or a frozen method."""
     alpha = config['model_rank_weight']
     if isinstance(alpha, bool) or not isinstance(alpha, (float, int)) or not math.isfinite(alpha) or not 0 <= alpha <= 1:
         raise ValueError('model_rank_weight must be finite in [0,1]')

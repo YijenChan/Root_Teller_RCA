@@ -15,6 +15,7 @@ from .session import build_coordinator
 from .structured.state import FeedbackState
 from .structured.contracts import default_item, event_for
 from .refinement.baselines import RankOnlyPolicy
+from .refinement.text_only import TextOnlyPolicy
 
 
 class PrivateOracle:
@@ -46,7 +47,9 @@ def run_trajectory(initial: FeedbackState, target: str, *, strategy: str,
                 "interactions": 1 if correct else budget, "capped_interactions": 1 if correct else budget,
                 "reference_only": True, "trajectory": []}
     rank_policy = None
-    if strategy in {"top5", "downweighting", "revisit"}:
+    if strategy == "text_only":
+        rank_policy = TextOnlyPolicy(initial, client, budget)
+    elif strategy in {"top5", "downweighting", "revisit"}:
         rank_policy = RankOnlyPolicy(scores,
             {"top5": "STATIC_TOPK", "downweighting": "SOFT_DECAY", "revisit": "REVISIT_INSPECTION"}[strategy],
             budget=budget, k=min(5, len(scores)) if strategy == "top5" else None)
@@ -67,7 +70,11 @@ def run_trajectory(initial: FeedbackState, target: str, *, strategy: str,
             entity = coordinator.state.snapshots[-1]["synthesis"]["selected_entity"]
         verdict = oracle.verdict(entity)
         if rank_policy:
-            result = rank_policy.submit(f"review-{interaction}", entity, verdict)
+            try:
+                result = rank_policy.submit(f"review-{interaction}", entity, verdict)
+            except Exception as error:
+                result = {"status": "PROCESSING_FAILED", "error_type": type(error).__name__}
+                failure = "PROCESSING_FAILED"
         else:
             state = coordinator.state
             claim = next(c for c in state.claims.values() if c["kind"] == "root_role_global" and c["entity_ids"] == [entity])
@@ -90,7 +97,9 @@ def run_trajectory(initial: FeedbackState, target: str, *, strategy: str,
             "interactions": count if success else None, "capped_interactions": count,
             "failure": failure, "trajectory": trace,
             "execution_mode": "model_refinement" if client is not None and rank_policy is None else
-                "offline_pipeline_only" if rank_policy is None else "rank_only_control"}
+                "offline_pipeline_only" if rank_policy is None else
+                "text_only_model_feedback" if strategy == "text_only" and client is not None else
+                "text_only_without_model" if strategy == "text_only" else "rank_only_control"}
 
 
 def summarize(rows: list[dict]) -> list[dict]:
@@ -110,7 +119,7 @@ def main():
     parser.add_argument("--labels", type=Path, required=True, help="Private incident-to-service mapping, evaluator only")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--mode", choices=["offline", "live"], default="offline")
-    parser.add_argument("--strategies", nargs="+", default=["full", "top5", "downweighting", "no_feedback"])
+    parser.add_argument("--strategies", nargs="+", default=["full", "text_only", "top5", "downweighting", "no_feedback"])
     parser.add_argument("--K", type=int, nargs="+", default=[0, 1, 3, 5])
     parser.add_argument("--budget", type=int, default=20)
     parser.add_argument("--model", default="gpt-4o-mini")

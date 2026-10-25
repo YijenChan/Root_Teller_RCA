@@ -12,6 +12,7 @@ from pathlib import Path
 from .data import load_specs, diagnostic_document, score_ranking
 from .llm import LLM
 from .methods import Copilot, RCAgent, LogEmbedder
+from .native import MODEL_DEFAULTS, ThinkFL, RCLAgent, load_document
 
 
 def dump(path: Path, value) -> None:
@@ -21,7 +22,7 @@ def dump(path: Path, value) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Auditable paper-based RQ1 adaptations; not official author code")
-    parser.add_argument("--method", required=True, choices=["rcacopilot", "rcagent"])
+    parser.add_argument("--method", required=True, choices=list(MODEL_DEFAULTS))
     from root_teller.paths import workspace_root
     parser.add_argument("--workspace", type=Path, default=workspace_root())
     parser.add_argument("--manifests", type=Path)
@@ -29,7 +30,10 @@ def main() -> None:
     parser.add_argument("--fold", type=int, default=0)
     parser.add_argument("--split", choices=["validation", "test"], default="validation")
     parser.add_argument("--mode", choices=["prepare", "live", "replay"], default="prepare")
-    parser.add_argument("--model", default="gpt-5-nano-2025-08-07")
+    parser.add_argument("--model")
+    parser.add_argument("--max-rounds", type=int, default=40)
+    parser.add_argument("--max-parallel", type=int, default=4)
+    parser.add_argument("--rclagent-source", type=Path)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--limit", type=int)
     parser.add_argument("--max-calls", type=int, default=200)
@@ -40,6 +44,10 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
+    args.model = args.model or MODEL_DEFAULTS[args.method]
+    native = args.method in {"thinkfl", "rclagent"}
+    if args.max_rounds < 1 or args.max_parallel < 1:
+        parser.error("Investigation budgets must be positive")
     workspace = args.workspace.resolve()
     root = args.output / "runtime"
     # Run-local non-C: caches, with existing model paths passed explicitly when used.
@@ -55,11 +63,11 @@ def main() -> None:
     if args.limit is not None:
         targets = targets[:args.limit]
     # Validation pilots use TRAIN only; formal outer-test uses train+validation.
-    history_specs = [x for x in specs if x.role == "train" or (args.split == "test" and x.role == "validation")]
+    history_specs = [] if native else [x for x in specs if x.role == "train" or (args.split == "test" and x.role == "validation")]
     args.output.mkdir(parents=True, exist_ok=True)
     configuration = {"method": args.method, "dataset": args.dataset, "fold": args.fold,
                      "split": args.split, "seed": args.seed, "mode": args.mode, "model": args.model,
-                     "embedding_model": args.embedding_model if args.method == "rcagent" else "gensim.FastText train-fold only",
+                     "embedding_model": args.embedding_model if args.method == "rcagent" else "gensim.FastText train-fold only" if args.method == "rcacopilot" else None,
                      "samples": args.samples if args.method == "rcagent" else None,
                      "max_calls": args.max_calls, "max_output_tokens": args.max_output_tokens,
                      "max_total_tokens": args.max_total_tokens,
@@ -68,19 +76,21 @@ def main() -> None:
                      "expected_cases": len(targets), "full_split_cases": sum(x.role == args.split for x in specs),
                      "history_cases": len(history_specs), "limited": args.limit is not None,
                      "implementation": "paper-reimplementation with benchmark/model adaptations",
-                     "native_configuration_reproduced": False, "python": sys.executable,
+                     "max_rounds": args.max_rounds, "max_parallel": args.max_parallel,
+                     "rclagent_source": str(args.rclagent_source) if args.rclagent_source else None,
+                     "python": sys.executable,
                      "manifest_sha256": hashlib.sha256((manifests / f"{args.dataset}_nested_folds.json").read_bytes()).hexdigest(),
                      "source_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in Path(__file__).parent.glob("*.py")}}
     previous = None
     if args.resume and (args.output / "config.json").exists():
         previous = json.loads((args.output / "config.json").read_text(encoding="utf-8"))
-        for key in ["method", "dataset", "fold", "split", "seed", "model", "embedding_model", "samples", "manifest_sha256", "source_sha256"]:
+        for key in ["method", "dataset", "fold", "split", "seed", "model", "embedding_model", "samples", "max_rounds", "max_parallel", "rclagent_source", "manifest_sha256", "source_sha256"]:
             if previous.get(key) != configuration.get(key):
                 raise ValueError(f"Resume configuration changed: {key}; use a new output directory")
     dump(args.output / "config.json", configuration)
     target_documents = {}
     for i, spec in enumerate(targets, 1):
-        target_documents[spec.opaque_id] = diagnostic_document(spec, workspace, root / "cache")
+        target_documents[spec.opaque_id] = (load_document if native else diagnostic_document)(spec, workspace, root / "cache")
         print(f"Prepared target {i}/{len(targets)} {spec.opaque_id}", flush=True)
     if args.mode == "prepare":
         dump(args.output / "summary.json", {"status": "completed_pipeline_only", "stage": "telemetry preparation",
@@ -100,8 +110,14 @@ def main() -> None:
     dump(args.output / "config.json", configuration)
     llm = LLM(workspace, root / "cache" / args.method, args.model, args.mode, args.max_calls, seed=args.seed,
               max_output_tokens=args.max_output_tokens, max_total_tokens=args.max_total_tokens)
-    algorithm = Copilot(history, llm, args.seed) if args.method == "rcacopilot" else RCAgent(
-        llm, LogEmbedder(args.embedding_model), history, seed=args.seed, samples=args.samples)
+    if args.method == "thinkfl":
+        algorithm = ThinkFL(llm, args.max_rounds)
+    elif args.method == "rclagent":
+        algorithm = RCLAgent(llm, args.rclagent_source, args.max_parallel)
+    elif args.method == "rcacopilot":
+        algorithm = Copilot(history, llm, args.seed)
+    else:
+        algorithm = RCAgent(llm, LogEmbedder(args.embedding_model), history, seed=args.seed, samples=args.samples)
     predictions = []
     for i, spec in enumerate(targets, 1):
         destination = args.output / "cases" / f"{spec.opaque_id}.json"

@@ -41,6 +41,14 @@ TRACE_CLOCK_SHIFT = 8 * 60 * 60
 LOG_TIME = re.compile(r"\[(\d{4}-[A-Za-z]{3}-\d{2} \d\d:\d\d:\d\d(?:\.\d+)?)\]")
 
 
+def configure_intervals(seconds: int) -> None:
+    global BIN_SECONDS, CACHE
+    if seconds not in {1, 60}:
+        raise ValueError("aggregation_seconds must be 1 or 60")
+    BIN_SECONDS = seconds
+    CACHE = PROJECT / "cache" / "rq1_multidataset_clean" / "eadro_sn" / f"aggregation_{seconds}s"
+
+
 def canonical(value: str) -> str:
     service = value.strip().lower()
     service = re.sub(r"^socialnetwork-", "", service)

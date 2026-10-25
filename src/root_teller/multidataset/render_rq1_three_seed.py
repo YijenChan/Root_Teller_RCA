@@ -14,7 +14,7 @@ from root_teller.paths import workspace_root
 
 
 PROJECT = workspace_root()
-ROOT = PROJECT / "runs" / "rq1_root_teller_three_seed"
+ROOT = PROJECT / "runs" / "rq1_root_teller_three_seed" / "aggregation_1s"
 LABELS = {
     "re2_ob": "RCAEval RE2-OB",
     "re2_tt": "RCAEval RE2-TT",
@@ -94,9 +94,12 @@ def render(dataset: str, aggregate: dict[str, object]) -> Path:
 
 
 def main() -> None:
+    global ROOT
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", choices=tuple(LABELS), required=True)
+    parser.add_argument("--aggregation-seconds", type=int, choices=[1, 60], default=1)
     args = parser.parse_args()
+    ROOT = PROJECT / "runs" / "rq1_root_teller_three_seed" / f"aggregation_{args.aggregation_seconds}s"
     aggregate_path = ROOT / "aggregate.json"
     aggregate = json.loads(aggregate_path.read_text(encoding="utf-8"))
     print(render(args.dataset, aggregate))

@@ -5,6 +5,7 @@ import json
 import os
 import re
 import time
+import threading
 from pathlib import Path
 
 import requests
@@ -31,6 +32,48 @@ class LLM:
         self.calls, self.cache_hits, self.tokens = 0, 0, 0
         self.max_output_tokens, self.max_total_tokens = max_output_tokens, max_total_tokens
         self.requests = []
+        self._chat_lock = threading.RLock()
+
+    def chat(self, role: str, messages: list[dict], tools: list[dict] | None = None) -> dict:
+        with self._chat_lock:
+            body = {"model": self.model, "messages": messages, "temperature": 0,
+                    "max_tokens": self.max_output_tokens}
+            if tools:
+                body["tools"] = tools
+            identity = hashlib.sha256(json.dumps({"body": body, "role": role, "seed": self.seed}, sort_keys=True).encode()).hexdigest()
+            path = self.cache / "chat" / f"{identity}.json"
+            if path.exists():
+                saved = json.loads(path.read_text(encoding="utf-8"))
+                self.cache_hits += 1
+                self.requests.append({"role": role, "cached": True, "cache_key": identity,
+                                      "model": saved.get("model"), "usage": saved.get("usage", {})})
+                return saved["message"]
+            if self.mode != "live":
+                raise InferenceError("Cache miss in replay")
+            if self.calls >= self.max_calls or self.tokens + len(json.dumps(messages)) // 3 + self.max_output_tokens > self.max_total_tokens:
+                raise InferenceError("Registered inference budget exhausted")
+            key, base = credentials(self.workspace, self.model)
+            self.calls += 1
+            started = time.perf_counter()
+            try:
+                response = requests.post(base + "/chat/completions", json=body,
+                                         headers={"Authorization": "Bearer " + key}, timeout=self.timeout)
+                response.raise_for_status()
+                saved = response.json()
+                message = saved["choices"][0]["message"]
+            except (requests.RequestException, KeyError, IndexError, ValueError):
+                raise InferenceError("Model chat request failed") from None
+            if not isinstance(message, dict) or not (message.get("content") or message.get("tool_calls")):
+                raise InferenceError("Model returned no content or tool calls")
+            usage = saved.get("usage", {})
+            self.tokens += int(usage.get("total_tokens", 0))
+            record = {"message": message, "model": saved.get("model"), "usage": usage,
+                      "role": role, "cache_key": identity, "cached": False,
+                      "latency_seconds": time.perf_counter() - started}
+            self.requests.append({k: v for k, v in record.items() if k != "message"})
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps(record, ensure_ascii=False, indent=2), encoding="utf-8")
+            return message
 
     def complete(self, role: str, messages: list[dict], temperature: float = 0, nonce: str = "") -> str:
         limit = min(self.max_output_tokens, 700) if role == "copilot_summary" else self.max_output_tokens

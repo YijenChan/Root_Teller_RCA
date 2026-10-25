@@ -21,8 +21,9 @@ from root_teller.paths import workspace_root
 
 PROJECT = workspace_root()
 SEEDS = (41, 42, 43)
+AGGREGATION_SECONDS = 1
 DATASETS = ("re2_ob", "re2_tt", "eadro_sn")
-AGGREGATE_ROOT = PROJECT / "runs" / "rq1_root_teller_three_seed"
+AGGREGATE_ROOT = PROJECT / "runs" / "rq1_root_teller_three_seed" / "aggregation_1s"
 
 
 def run_protocol(
@@ -40,6 +41,8 @@ def run_protocol(
         stage,
         "--workers",
         str(workers),
+        "--aggregation-seconds",
+        str(AGGREGATION_SECONDS),
     ]
     if resume:
         command.append("--resume")
@@ -50,7 +53,9 @@ def result_path(dataset: str, seed: int) -> Path:
     return (
         PROJECT
         / "runs"
-        / f"rq1_protocol_v2_seed{seed}"
+        / "rq1_protocol_v3"
+        / f"aggregation_{AGGREGATION_SECONDS}s"
+        / f"seed_{seed}"
         / dataset
         / "verified_rq1_result.json"
     )
@@ -63,6 +68,8 @@ def aggregate() -> dict[str, object]:
             "full-range access; no SRE feedback"
         ),
         "seeds": list(SEEDS),
+        "aggregation_seconds": AGGREGATION_SECONDS,
+        "rca_window_seconds": 60,
         "datasets": {},
     }
     for dataset in DATASETS:
@@ -87,6 +94,7 @@ def aggregate() -> dict[str, object]:
 
 
 def main() -> None:
+    global AGGREGATION_SECONDS, AGGREGATE_ROOT
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--stage",
@@ -97,7 +105,10 @@ def main() -> None:
     parser.add_argument("--seed", type=int, choices=SEEDS)
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--aggregation-seconds", type=int, choices=[1, 60], default=1)
     args = parser.parse_args()
+    AGGREGATION_SECONDS = args.aggregation_seconds
+    AGGREGATE_ROOT = PROJECT / "runs" / "rq1_root_teller_three_seed" / f"aggregation_{AGGREGATION_SECONDS}s"
     if args.stage == "aggregate":
         aggregate()
         return

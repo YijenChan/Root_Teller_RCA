@@ -13,8 +13,10 @@ The manifest is a JSON list of objects with `incident_id` and `state`
 (the path to a serialized public FeedbackState). Relative paths resolve from the
 manifest directory. The private label map is never passed to the coordinator.
 
-Strategies: `full`, `flat`, `stateful_single_agent`, `top5`,
+Strategies: `full`, `text_only`, `flat`, `stateful_single_agent`, `top5`,
 `downweighting`, `revisit`, and `no_feedback`.
+`text_only` passes accumulated verdicts as conversational context without
+structured RMG feedback state and requires a model for reranking.
 Flat/stateful variants are explicit engineering controls, not retroactive
 reproductions of paper ablation numbers. Every accepted inspection, including
 the first one, consumes one interaction. An unsuccessful trajectory contributes

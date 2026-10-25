@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
 from root_teller.module1.baseline import metrics
 
-from .rq1_three_seed import AGGREGATE_ROOT, DATASETS, PROJECT, SEEDS
+from . import rq1_three_seed as protocol
+from .rq1_three_seed import DATASETS, PROJECT, SEEDS
 
 
 EXPECTED_CASES = {"re2_ob": 90, "re2_tt": 90, "eadro_sn": 36}
@@ -17,7 +19,9 @@ def verify_run(dataset: str, seed: int) -> dict[str, object]:
     workspace = (
         PROJECT
         / "runs"
-        / f"rq1_protocol_v2_seed{seed}"
+        / "rq1_protocol_v3"
+        / f"aggregation_{protocol.AGGREGATION_SECONDS}s"
+        / f"seed_{seed}"
         / dataset
         / "module2_workspace"
     )
@@ -73,6 +77,11 @@ def verify_run(dataset: str, seed: int) -> dict[str, object]:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--aggregation-seconds", type=int, choices=[1, 60], default=1)
+    args = parser.parse_args()
+    protocol.AGGREGATION_SECONDS = args.aggregation_seconds
+    aggregate_root = PROJECT / "runs" / "rq1_root_teller_three_seed" / f"aggregation_{args.aggregation_seconds}s"
     runs = [
         verify_run(dataset, seed)
         for dataset in DATASETS
@@ -90,8 +99,8 @@ def main() -> None:
         ],
         "runs": runs,
     }
-    AGGREGATE_ROOT.mkdir(parents=True, exist_ok=True)
-    destination = AGGREGATE_ROOT / "verification.json"
+    aggregate_root.mkdir(parents=True, exist_ok=True)
+    destination = aggregate_root / "verification.json"
     destination.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))
 

@@ -139,7 +139,7 @@ def _revision_configuration_matches(root: Path) -> bool:
             feedback["max_windows_per_task"] == 2, feedback["interaction_budget"] == 20,
             feedback["gamma"] == 0.9, feedback["model_rank_weight"] == 0.2,
             feedback["offline_model_rank_weight"] == 0.0,
-            config["status"] == "method_source_alignment_not_empirical_validation",
+            config["status"] == "reference_configuration",
         ))
     except (OSError, ValueError, KeyError, TypeError):
         return False

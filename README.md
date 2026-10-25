@@ -110,8 +110,7 @@ Keep run directories, private labels, API caches, and predictions local.
 
 ### Overall localization (RQ1)
 ﻿
-The retained three-seed runners reproduce the **historical preprocessing
-configuration**, not an automatically retrained one-second revision:
+The three-seed runners use one-second aggregation within 60-second RCA windows:
 ﻿
 ```powershell
 python -m root_teller.multidataset.rq1_three_seed --stage all --dataset re2_ob --seed 41
@@ -141,7 +140,7 @@ GMO/IAMI views and their [evaluation path contract](evaluation/rq2/README.md).
 predefined observation range; `blind` activates earlier windows on request.
 Non-adjacent context is restricted to activated history.
 - [Paired feedback evaluation](evaluation/feedback/README.md): frozen common T0,
-separate private evaluator labels, full/flat/single-agent controls, Top-5,
+separate private evaluator labels, full/text-only feedback, Top-5,
 downweighting, revisit, and no-feedback reference. Success within budget is
 reported separately from capped interaction cost.
 ﻿

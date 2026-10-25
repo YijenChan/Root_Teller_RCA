@@ -98,7 +98,12 @@ def _healthy_metrics(workspace: str) -> dict:
     base = Path(workspace) / "cache" / "rq1_multidataset_clean" / "eadro_sn" / "healthy_raw"
     captures = sorted(base.glob("SN.*"))
     if not captures:
-        raise FileNotFoundError("SN released no-fault reference is not extracted; see handoff")
+        for interval in (1, 60):
+            captures = sorted((base.parent / f"aggregation_{interval}s" / "healthy_raw").glob("SN.*"))
+            if captures:
+                break
+    if not captures:
+        raise FileNotFoundError("Extract the released SN no-fault captures before baseline evaluation")
     columns = defaultdict(list)
     for cap in captures:
         for f in sorted((cap / "metrics").glob("*.csv")):

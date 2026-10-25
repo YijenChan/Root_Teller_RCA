@@ -1,9 +1,3 @@
-"""Run an existing RE2-OB compatibility adapter on the frozen RE2-TT split.
-
-This launcher changes only dataset-bound globals and record discovery.  The
-per-baseline scoring code remains in its original adapter, keeping RE2-OB
-artifacts untouched.
-"""
 from __future__ import annotations
 
 import os
@@ -23,14 +17,8 @@ import pandas as pd
 PROJECT = Path(os.environ.get("ROOTTELLER_WORKSPACE", Path.cwd())).expanduser().resolve()
 RAW = PROJECT / "dataset" / "RCAEval RE" / "RE2" / "RE2-TT" / "RE2-TT"
 MANIFEST = Path(os.environ.get("ROOTTELLER_ACTIVE_SPLIT_MANIFEST", PROJECT / "evaluation" / "rq1" / "manifests" / "active_split_manifest.csv"))
-ADAPTERS = {
-    "eadro": PROJECT / "evaluation" / "rq1" / "baseline_adapters" / "eadro.py",
-    "nezha": PROJECT / "evaluation" / "rq1" / "baseline_adapters" / "nezha.py",
-    "multisource_rcd": PROJECT / "evaluation" / "rq1" / "baseline_adapters" / "multisource_rcd.py",
-    "torai": PROJECT / "evaluation" / "rq1" / "baseline_adapters" / "torai.py",
-    "thinkfl": PROJECT / "evaluation" / "rq1" / "baseline_adapters" / "thinkfl.py",
-    "rclagent": PROJECT / "evaluation" / "rq1" / "baseline_adapters" / "rclagent.py",
-}
+ADAPTERS = {name: Path(__file__).resolve().with_name(name + ".py")
+            for name in ("eadro", "nezha", "multisource_rcd", "torai", "thinkfl", "rclagent")}
 
 
 def services() -> tuple[str, ...]:
@@ -234,93 +222,17 @@ def configure(module, name: str) -> None:
         module.vocabulary = vocabulary
         module.historic_edges = historic_edges
         module.build_case = build_case
-    elif name in {"nezha", "multisource_rcd"}:
-        def records_for(split):
-            return [
-                module.Record(str(row.incident_id), str(row.split), module.canonical_service(row.root_cause_service),
-                              bool(row.eligible))
-                for row in manifest_rows(split).itertuples(index=False)
-            ]
-        module.records_for = records_for
-        if name == "nezha":
-            def rank(record, min_support, min_score, association_seconds):
-                # RE2-TT contains millions of raw spans per case.  RCAEval's
-                # released one-minute log/trace event tables are the same
-                # event representation required by Nezha and avoid a
-                # prohibitively expensive raw span-log join.
-                metric = pd.read_csv(record.directory / "simple_metrics.csv", low_memory=False)
-                logts = pd.read_csv(record.directory / "logts.csv", low_memory=False)
-                trace = pd.read_csv(record.directory / "tracets_err.csv", low_memory=False)
-                for frame in (metric, logts, trace):
-                    frame["time"] = pd.to_numeric(frame["time"], errors="coerce")
-                boundary = (
-                    float(metric["time"].min()) + float(metric["time"].max())
-                ) / 2.0
-                scores = {service: 0.0 for service in module.SERVICES}
-                retained = 0
-
-                def add_event_table(frame):
-                    nonlocal retained
-                    for column in frame.columns:
-                        if column == "time" or "_" not in column:
-                            continue
-                        service = module.canonical_service(column.split("_", 1)[0])
-                        if service not in scores:
-                            continue
-                        values = pd.to_numeric(frame[column], errors="coerce").fillna(0).abs()
-                        ref = int((values[frame.time < boundary] > 0).sum())
-                        prod = int((values[frame.time >= boundary] > 0).sum())
-                        if prod <= min_support:
-                            continue
-                        novelty = prod / max(prod + ref, 1)
-                        if novelty >= min_score:
-                            scores[service] += novelty * math.log1p(prod)
-                            retained += 1
-
-                add_event_table(logts)
-                add_event_table(trace)
-                # Nezha is event-graph based; generic KPI threshold alarms are
-                # not injected as synthetic events.
-                tie_key = {
-                    service: module.hashlib.sha256(
-                        f"{record.incident_id}\0{service}".encode("utf-8")
-                    ).hexdigest()
-                    for service in module.SERVICES
-                }
-                ordered = sorted(
-                    module.SERVICES,
-                    key=lambda service: (-scores[service], tie_key[service]),
-                )
-                return ordered, {
-                    "event_source": "RCAEval one-minute log/trace event tables",
-                    "reference_seconds": module.BIN_SECONDS,
-                    "retained_patterns": retained,
-                    "service_scores": scores,
-                }
-            module.rank = rank
-    elif name == "torai":
-        def records_for(split):
-            return [
-                module.Record(str(row.incident_id), module.canonical_service(row.root_cause_service))
-                for row in manifest_rows(split).itertuples(index=False)
-            ]
-        module.records_for = records_for
-
-        def rank(record):
-            data, boundary = module.data_for(record)
-            result = module.torai(data, inject_time=boundary, dataset="train-ticket")
-            raw = [module.canonical_service(str(item).rsplit("_", 1)[0]) for item in result["ranks"]]
-            ordered = []
-            for value in raw + list(module.SERVICES):
-                if value in module.SERVICES and value not in ordered:
-                    ordered.append(value)
-            return ordered, {"fixed_boundary": boundary, "raw_ranks": result["ranks"][:20]}
-        module.rank = rank
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("baseline", choices=tuple(ADAPTERS))
     args, remaining = parser.parse_known_args()
+    if args.baseline in {"nezha", "multisource_rcd", "torai"}:
+        sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+        from root_teller.baselines.classical_run import main as run
+        sys.argv = [sys.argv[0], "--method", args.baseline, "--dataset", "re2_tt", *remaining]
+        run()
+        return
     if args.baseline in {"thinkfl", "rclagent"}:
         sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
         from root_teller.baselines.run import main as run
@@ -330,14 +242,7 @@ def main() -> None:
     module = load(args.baseline)
     configure(module, args.baseline)
     sys.argv = [str(ADAPTERS[args.baseline]), *remaining]
-    if args.baseline == "torai":
-        torai_parser = argparse.ArgumentParser()
-        torai_parser.add_argument("--split", choices=("validation", "test"), required=True)
-        torai_parser.add_argument("--output", type=Path, required=True)
-        torai_args = torai_parser.parse_args(remaining)
-        module.run(module.records_for(torai_args.split), torai_args.output)
-    else:
-        module.main()
+    module.main()
 
 
 if __name__ == "__main__":

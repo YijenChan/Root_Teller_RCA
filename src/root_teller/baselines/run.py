@@ -11,7 +11,6 @@ from pathlib import Path
 
 from .data import load_specs, diagnostic_document, score_ranking
 from .llm import LLM
-from .methods import Copilot, RCAgent, LogEmbedder
 from .native import MODEL_DEFAULTS, ThinkFL, RCLAgent, load_document
 
 
@@ -115,8 +114,10 @@ def main() -> None:
     elif args.method == "rclagent":
         algorithm = RCLAgent(llm, args.rclagent_source, args.max_parallel)
     elif args.method == "rcacopilot":
+        from .methods import Copilot
         algorithm = Copilot(history, llm, args.seed)
     else:
+        from .methods import RCAgent, LogEmbedder
         algorithm = RCAgent(llm, LogEmbedder(args.embedding_model), history, seed=args.seed, samples=args.samples)
     predictions = []
     for i, spec in enumerate(targets, 1):

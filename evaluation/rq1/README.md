@@ -51,9 +51,10 @@ The nested fold JSON files are the authoritative split definitions.
 
 ## Root-Teller
 
-These three-seed orchestration entry points retain historical preprocessing
-and checkpoint conventions. They do not automatically switch all datasets to
-one-second feature aggregation or regenerate revision-matched weights.
+The three-seed orchestration entry points default to one-second feature
+aggregation within 60-second RCA windows. Feature caches and run directories
+are separated by aggregation interval; checkpoints with a different interval
+are rejected rather than silently reused.
 
 Run every dataset with seeds 41, 42, and 43 as documented in the repository
 README. Each run writes its fold manifest, private evaluation file, summary,
@@ -65,7 +66,7 @@ completed summaries.
 
 `baseline_adapters/` contains the compatibility code used to normalize each
 baseline to the benchmark telemetry and an ordered service ranking. For a RE2
-fold, first materialize the active split table:
+fold with the legacy Eadro adapter, first materialize the active split table:
 
 ```powershell
 $env:ROOTTELLER_WORKSPACE = (Get-Location).Path
@@ -78,10 +79,26 @@ Then invoke the selected adapter. Repeat for all outer folds and aggregate
 predictions only after every incident has been evaluated exactly once. Use
 the selected entry point's `--help` for method-specific options.
 
+Nezha, Multi-source RCD, and TORAI share the portable classical runner:
+
+```powershell
+python -m root_teller.baselines.classical_run --method torai --dataset eadro_sn --fold 0 --split test --mode prepare --output runs/torai-sn-prepare
+```
+
+These runners read nested-fold JSON files directly; select each outer fold
+explicitly with `--fold` rather than relying on the active split CSV.
+Use `--mode run` with a new output directory to execute the selected upstream
+ranker. SN references come from the released independent no-fault captures;
+RE2 uses the first half of its predefined range as reference. Multi-source RCD
+receives metric and log indicators only. Empty rankings remain empty and are
+scored as misses rather than filled with unreported candidates.
+
 For the two added methods, use `python -m root_teller.baselines.run` with an
 explicit dataset/fold/split rather than the original six-method dataset
 wrappers. Preparation is the default; live calls require `--mode live`.
-The current default backend records a local adaptation, not native-model parity.
+The unified LLM runner selects a method-specific model by default and records
+the requested model, source hashes, and inference budgets. Model endpoints
+must serve the specified weights; a model name alone does not verify them.
 
 ## Results and provenance
 

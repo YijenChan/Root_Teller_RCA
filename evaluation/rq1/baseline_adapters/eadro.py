@@ -21,7 +21,6 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
-from tick.hawkes import HawkesADM4
 from torch import Tensor, nn
 from torch.nn import functional as F
 from torch.utils.data import DataLoader, Dataset
@@ -183,6 +182,7 @@ def vocabulary(records: list[Record], size: int) -> dict[str, int]:
 def hawkes_baseline(events: list[np.ndarray], end_time: float) -> np.ndarray:
     if not any(len(item) for item in events):
         return np.zeros(len(events), dtype=np.float32)
+    from tick.hawkes import HawkesADM4
     try:
         model = HawkesADM4(3.0)
         model.fit(events, end_time=end_time, baseline_start=np.ones(len(events)) * 0.2)

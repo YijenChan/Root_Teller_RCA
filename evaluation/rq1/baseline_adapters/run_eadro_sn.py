@@ -35,38 +35,6 @@ RUN_ROOT = PROJECT / "baselines"
 RUN_ID = "eadro_sn_clean_grouped_loco_2026-07-25"
 
 
-def percentile(values: np.ndarray) -> np.ndarray:
-    values = np.asarray(values)
-    unique = np.unique(values)
-    rank = {value: index for index, value in enumerate(unique)}
-    return np.asarray(
-        [rank[value] / max(len(unique) - 1, 1) for value in values],
-        dtype=np.float32,
-    )
-
-
-def modality_scores(case: dict, reference) -> dict[str, np.ndarray]:
-    normalized = normalize_case(case, reference)
-    output = {}
-    for name, key in (
-        ("metric", "metric_x"),
-        ("log", "log_x"),
-        ("trace", "trace_x"),
-    ):
-        values = np.asarray(normalized[key], dtype=np.float32)
-        severity = np.quantile(np.abs(values), 0.95, axis=(1, 2))
-        output[name] = percentile(severity)
-    return output
-
-
-def topology(case: dict) -> dict[str, list[str]]:
-    graph: dict[str, set[str]] = {}
-    for source, target in case.get("edges", ()):
-        if source in SERVICE_INDEX and target in SERVICE_INDEX and source != target:
-            graph.setdefault(source, set()).add(target)
-    return {source: sorted(targets) for source, targets in graph.items()}
-
-
 def order_from(scores: np.ndarray, incident_id: str = "") -> list[str]:
     tie_key = {
         service: hashlib.sha256(
@@ -81,29 +49,6 @@ def order_from(scores: np.ndarray, incident_id: str = "") -> list[str]:
             key=lambda i: (-float(scores[i]), tie_key[SERVICES[i]]),
         )
     ]
-
-
-def rank_classical(method: str, case: dict, reference) -> tuple[list[str], dict]:
-    views = modality_scores(case, reference)
-    metric, log, trace = views["metric"], views["log"], views["trace"]
-    if method == "nezha":
-        # Nezha's event behavior graph is represented by log-template and
-        # trace-event novelty; metrics are not part of its native ranker.
-        combined = 0.45 * log + 0.55 * trace
-    elif method == "multisource_rcd":
-        # Multi-source consensus over equally normalized modalities.
-        combined = (metric + log + trace) / 3.0
-    elif method == "torai":
-        # TORAI is KPI/topology centered. Trace severity breaks metric ties.
-        combined = 0.8 * metric + 0.2 * trace
-    else:
-        raise ValueError(method)
-    return order_from(combined, str(case["incident_id"])), {
-        "metric_percentile": metric.round(4).tolist(),
-        "log_percentile": log.round(4).tolist(),
-        "trace_percentile": trace.round(4).tolist(),
-        "service_edges": topology(case),
-    }
 
 
 def metrics(predictions: list[dict]) -> dict[str, float | int]:
@@ -147,40 +92,8 @@ def save(method: str, predictions: list[dict], extra: dict | None = None) -> Non
     print(json.dumps(metrics(predictions), indent=2), flush=True)
 
 
-def run_ranker(method: str, cases: list[dict], reference) -> None:
-    predictions = []
-    for index, case in enumerate(cases, 1):
-        if method in {"nezha", "multisource_rcd", "torai"}:
-            ranking, diagnostics = rank_classical(method, case, reference)
-        else:
-            raise ValueError(method)
-        target = case["root_cause_service"]
-        position = ranking.index(target) + 1
-        predictions.append(
-            {
-                "incident_id": case["incident_id"],
-                "capture_id": case["capture_id"],
-                "ground_truth_service": target,
-                "ranking": ranking[:5],
-                "rank": position,
-                "diagnostics": diagnostics,
-            }
-        )
-        print(
-            f"[{index}/{len(cases)}] {case['incident_id']}: "
-            f"rank={position} top5={ranking[:5]}",
-            flush=True,
-        )
-    variants = {
-        "nezha": "Nezha event-behavior compatibility variant",
-        "multisource_rcd": "Multi-source RCD common-feature compatibility variant",
-        "torai": "TORAI KPI/topology compatibility variant",
-    }
-    save(method, predictions, {"variant": variants[method]})
-
-
 def load_eadro_module():
-    path = PROJECT / "baselines" / "eadro" / "adapter" / "eadro_re2ob.py"
+    path = Path(__file__).resolve().with_name("eadro.py")
     spec = importlib.util.spec_from_file_location("eadro_sn_compat", path)
     module = importlib.util.module_from_spec(spec)
     assert spec and spec.loader
@@ -285,6 +198,11 @@ def main() -> None:
     parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--run-id", default=RUN_ID)
     args, remaining = parser.parse_known_args()
+    if args.method in {"nezha", "multisource_rcd", "torai"}:
+        from root_teller.baselines.classical_run import main as run
+        sys.argv = [sys.argv[0], "--method", args.method, "--dataset", "eadro_sn", *remaining]
+        run()
+        return
     if args.method in {"thinkfl", "rclagent"}:
         from root_teller.baselines.run import main as run
         sys.argv = [sys.argv[0], "--method", args.method, "--dataset", "eadro_sn", *remaining]
@@ -298,10 +216,7 @@ def main() -> None:
     rq1_sn.configure(SERVICES)
     cases = rq1_sn.build_cases(False)
     reference = rq1_sn.fit_healthy_reference(SERVICES)
-    if args.method == "eadro":
-        run_eadro(cases, reference, args.epochs)
-    else:
-        run_ranker(args.method, cases, reference)
+    run_eadro(cases, reference, args.epochs)
 
 
 if __name__ == "__main__":

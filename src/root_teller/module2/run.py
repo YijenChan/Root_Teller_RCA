@@ -83,7 +83,7 @@ def _diagnosis_state(
         and oldest_record["anomaly_score"] < config.normal_anomaly_threshold
         and oldest_record["role_probabilities"]["normal"] >= 0.50
     )
-    boundary_resolved = normal_baseline or history_exhausted
+    boundary_resolved = normal_baseline
     allowed_evidence = rmg.evidence_ids()
     selected_claims = [
         claim for claim in steward["claims"] if claim["entity"] == selected
@@ -140,8 +140,6 @@ def _diagnosis_state(
         "boundary_resolution": (
             "observed-normal-baseline"
             if normal_baseline
-            else "history-exhausted"
-            if history_exhausted
             else "unresolved"
         ),
         "disambiguated": disambiguated,

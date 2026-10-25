@@ -30,9 +30,9 @@ deleted when an operator challenges a hypothesis.
 Watch the demonstration of progressive investigation,
 cross-window memory, and claim-targeted feedback. It combines conceptual
 illustrations with recorded investigation/feedback replays.
-﻿
+
 https://github.com/user-attachments/assets/4aa7b3e2-2d73-4ef6-a4a0-02552e76cc45
-﻿
+
 [Download the original MP4](docs/media/root-teller-product-demonstration.mp4)
 or [run the local interactive system](system/README.md).
 ﻿

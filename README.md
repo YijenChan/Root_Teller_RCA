@@ -25,6 +25,18 @@ checks, synthesize a fresh diagnosis, and regenerate a verified report. Supporti
 a claim is distinct from accepting the final diagnosis. Earlier evidence is not
 deleted when an operator challenges a hypothesis.
 
+## Product demonstration
+
+Watch the **1 minute 28 second** demonstration of progressive investigation,
+cross-window memory, and claim-targeted feedback. It combines conceptual
+illustrations with recorded investigation/feedback replays; it is a mechanism
+demonstration, not a new benchmark or proof of causality.
+
+https://github.com/user-attachments/assets/4aa7b3e2-2d73-4ef6-a4a0-02552e76cc45
+
+[Download the original MP4](docs/media/root-teller-product-demonstration.mp4)
+or [run the local interactive system](system/README.md).
+
 > **Implementation and experiment boundary.** Revised source is available, but
 > this update did not rerun the paper experiments. Bundled historical checkpoints
 > use 60-second feature bins; the one-second feature preset needs matching

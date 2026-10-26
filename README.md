@@ -123,7 +123,7 @@ python -m root_teller.multidataset.verify_rq1_three_seed
 ﻿
 The [baseline adapters](evaluation/rq1/baseline_adapters/) cover Eadro,
 Nezha, Multi-source RCD, TORAI, ThinkFL, RCLAgent, RCACopilot, and RCAgent.
-For the two added adaptations, start with telemetry preparation (no LLM calls):
+For the two added adaptations, start with telemetry preparation:
 ﻿
 ```powershell
 python -m pip install -e ".[baselines]"
